@@ -5,14 +5,24 @@ public class DataItem {
     String title_layout;
     String description_layout;
     String deadline_layout;
+    String key_layout;
 
     public DataItem() {
     }
 
-    public DataItem(String title_layout, String description_layout, String deadline_layout) {
+    public DataItem(String title_layout, String description_layout, String deadline_layout, String key) {
         this.title_layout = title_layout;
         this.description_layout = description_layout;
         this.deadline_layout = deadline_layout;
+        this.key_layout = key;
+    }
+
+    public String getKey_layout() {
+        return key_layout;
+    }
+
+    public void setKey_layout(String key_layout) {
+        this.key_layout = key_layout;
     }
 
     public String getTitle_layout() {

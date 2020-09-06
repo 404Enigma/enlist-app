@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -32,6 +33,8 @@ import java.util.ArrayList;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Log.d("lol","lol4");
 
         new_task_btn = findViewById(R.id.new_task_btn);
 
@@ -72,4 +75,8 @@ import java.util.ArrayList;
 
 
     }
+     public void onResume() {
+         super.onResume();
+         recyclerView.setAdapter(itemAdapter);
+     }
 }

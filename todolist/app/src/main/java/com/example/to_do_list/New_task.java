@@ -25,6 +25,7 @@ public class New_task extends AppCompatActivity {
 
     DatabaseReference reference;
     Integer taskNumber = new Random().nextInt();
+    String key_layout = Integer.toString(taskNumber);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,7 @@ public class New_task extends AppCompatActivity {
                         snapshot.getRef().child("title_layout").setValue(title_editText.getText().toString());
                         snapshot.getRef().child("description_layout").setValue(description_editText.getText().toString());
                         snapshot.getRef().child("deadline_layout").setValue(deadline_editText.getText().toString());
+                        snapshot.getRef().child("key_layout").setValue(key_layout);
 
                         Toast.makeText(New_task.this, "Task added", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(New_task.this,MainActivity.class));
