@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,9 +45,12 @@ public class Edit_task extends AppCompatActivity {
         descriptionn.setText(getIntent().getStringExtra("description_extra"));
         deadlinee.setText(getIntent().getStringExtra("deadline_extra"));
 
+        FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
+        String useruid=user.getUid();
+
         final String keyy = getIntent().getStringExtra("key_extra");
 
-        reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child("Task" + keyy);
+        reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child(useruid).child("Task" + keyy);
 
         delete_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,9 +59,12 @@ public class Edit_task extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
+                            Log.d("lol","delete success");
+                            Toast.makeText(Edit_task.this, "Deleted", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(Edit_task.this,MainActivity.class));
                         }
                         else{
+                            Log.d("lol","delete failed");
                             Toast.makeText(Edit_task.this, "Failed", Toast.LENGTH_SHORT).show();
                         }
                     }

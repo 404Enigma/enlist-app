@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,14 +41,13 @@ public class New_task extends AppCompatActivity {
         add_task_btn = findViewById(R.id.add_task_btn);
         cancel_btn = findViewById(R.id.cancel_btn);
 
-
+        reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Task" + taskNumber);
 
         add_task_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Task" + taskNumber);
-                reference.addValueEventListener(new ValueEventListener() {
+                reference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -55,7 +55,7 @@ public class New_task extends AppCompatActivity {
                         snapshot.getRef().child("description_layout").setValue(description_editText.getText().toString());
                         snapshot.getRef().child("deadline_layout").setValue(deadline_editText.getText().toString());
                         snapshot.getRef().child("key_layout").setValue(key_layout);
-
+                        Log.d("lol","task added");
                         Toast.makeText(New_task.this, "Task added", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(New_task.this,MainActivity.class));
 
@@ -63,6 +63,7 @@ public class New_task extends AppCompatActivity {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
+                        Log.d("lol","task added failed");
                         Toast.makeText(New_task.this, "Error adding", Toast.LENGTH_SHORT).show();
                     }
                 });
