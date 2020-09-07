@@ -2,13 +2,17 @@ package com.example.to_do_list;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,11 +25,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
+import java.util.Calendar;
 
-public class Edit_task extends AppCompatActivity {
 
-    EditText titlee, descriptionn, deadlinee;
-    Button update_btn,delete_btn;
+public class Edit_task extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
+
+    String currentDateString;
+
+    EditText titlee, descriptionn;
+    TextView deadlinee;
+    Button update_btn,delete_btn,date_picker_btn;
 
     DatabaseReference reference;
 
@@ -36,8 +46,9 @@ public class Edit_task extends AppCompatActivity {
 
         titlee = findViewById(R.id.title_editText);
         descriptionn = findViewById(R.id.description_editText);
-        deadlinee = findViewById(R.id.deadline_editText);
+        deadlinee = findViewById(R.id.deadline_textView);
 
+        date_picker_btn = findViewById(R.id.open_picker);
         update_btn = findViewById(R.id.update_btn);
         delete_btn = findViewById(R.id.delete_btn);
 
@@ -49,6 +60,14 @@ public class Edit_task extends AppCompatActivity {
         String useruid=user.getUid();
 
         final String keyy = getIntent().getStringExtra("key_extra");
+
+        date_picker_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogFragment datePicker = new DataPickerFragment();
+                datePicker.show(getSupportFragmentManager(), "date picker");
+            }
+        });
 
         reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child(useruid).child("Task" + keyy);
 
@@ -103,5 +122,16 @@ public class Edit_task extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month);
+        calendar.set(Calendar.DAY_OF_MONTH, day);
+
+        currentDateString = DateFormat.getDateInstance(DateFormat.DEFAULT).format(calendar.getTime());
+
+        deadlinee.setText(currentDateString);
     }
 }
