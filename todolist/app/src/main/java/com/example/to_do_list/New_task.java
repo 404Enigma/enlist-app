@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,11 +40,13 @@ public class New_task extends AppCompatActivity {
         add_task_btn = findViewById(R.id.add_task_btn);
         cancel_btn = findViewById(R.id.cancel_btn);
 
+
+
         add_task_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child("Task" + taskNumber);
+                reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Task" + taskNumber);
                 reference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -60,6 +63,7 @@ public class New_task extends AppCompatActivity {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(New_task.this, "Error adding", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
