@@ -111,8 +111,6 @@ public class Edit_task extends AppCompatActivity implements DatePickerDialog.OnD
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
 
-
-
             }
         });
 
@@ -120,30 +118,50 @@ public class Edit_task extends AppCompatActivity implements DatePickerDialog.OnD
             @Override
             public void onClick(View view) {
 
-
-
-                reference.addValueEventListener(new ValueEventListener() {
+                AlertDialog.Builder builder = new AlertDialog.Builder(Edit_task.this);
+                builder.setMessage("Are you sure you want to update the current task").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    public void onClick(DialogInterface dialogInterface, int i) {
 
-                        snapshot.getRef().child("title_layout").setValue(titlee.getText().toString());
-                        snapshot.getRef().child("description_layout").setValue(descriptionn.getText().toString());
-                        snapshot.getRef().child("deadline_layout").setValue(deadlinee.getText().toString());
-                        snapshot.getRef().child("key_layout").setValue(keyy);
+                        reference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                        Log.d("lol","lol1");
-                        Toast.makeText(Edit_task.this, "Task Updated", Toast.LENGTH_SHORT).show();
-                        Log.d("lol","lol2");
-                       // startActivity(new Intent(Edit_task.this,MainActivity.class));
-                        Intent intent1 = new Intent(Edit_task.this,MainActivity.class);
-                        startActivity(intent1);
-                        Log.d("lol","lol3");
+                                snapshot.getRef().child("title_layout").setValue(titlee.getText().toString());
+                                snapshot.getRef().child("description_layout").setValue(descriptionn.getText().toString());
+                                snapshot.getRef().child("deadline_layout").setValue(deadlinee.getText().toString());
+                                snapshot.getRef().child("key_layout").setValue(keyy);
+
+                                Log.d("lol","lol1");
+                                Toast.makeText(Edit_task.this, "Task Updated", Toast.LENGTH_SHORT).show();
+                                Log.d("lol","lol2");
+                                // startActivity(new Intent(Edit_task.this,MainActivity.class));
+                                Intent intent1 = new Intent(Edit_task.this,MainActivity.class);
+                                startActivity(intent1);
+                                Log.d("lol","lol3");
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                        });
+
+                        //Toast.makeText(Edit_task.this, "Text deleted", Toast.LENGTH_SHORT).show();
+                        //finish();
+
                     }
-
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(Edit_task.this, "Task not updated", Toast.LENGTH_SHORT).show();
+                        dialogInterface.cancel();
                     }
                 });
+
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+
+
 
             }
         });
