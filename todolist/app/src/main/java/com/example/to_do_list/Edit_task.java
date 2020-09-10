@@ -1,10 +1,12 @@
 package com.example.to_do_list;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -74,20 +76,43 @@ public class Edit_task extends AppCompatActivity implements DatePickerDialog.OnD
         delete_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                reference.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(Edit_task.this);
+                builder.setMessage("Are you sure you want to delete the current task").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Log.d("lol","delete success");
-                            Toast.makeText(Edit_task.this, "Deleted", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(Edit_task.this,MainActivity.class));
-                        }
-                        else{
-                            Log.d("lol","delete failed");
-                            Toast.makeText(Edit_task.this, "Failed", Toast.LENGTH_SHORT).show();
-                        }
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        reference.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()){
+                                    Log.d("lol","delete success");
+                                    Toast.makeText(Edit_task.this, "Task deleted", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(Edit_task.this,MainActivity.class));
+                                }
+                                else{
+                                    Log.d("lol","delete failed");
+                                    Toast.makeText(Edit_task.this, "Failed", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+
+                        //Toast.makeText(Edit_task.this, "Task deleted", Toast.LENGTH_SHORT).show();
+                        //finish();
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(Edit_task.this, "Task not deleted", Toast.LENGTH_SHORT).show();
+                        dialogInterface.cancel();
                     }
                 });
+
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+
+
+
             }
         });
 
