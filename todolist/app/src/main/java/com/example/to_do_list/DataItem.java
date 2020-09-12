@@ -1,20 +1,32 @@
 package com.example.to_do_list;
 
+import android.widget.CheckBox;
+
 public class DataItem {
 
     String title_layout;
     String description_layout;
     String deadline_layout;
     String key_layout;
+    CheckBox checkBox_layout;
 
     public DataItem() {
     }
 
-    public DataItem(String title_layout, String description_layout, String deadline_layout, String key) {
+    public DataItem(String title_layout, String description_layout, String deadline_layout, String key_layout, CheckBox checkBox_layout) {
         this.title_layout = title_layout;
         this.description_layout = description_layout;
         this.deadline_layout = deadline_layout;
-        this.key_layout = key;
+        this.key_layout = key_layout;
+        this.checkBox_layout = checkBox_layout;
+    }
+
+    public CheckBox getCheckBox_layout() {
+        return checkBox_layout;
+    }
+
+    public void setCheckBox_layout(CheckBox checkBox_layout) {
+        this.checkBox_layout = checkBox_layout;
     }
 
     public String getKey_layout() {

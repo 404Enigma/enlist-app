@@ -52,6 +52,7 @@ import java.util.ArrayList;
          alertDialog.show();
      }
 
+
      @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +71,7 @@ import java.util.ArrayList;
 
         reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child(useruid);
 
-        reference.addValueEventListener(new ValueEventListener() {
+        reference.addValueEventListener(new ValueEventListener() {                  //Adding data in recycler view
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
