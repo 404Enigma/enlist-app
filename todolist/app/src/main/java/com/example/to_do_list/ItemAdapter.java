@@ -33,12 +33,12 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
     public void onBindViewHolder(@NonNull ItemAdapter.MyViewHolder ViewHolder , int position) {
 
         ViewHolder.title.setText(dataItems.get(position).getTitle_layout());
-        //ViewHolder.description.setText(dataItems.get(position).getDescription_layout());
+        ViewHolder.description.setText(dataItems.get(position).getDescription_layout());
         ViewHolder.deadline.setText(dataItems.get(position).getDeadline_layout());
         //ViewHolder.key.setText(dataItems.get(position).getKey_layout());
 
         final String getTitle_Layout = dataItems.get(position).getTitle_layout();
-        //final String getDescription_Layout = dataItems.get(position).getDescription_layout();
+        final String getDescription_Layout = dataItems.get(position).getDescription_layout();
         final String getDeadline_Layout = dataItems.get(position).getDeadline_layout();
         final String getKey_Layout = dataItems.get(position).getKey_layout();
 
@@ -47,7 +47,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
             public void onClick(View view) {
                 Intent intent = new Intent(context,Edit_task.class);
                 intent.putExtra("title_extra",getTitle_Layout);
-               // intent.putExtra("description_extra",getDescription_Layout);
+                intent.putExtra("description_extra",getDescription_Layout);
                 intent.putExtra("deadline_extra",getDeadline_Layout);
                 intent.putExtra("key_extra",getKey_Layout);
                 context.startActivity(intent);
@@ -68,7 +68,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
             super(itemView);
             checkBox = itemView.findViewById(R.id.checkbox_layout);
             title = itemView.findViewById(R.id.title_layout);
-            //description = itemView.findViewById(R.id.description_layout);
+            description = itemView.findViewById(R.id.description_layout);
             deadline = itemView.findViewById(R.id.deadline_layout);
         }
     }
