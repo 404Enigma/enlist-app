@@ -32,15 +32,15 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ItemAdapter.MyViewHolder ViewHolder , int position) {
 
-        ViewHolder.title.setText(dataItems.get(position).getTitle_layout());
-        ViewHolder.description.setText(dataItems.get(position).getDescription_layout());
-        ViewHolder.deadline.setText(dataItems.get(position).getDeadline_layout());
+        ViewHolder.title.setText(dataItems.get(position).getTitle());
+        ViewHolder.description.setText(dataItems.get(position).getDescription());
+        ViewHolder.deadline.setText(dataItems.get(position).getDeadline());
         //ViewHolder.key.setText(dataItems.get(position).getKey_layout());
 
-        final String getTitle_Layout = dataItems.get(position).getTitle_layout();
-        final String getDescription_Layout = dataItems.get(position).getDescription_layout();
-        final String getDeadline_Layout = dataItems.get(position).getDeadline_layout();
-        final String getKey_Layout = dataItems.get(position).getKey_layout();
+        final String getTitle_Layout = dataItems.get(position).getTitle();
+        final String getDescription_Layout = dataItems.get(position).getDescription();
+        final String getDeadline_Layout = dataItems.get(position).getDeadline();
+        final String getKey_Layout = dataItems.get(position).getKey();
 
         ViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

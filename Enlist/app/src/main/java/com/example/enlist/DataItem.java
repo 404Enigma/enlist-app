@@ -4,50 +4,50 @@ import android.widget.CheckBox;
 
 public class DataItem {
 
-    String title_layout;
-    String description_layout;
-    String deadline_layout;
-    String key_layout;
+    String title;
+    String description;
+    String deadline;
+    String key;
 
     public DataItem() {
     }
 
-    public DataItem(String title_layout, String description_layout, String deadline_layout, String key_layout) {
-        this.title_layout = title_layout;
-        this.description_layout = description_layout;
-        this.deadline_layout = deadline_layout;
-        this.key_layout = key_layout;
+    public DataItem(String title, String description, String deadline, String key) {
+        this.title = title;
+        this.description = description;
+        this.deadline = deadline;
+        this.key = key;
     }
 
-    public String getKey_layout() {
-        return key_layout;
+    public String getKey() {
+        return key;
     }
 
-    public void setKey_layout(String key_layout) {
-        this.key_layout = key_layout;
+    public void setKey(String key) {
+        this.key = key;
     }
 
-    public String getTitle_layout() {
-        return title_layout;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTitle_layout(String title_layout) {
-        this.title_layout = title_layout;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getDescription_layout() {
-        return description_layout;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescription_layout(String description_layout) {
-        this.description_layout = description_layout;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getDeadline_layout() {
-        return deadline_layout;
+    public String getDeadline() {
+        return deadline;
     }
 
-    public void setDeadline_layout(String deadline_layout) {
-        this.deadline_layout = deadline_layout;
+    public void setDeadline(String deadline) {
+        this.deadline = deadline;
     }
 }

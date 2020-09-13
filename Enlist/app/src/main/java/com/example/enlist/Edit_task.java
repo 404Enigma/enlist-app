@@ -1,11 +1,13 @@
 package com.example.enlist;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -67,6 +69,7 @@ public class Edit_task extends AppCompatActivity implements DatePickerDialog.OnD
         date_picker_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                closeKeyboard();
                 DialogFragment datePicker = new DataPickerFragment();
                 datePicker.show(getSupportFragmentManager(), "date picker");
             }
@@ -167,10 +170,10 @@ public class Edit_task extends AppCompatActivity implements DatePickerDialog.OnD
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                                snapshot.getRef().child("title_layout").setValue(titlee.getText().toString());
-                                snapshot.getRef().child("description_layout").setValue(descriptionn.getText().toString());
-                                snapshot.getRef().child("deadline_layout").setValue(deadlinee.getText().toString());
-                                snapshot.getRef().child("key_layout").setValue(keyy);
+                                snapshot.getRef().child("title").setValue(titlee.getText().toString());
+                                snapshot.getRef().child("description").setValue(descriptionn.getText().toString());
+                                snapshot.getRef().child("deadline").setValue(deadlinee.getText().toString());
+                                snapshot.getRef().child("key").setValue(keyy);
 
                                 Log.d("lol","lol1");
                                 Toast.makeText(Edit_task.this, "Task Updated", Toast.LENGTH_SHORT).show();
@@ -205,6 +208,14 @@ public class Edit_task extends AppCompatActivity implements DatePickerDialog.OnD
 
             }
         });
+    }
+
+    private void closeKeyboard() {
+        View view = Edit_task.this.getCurrentFocus();
+        if( view != null){
+            InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(),0);
+        }
     }
 
     public void onDateSet(DatePicker datePicker, int year, int month, int day) {

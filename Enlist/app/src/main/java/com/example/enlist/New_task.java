@@ -77,10 +77,10 @@ public class New_task extends AppCompatActivity implements DatePickerDialog.OnDa
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                            snapshot.getRef().child("title_layout").setValue(title_editText.getText().toString());
-                            snapshot.getRef().child("description_layout").setValue(description_editText.getText().toString());
-                            snapshot.getRef().child("deadline_layout").setValue(currentDateString);
-                            snapshot.getRef().child("key_layout").setValue(key_layout);
+                            snapshot.getRef().child("title").setValue(title_editText.getText().toString());
+                            snapshot.getRef().child("description").setValue(description_editText.getText().toString());
+                            snapshot.getRef().child("deadline").setValue(currentDateString);
+                            snapshot.getRef().child("key").setValue(key_layout);
                             Log.d("lol","task added");
                             Toast.makeText(New_task.this, "Task added", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(New_task.this,MainActivity.class));
@@ -96,7 +96,18 @@ public class New_task extends AppCompatActivity implements DatePickerDialog.OnDa
                 }
             }
         });
+
+        cancel_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(New_task.this, "Task cancelled", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(New_task.this,MainActivity.class));
+            }
+        });
+
     }
+
+
 
     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
         Calendar calendar = Calendar.getInstance();
