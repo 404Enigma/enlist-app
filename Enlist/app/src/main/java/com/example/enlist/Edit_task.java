@@ -75,7 +75,7 @@ public class Edit_task extends AppCompatActivity implements DatePickerDialog.OnD
             }
         });
 
-        reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child(useruid).child("Task" + keyy);
+        reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child(useruid).child(Source.main_class_group).child("Task" + keyy);
 
         delete_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -203,9 +203,6 @@ public class Edit_task extends AppCompatActivity implements DatePickerDialog.OnD
 
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
-
-
-
             }
         });
     }

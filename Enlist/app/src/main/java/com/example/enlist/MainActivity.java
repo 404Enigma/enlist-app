@@ -31,7 +31,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private GoogleSignInClient mGoogleSignInClient;
-    private Button btnsignout;
+    private Button btnsignout,choose_class_group;
 
     DatabaseReference reference;
     RecyclerView recyclerView;
@@ -46,7 +46,8 @@ public class MainActivity extends AppCompatActivity {
         builder.setMessage("Are you sure you want to close the application").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                finish();
+                MainActivity.this.finishAffinity();
+                //finish();
             }
         }).setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnsignout = findViewById(R.id.signout_btn);
         new_task_btn = findViewById(R.id.new_task_btn);
+        choose_class_group = findViewById(R.id.choose_class_group);
 
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
@@ -90,10 +92,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        choose_class_group.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,Student_group.class));
+            }
+        });
+
         FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
         String useruid=user.getUid();
 
-        reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child(useruid);
+        reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child(useruid).child(Source.main_class_group);
 
         reference.addValueEventListener(new ValueEventListener() {                  //Adding data in recycler view
             @Override
