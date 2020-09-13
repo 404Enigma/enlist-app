@@ -60,7 +60,7 @@ public class New_task extends AppCompatActivity implements DatePickerDialog.OnDa
             }
         });
 
-        reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(Source.main_class_group).child("Task" + taskNumber);
+        reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child(Source.main_user_uid).child(Source.main_class_group).child("Task" + taskNumber);
 
         add_task_btn.setOnClickListener(new View.OnClickListener() {
             @Override

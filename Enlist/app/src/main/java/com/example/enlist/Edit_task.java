@@ -61,8 +61,8 @@ public class Edit_task extends AppCompatActivity implements DatePickerDialog.OnD
         descriptionn.setText(getIntent().getStringExtra("description_extra"));
         deadlinee.setText(getIntent().getStringExtra("deadline_extra"));
 
-        FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
-        String useruid=user.getUid();
+       // FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
+       // String useruid=user.getUid();
 
         final String keyy = getIntent().getStringExtra("key_extra");
 
@@ -75,7 +75,7 @@ public class Edit_task extends AppCompatActivity implements DatePickerDialog.OnD
             }
         });
 
-        reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child(useruid).child(Source.main_class_group).child("Task" + keyy);
+        reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child(Source.main_user_uid).child(Source.main_class_group).child("Task" + keyy);
 
         delete_btn.setOnClickListener(new View.OnClickListener() {
             @Override

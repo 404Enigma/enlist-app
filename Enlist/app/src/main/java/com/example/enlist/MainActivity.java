@@ -100,20 +100,21 @@ public class MainActivity extends AppCompatActivity {
         });
 
         FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
-        String useruid=user.getUid();
+        Source.main_user_uid = user.getUid();
 
-        reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child(useruid).child(Source.main_class_group);
-
+        reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child(Source.main_user_uid).child(Source.main_class_group);
+        Log.d("lol1","lol1");
         reference.addValueEventListener(new ValueEventListener() {                  //Adding data in recycler view
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 for(DataSnapshot dataSnapshot: snapshot.getChildren())
                 {
+                    Log.d("lol1","lol2");
                     DataItem p = dataSnapshot.getValue(DataItem.class);
                     list.add(p);
                 }
-
+                Log.d("lol1","lol3");
                 itemAdapter = new ItemAdapter(MainActivity.this, list);
                 recyclerView.setAdapter(itemAdapter);
                 itemAdapter.notifyDataSetChanged();
