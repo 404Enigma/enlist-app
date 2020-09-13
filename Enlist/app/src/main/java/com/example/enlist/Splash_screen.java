@@ -16,7 +16,7 @@ public class Splash_screen extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(Splash_screen.this,MainActivity2.class));
+                startActivity(new Intent(Splash_screen.this, Google_sign_in.class));
                 finish();
             }
         },500);

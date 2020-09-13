@@ -14,6 +14,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,6 +29,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
+    private GoogleSignInClient mGoogleSignInClient;
+    private Button btnsignout;
 
     DatabaseReference reference;
     RecyclerView recyclerView;
@@ -61,11 +67,28 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d("lol","lol4");
 
+        btnsignout = findViewById(R.id.signout_btn);
         new_task_btn = findViewById(R.id.new_task_btn);
 
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
         list = new ArrayList<DataItem>();
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(MainActivity.this, gso);
+
+        btnsignout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mGoogleSignInClient.signOut();
+                Toast.makeText(MainActivity.this, "You are logged out", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, Google_sign_in.class));
+            }
+        });
 
         FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
         String useruid=user.getUid();
