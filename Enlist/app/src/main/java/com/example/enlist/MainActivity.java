@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
     private Button btnsignout,choose_class_group;
 
-    DatabaseReference reference;
+    DatabaseReference reference,source_reference;
     RecyclerView recyclerView;
     ArrayList<DataItem> list;
     ItemAdapter itemAdapter;
@@ -103,18 +103,19 @@ public class MainActivity extends AppCompatActivity {
         Source.main_user_uid = user.getUid();
 
         reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child(Source.main_user_uid).child(Source.main_class_group);
-        Log.d("lol1","lol1");
+
+        source_ref();
+
         reference.addValueEventListener(new ValueEventListener() {                  //Adding data in recycler view
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 for(DataSnapshot dataSnapshot: snapshot.getChildren())
                 {
-                    Log.d("lol1","lol2");
                     DataItem p = dataSnapshot.getValue(DataItem.class);
                     list.add(p);
                 }
-                Log.d("lol1","lol3");
+
                 itemAdapter = new ItemAdapter(MainActivity.this, list);
                 recyclerView.setAdapter(itemAdapter);
                 itemAdapter.notifyDataSetChanged();
@@ -135,6 +136,25 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    private void source_ref() {
+
+        source_reference = FirebaseDatabase.getInstance().getReference().child("Source");
+
+        source_reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                snapshot.getRef().child(Source.main_user_uid).setValue(Source.main_user_uid);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("lol","task added failed");
+            }
+        });
+    }
+
     public void onResume() {
         super.onResume();
         recyclerView.setAdapter(itemAdapter);

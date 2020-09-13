@@ -175,13 +175,9 @@ public class Edit_task extends AppCompatActivity implements DatePickerDialog.OnD
                                 snapshot.getRef().child("deadline").setValue(deadlinee.getText().toString());
                                 snapshot.getRef().child("key").setValue(keyy);
 
-                                Log.d("lol","lol1");
                                 Toast.makeText(Edit_task.this, "Task Updated", Toast.LENGTH_SHORT).show();
-                                Log.d("lol","lol2");
-                                // startActivity(new Intent(Edit_task.this,MainActivity.class));
                                 Intent intent1 = new Intent(Edit_task.this,MainActivity.class);
                                 startActivity(intent1);
-                                Log.d("lol","lol3");
                             }
 
                             @Override
