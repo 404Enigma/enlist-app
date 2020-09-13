@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<DataItem> list;
     ItemAdapter itemAdapter;
 
-    Button new_task_btn;
+    FloatingActionButton new_task_btn;
 
     @Override
     public void onBackPressed() {

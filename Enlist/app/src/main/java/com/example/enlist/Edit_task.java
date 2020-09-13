@@ -37,7 +37,7 @@ public class Edit_task extends AppCompatActivity implements DatePickerDialog.OnD
 
     EditText titlee, descriptionn;
     TextView deadlinee;
-    Button update_btn,delete_btn,date_picker_btn;
+    Button update_btn,delete_btn,date_picker_btn,done_btn;
 
     DatabaseReference reference;
 
@@ -53,6 +53,7 @@ public class Edit_task extends AppCompatActivity implements DatePickerDialog.OnD
         date_picker_btn = findViewById(R.id.open_picker);
         update_btn = findViewById(R.id.update_btn);
         delete_btn = findViewById(R.id.delete_btn);
+        done_btn = findViewById(R.id.done_btn);
 
         titlee.setText(getIntent().getStringExtra("title_extra"));
         descriptionn.setText(getIntent().getStringExtra("description_extra"));
@@ -104,6 +105,45 @@ public class Edit_task extends AppCompatActivity implements DatePickerDialog.OnD
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Toast.makeText(Edit_task.this, "Task not deleted", Toast.LENGTH_SHORT).show();
+                        dialogInterface.cancel();
+                    }
+                });
+
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+
+            }
+        });
+
+        done_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(Edit_task.this);
+                builder.setMessage("Kudos to you!!").setCancelable(false).setPositiveButton("Thanks", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        reference.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()){
+                                    Toast.makeText(Edit_task.this, "Task completed", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(Edit_task.this,MainActivity.class));
+                                }
+                                else{
+                                    Toast.makeText(Edit_task.this, "Failed", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+
+                        //Toast.makeText(Edit_task.this, "Task deleted", Toast.LENGTH_SHORT).show();
+                        //finish();
+                    }
+                }).setNegativeButton("No, wait", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(Edit_task.this, "Task not completed", Toast.LENGTH_SHORT).show();
                         dialogInterface.cancel();
                     }
                 });
