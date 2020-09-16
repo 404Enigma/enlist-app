@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 MainActivity.this.finishAffinity();
-                //finish();
             }
         }).setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
@@ -104,8 +103,24 @@ public class MainActivity extends AppCompatActivity {
 
         reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child(Source.main_user_uid).child(Source.main_class_group);
 
-        source_ref();
-       // source_ref_count_users();
+        source_reference = FirebaseDatabase.getInstance().getReference().child("Source");
+
+        if (Source.main_class_group.equals("B")) {
+            source_reference = source_reference.child("B");
+            source_ref();
+        }
+        else if (Source.main_class_group.equals("B1")) {
+            source_reference = source_reference.child("B1");
+            source_ref();
+        }
+        else if (Source.main_class_group.equals("B2")) {
+            source_reference = source_reference.child("B2");
+            source_ref();
+        }
+        else if (Source.main_class_group.equals("B3")) {
+            source_reference = source_reference.child("B3");
+            source_ref();
+        }
 
         reference.addValueEventListener(new ValueEventListener() {                  //Adding data in recycler view
             @Override
@@ -139,8 +154,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void source_ref() {
-
-        source_reference = FirebaseDatabase.getInstance().getReference().child("Source");
 
         source_reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

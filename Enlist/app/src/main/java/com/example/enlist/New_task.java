@@ -30,9 +30,7 @@ import java.util.Random;
 
 public class New_task extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
-    String currentDateString,kkk;
-    //String B_map,B1_map,B2_map,B3_map,B_splited[],B1_splited[],B2_splited[],B3_splited[];
-    String splited[];
+    String currentDateString,kkk,splited[];
 
     EditText title_editText, description_editText;
     TextView  deadline_textView;
@@ -71,8 +69,6 @@ public class New_task extends AppCompatActivity implements DatePickerDialog.OnDa
             }
         });
 
-        reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child(Source.main_user_uid).child(Source.main_class_group).child("Task" + taskNumber);
-
              add_task_btn.setOnClickListener(new View.OnClickListener() {
                  @Override
                  public void onClick(View view) {
@@ -85,7 +81,7 @@ public class New_task extends AppCompatActivity implements DatePickerDialog.OnDa
                      }
                      else {
 
-                         users_reference = FirebaseDatabase.getInstance().getReference().child("Source");
+                         users_reference = FirebaseDatabase.getInstance().getReference().child("Source").child(Source.main_class_group);
 
                          users_reference.addListenerForSingleValueEvent(new ValueEventListener() {
                              @Override
@@ -98,7 +94,6 @@ public class New_task extends AppCompatActivity implements DatePickerDialog.OnDa
                                      String splited[] = kkk.split(" ");
 
                                      for (int i = 0; i < splited.length; i++) {
-                                         Log.d("lol5", splited[i]);
 
                                          reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child(splited[i]).child(Source.main_class_group).child("Task" + taskNumber);
 
@@ -111,8 +106,6 @@ public class New_task extends AppCompatActivity implements DatePickerDialog.OnDa
                                                  snapshot.getRef().child("deadline").setValue(currentDateString);
                                                  snapshot.getRef().child("key").setValue(key_layout);
 
-                                                 Log.d("lol", "task added");
-
                                                  Toast.makeText(New_task.this, "Task added", Toast.LENGTH_SHORT).show();
                                                  startActivity(new Intent(New_task.this, MainActivity.class));
 
@@ -121,9 +114,7 @@ public class New_task extends AppCompatActivity implements DatePickerDialog.OnDa
                                              @Override
                                              public void onCancelled(@NonNull DatabaseError error) {
 
-                                                 Log.d("lol", "task added failed");
                                                  Toast.makeText(New_task.this, "Error adding", Toast.LENGTH_SHORT).show();
-
                                              }
                                          });
                                      }
@@ -132,7 +123,6 @@ public class New_task extends AppCompatActivity implements DatePickerDialog.OnDa
 
                              @Override
                              public void onCancelled(@NonNull DatabaseError error) {
-
                              }
                          });
                      }
