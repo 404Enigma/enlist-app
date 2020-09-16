@@ -60,7 +60,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
         return dataItems.size();
     }
 
-     public class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView title,description,deadline,key;
 
         public MyViewHolder(@NonNull View itemView) {

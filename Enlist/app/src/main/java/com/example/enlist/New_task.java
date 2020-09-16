@@ -25,17 +25,20 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.Objects;
 import java.util.Random;
 
 public class New_task extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
-    String currentDateString;
+    String currentDateString,kkk;
+    //String B_map,B1_map,B2_map,B3_map,B_splited[],B1_splited[],B2_splited[],B3_splited[];
+    String splited[];
 
     EditText title_editText, description_editText;
     TextView  deadline_textView;
     Button add_task_btn,cancel_btn,date_picker_btn;
 
-    DatabaseReference reference;
+    DatabaseReference reference,users_reference;
     Integer taskNumber = new Random().nextInt();
     String key_layout = Integer.toString(taskNumber);
 
@@ -60,43 +63,6 @@ public class New_task extends AppCompatActivity implements DatePickerDialog.OnDa
             }
         });
 
-        reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child(Source.main_user_uid).child(Source.main_class_group).child("Task" + taskNumber);
-
-        add_task_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if(TextUtils.isEmpty(title_editText.getText().toString())){
-                    Toast.makeText(New_task.this, "Enter title", Toast.LENGTH_SHORT).show();
-                }
-                else if(TextUtils.isEmpty(currentDateString)){
-                    Toast.makeText(New_task.this, "Enter deadline", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                            snapshot.getRef().child("title").setValue(title_editText.getText().toString());
-                            snapshot.getRef().child("description").setValue(description_editText.getText().toString());
-                            snapshot.getRef().child("deadline").setValue(currentDateString);
-                            snapshot.getRef().child("key").setValue(key_layout);
-                            Log.d("lol","task added");
-                            Toast.makeText(New_task.this, "Task added", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(New_task.this,MainActivity.class));
-
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                            Log.d("lol","task added failed");
-                            Toast.makeText(New_task.this, "Error adding", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-            }
-        });
-
         cancel_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,9 +71,74 @@ public class New_task extends AppCompatActivity implements DatePickerDialog.OnDa
             }
         });
 
+        reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child(Source.main_user_uid).child(Source.main_class_group).child("Task" + taskNumber);
+
+             add_task_btn.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View view) {
+
+                     if(TextUtils.isEmpty(title_editText.getText().toString())){
+                         Toast.makeText(New_task.this, "Enter title", Toast.LENGTH_SHORT).show();
+                     }
+                     else if(TextUtils.isEmpty(currentDateString)){
+                         Toast.makeText(New_task.this, "Enter deadline", Toast.LENGTH_SHORT).show();
+                     }
+                     else {
+
+                         users_reference = FirebaseDatabase.getInstance().getReference().child("Source");
+
+                         users_reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                             @Override
+                             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                 kkk = "";
+                                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+
+                                     kkk += snapshot1.getKey() + " ";
+                                     String splited[] = kkk.split(" ");
+
+                                     for (int i = 0; i < splited.length; i++) {
+                                         Log.d("lol5", splited[i]);
+
+                                         reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child(splited[i]).child(Source.main_class_group).child("Task" + taskNumber);
+
+                                         reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                             @Override
+                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                                 snapshot.getRef().child("title").setValue(title_editText.getText().toString());
+                                                 snapshot.getRef().child("description").setValue(description_editText.getText().toString());
+                                                 snapshot.getRef().child("deadline").setValue(currentDateString);
+                                                 snapshot.getRef().child("key").setValue(key_layout);
+
+                                                 Log.d("lol", "task added");
+
+                                                 Toast.makeText(New_task.this, "Task added", Toast.LENGTH_SHORT).show();
+                                                 startActivity(new Intent(New_task.this, MainActivity.class));
+
+                                             }
+
+                                             @Override
+                                             public void onCancelled(@NonNull DatabaseError error) {
+
+                                                 Log.d("lol", "task added failed");
+                                                 Toast.makeText(New_task.this, "Error adding", Toast.LENGTH_SHORT).show();
+
+                                             }
+                                         });
+                                     }
+                                 }
+                             }
+
+                             @Override
+                             public void onCancelled(@NonNull DatabaseError error) {
+
+                             }
+                         });
+                     }
+                 }
+             });
     }
-
-
 
     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
         Calendar calendar = Calendar.getInstance();

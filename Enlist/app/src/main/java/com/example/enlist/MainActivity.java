@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
     private Button btnsignout,choose_class_group;
 
-    DatabaseReference reference,source_reference;
+    DatabaseReference reference,source_reference,source_count_users;
     RecyclerView recyclerView;
     ArrayList<DataItem> list;
     ItemAdapter itemAdapter;
@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
         reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child(Source.main_user_uid).child(Source.main_class_group);
 
         source_ref();
+       // source_ref_count_users();
 
         reference.addValueEventListener(new ValueEventListener() {                  //Adding data in recycler view
             @Override
@@ -153,6 +154,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("lol","task added failed");
             }
         });
+
     }
 
     public void onResume() {
