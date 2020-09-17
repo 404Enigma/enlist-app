@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:layout_margin="5dp"
-
+    android:background="@drawable/layout_bg"
     android:orientation="vertical">
 
     <LinearLayout
@@ -12,19 +12,18 @@
         android:layout_marginRight="10dp"
         android:orientation="horizontal" >
 
-        <TextView
+     <!--   <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="•"
-            android:background="#ffffff"
+            android:textColor="#ffffff"
             android:layout_gravity="center"
-            android:textSize="30sp" />
+            android:textSize="30sp" /> -->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_weight="70"
-            android:layout_marginLeft="5dp"
-            android:background="#E7E7E7"
+            android:layout_marginLeft="10dp"
             android:layout_height="match_parent"
             android:orientation="horizontal" >
 
@@ -33,7 +32,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Title:"
-                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/ubuntu_bold"
+                android:textColor="#ffffff"
+                android:layout_marginStart="10dp"
                 android:layout_gravity="center"
                 android:textSize="22sp" />
 
@@ -48,7 +49,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_weight="90"
-            android:background="#E7E7E7"
             android:layout_height="match_parent" >
 
             <TextView
@@ -57,6 +57,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Deadline"
+                android:fontFamily="@font/ubuntu_bold"
+                android:textColor="#ffffff"
                 android:textSize="22sp" />
 
         </LinearLayout>
