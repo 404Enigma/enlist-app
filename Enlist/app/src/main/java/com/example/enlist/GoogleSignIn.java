@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -29,6 +31,8 @@ public class GoogleSignIn extends AppCompatActivity {
     private String TAG = "lol";
     private FirebaseAuth mAuth;
 
+    private EditText editText_PRN;
+
     private int RC_SIGN_IN = 1;
 
     @Override
@@ -38,6 +42,8 @@ public class GoogleSignIn extends AppCompatActivity {
 
         signInButton = findViewById(R.id.google_login_btn);
         mAuth = FirebaseAuth.getInstance();
+
+        editText_PRN = findViewById(R.id.editText_PRN);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -49,7 +55,15 @@ public class GoogleSignIn extends AppCompatActivity {
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                signIn();
+                if(TextUtils.isEmpty(editText_PRN.getText().toString())){
+                    Toast.makeText(GoogleSignIn.this, "Enter PRN", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                   // Source.main_PRN = Long.parseLong(editText_PRN.getText().toString());
+                    Source.main_PRN = Long.parseLong(String.valueOf(editText_PRN.getText()));
+                    //Source.main_PRN = editText_PRN.getText().toString();
+                    signIn();
+                }
             }
         });
 
@@ -88,6 +102,7 @@ public class GoogleSignIn extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            Source.flag=1;
                             Toast.makeText(GoogleSignIn.this, "Successful", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(GoogleSignIn.this, StudentGroup.class));
                             FirebaseUser user = mAuth.getCurrentUser();
@@ -112,7 +127,7 @@ public class GoogleSignIn extends AppCompatActivity {
             String personId = account.getId();
             Uri personPhoto = account.getPhotoUrl();
 
-            Toast.makeText(GoogleSignIn.this, personName + " + " + personEmail, Toast.LENGTH_SHORT).show();
+            Toast.makeText(GoogleSignIn.this, personName + " + " + personEmail + " + " + personId, Toast.LENGTH_SHORT).show();
         }
     }
 }

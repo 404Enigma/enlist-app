@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 mGoogleSignInClient.signOut();
+                Source.flag=0;
                 Toast.makeText(MainActivity.this, "You are logged out", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(MainActivity.this, GoogleSignIn.class));
             }

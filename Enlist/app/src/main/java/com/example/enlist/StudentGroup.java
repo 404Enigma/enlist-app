@@ -30,6 +30,19 @@ public class StudentGroup extends AppCompatActivity {
         b2_btn = findViewById(R.id.b2_btn);
         b3_btn = findViewById(R.id.b3_btn);
 
+        if(Source.main_PRN >= 19070122073L && Source.main_PRN <= 19070122095L){
+            b1_btn.setEnabled(false);
+            b2_btn.setEnabled(false);
+        }
+        else if(Source.main_PRN >= 19070122096L && Source.main_PRN <= 19070122119L){
+            b1_btn.setEnabled(false);
+            b2_btn.setEnabled(false);
+        }
+        else if(Source.main_PRN >= 19070122120L && Source.main_PRN <= 19070122145L){
+            b1_btn.setEnabled(false);
+            b2_btn.setEnabled(false);
+        }
+
         b_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

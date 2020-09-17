@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +40,8 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
 
     EditText titlee, descriptionn;
     TextView deadlinee;
-    Button update_btn,delete_btn,date_picker_btn,done_btn;
+    Button update_btn,delete_btn,done_btn;
+    ImageButton date_picker_btn;
 
     DatabaseReference reference;
 
