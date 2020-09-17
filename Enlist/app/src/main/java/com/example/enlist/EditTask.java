@@ -64,9 +64,6 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
         descriptionn.setText(getIntent().getStringExtra("description_extra"));
         deadlinee.setText(getIntent().getStringExtra("deadline_extra"));
 
-       // FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
-       // String useruid=user.getUid();
-
         final String keyy = getIntent().getStringExtra("key_extra");
 
         date_picker_btn.setOnClickListener(new View.OnClickListener() {
@@ -105,8 +102,6 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
                             }
                         });
 
-                        //Toast.makeText(Edit_task.this, "Task deleted", Toast.LENGTH_SHORT).show();
-                        //finish();
                     }
                 }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
@@ -145,8 +140,6 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
                             }
                         });
 
-                        //Toast.makeText(Edit_task.this, "Task deleted", Toast.LENGTH_SHORT).show();
-                        //finish();
                     }
                 }).setNegativeButton("No, wait", new DialogInterface.OnClickListener() {
                     @Override
@@ -189,9 +182,6 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
                             public void onCancelled(@NonNull DatabaseError error) {
                             }
                         });
-
-                        //Toast.makeText(Edit_task.this, "Text deleted", Toast.LENGTH_SHORT).show();
-                        //finish();
 
                     }
                 }).setNegativeButton("No", new DialogInterface.OnClickListener() {

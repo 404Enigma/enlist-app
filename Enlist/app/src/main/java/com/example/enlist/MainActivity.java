@@ -9,9 +9,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -31,12 +35,14 @@ public class MainActivity extends AppCompatActivity {
 
     private GoogleSignInClient mGoogleSignInClient;
     private Button btnsignout,choose_class_group;
+   // private EditText editText_search;
 
     DatabaseReference reference,source_reference,source_count_users;
     RecyclerView recyclerView;
     ArrayList<DataItem> list;
     ItemAdapter itemAdapter;
 
+    //SearchView searchView;
     FloatingActionButton new_task_btn;
 
     @Override
@@ -69,10 +75,29 @@ public class MainActivity extends AppCompatActivity {
         btnsignout = findViewById(R.id.signout_btn);
         new_task_btn = findViewById(R.id.new_task_btn);
         choose_class_group = findViewById(R.id.choose_class_group);
+        //editText_search = findViewById(R.id.editText_search);
+        //searchView = findViewById(R.id.search_view);
 
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
         list = new ArrayList<DataItem>();
+
+       /* editText_search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                filter(editable.toString());
+            }
+        });*/
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -150,7 +175,36 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    /*    searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+
+                itemAdapter.getFilter(ArrayList<DataItem> filteredList);
+                return false;
+            }
+        });*/
+
     }
+
+  /*  private void filter(String text) {
+
+        ArrayList<DataItem> filteredList = new ArrayList<>();
+
+        for (DataItem item : list){
+            if (item.getTitle().toLowerCase().contains(text.toLowerCase())){
+                filteredList.add(item);
+            }
+        }
+
+        ItemAdapter itemAdapter = new ItemAdapter(MainActivity.this, list);
+        itemAdapter.filterList(filteredList);
+
+    }*/
 
     private void source_ref() {
 

@@ -61,8 +61,8 @@
 
         <TextView
             android:id="@+id/deadline_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="49dp"
+            android:layout_width="287dp"
+            android:layout_height="68dp"
             android:ems="13"
             android:gravity="start|center"
             android:hint="Select the deadline of the task"
@@ -74,7 +74,19 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
-        <Button
+        <ImageButton
+            android:id="@+id/open_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_calendar_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+     <!--   <Button
             android:id="@+id/open_picker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -84,7 +96,7 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="1.0" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

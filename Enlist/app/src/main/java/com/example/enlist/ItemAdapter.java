@@ -11,11 +11,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> {
 
     Context context;
-    ArrayList<DataItem> dataItems;
+    static ArrayList<DataItem> dataItems;
 
     public ItemAdapter(Context c,ArrayList<DataItem> p){
         context = c;
@@ -58,6 +59,11 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
     public int getItemCount() {
         return dataItems.size();
     }
+
+ /*  public void filterList(ArrayList<DataItem> filteredList){
+       dataItems = filteredList;
+       notifyDataSetChanged();
+   }*/
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView title,description,deadline,key;
