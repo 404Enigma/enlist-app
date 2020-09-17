@@ -9,8 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".StudentGroup"
-            android:screenOrientation="portrait"/>
+        <activity android:name=".NavBarSetting"></activity>
+        <activity
+            android:name=".StudentGroup"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".GoogleSignIn"
             android:screenOrientation="portrait" />

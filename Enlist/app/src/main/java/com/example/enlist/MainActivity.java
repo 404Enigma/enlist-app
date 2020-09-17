@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -33,8 +35,9 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    BottomNavigationView bottomNavigationView;
+
     private GoogleSignInClient mGoogleSignInClient;
-    private Button btnsignout,choose_class_group;
    // private EditText editText_search;
 
     DatabaseReference reference,source_reference,source_count_users;
@@ -72,9 +75,9 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d("lol","lol4");
 
-        btnsignout = findViewById(R.id.signout_btn);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+
         new_task_btn = findViewById(R.id.new_task_btn);
-        choose_class_group = findViewById(R.id.choose_class_group);
         //editText_search = findViewById(R.id.editText_search);
         //searchView = findViewById(R.id.search_view);
 
@@ -105,24 +108,7 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         mGoogleSignInClient = com.google.android.gms.auth.api.signin.GoogleSignIn.getClient(MainActivity.this, gso);
-
-        btnsignout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mGoogleSignInClient.signOut();
-                Source.flag=0;
-                Toast.makeText(MainActivity.this, "You are logged out", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(MainActivity.this, GoogleSignIn.class));
-            }
-        });
-
-        choose_class_group.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, StudentGroup.class));
-            }
-        });
-
+        
         FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
         Source.main_user_uid = user.getUid();
 
@@ -173,6 +159,24 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, NewTask.class));
+            }
+        });
+
+        bottomNavigationView.setSelectedItemId(R.id.nav_double_tick);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+                switch (menuItem.getItemId()){
+                    case R.id.nav_setting:
+                        startActivity(new Intent(getApplicationContext(),NavBarSetting.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.nav_double_tick:
+                        return true;
+                }
+                return false;
             }
         });
 
