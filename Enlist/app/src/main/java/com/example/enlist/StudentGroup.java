@@ -9,16 +9,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Objects;
-
-public class Student_group extends AppCompatActivity {
+public class StudentGroup extends AppCompatActivity {
 
     Button b_btn,b1_btn,b2_btn,b3_btn;
     DatabaseReference source_reference;
@@ -37,7 +34,7 @@ public class Student_group extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Source.main_class_group="B";
-                startActivity(new Intent(Student_group.this,MainActivity.class));
+                startActivity(new Intent(StudentGroup.this,MainActivity.class));
             }
         });
 
@@ -45,7 +42,7 @@ public class Student_group extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Source.main_class_group="B1";
-                startActivity(new Intent(Student_group.this,MainActivity.class));
+                startActivity(new Intent(StudentGroup.this,MainActivity.class));
             }
         });
 
@@ -53,7 +50,7 @@ public class Student_group extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Source.main_class_group="B2";
-                startActivity(new Intent(Student_group.this,MainActivity.class));
+                startActivity(new Intent(StudentGroup.this,MainActivity.class));
             }
         });
 
@@ -61,7 +58,7 @@ public class Student_group extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Source.main_class_group="B3";
-                startActivity(new Intent(Student_group.this,MainActivity.class));
+                startActivity(new Intent(StudentGroup.this,MainActivity.class));
             }
         });
     }

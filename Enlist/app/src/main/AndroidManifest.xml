@@ -9,21 +9,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Student_group"></activity>
+        <activity android:name=".StudentGroup"></activity>
         <activity
-            android:name=".Google_sign_in"
+            android:name=".GoogleSignIn"
             android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Edit_task"
+            android:name=".EditTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".New_task"
+            android:name=".NewTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Splash_screen"
+            android:name=".SplashScreen"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

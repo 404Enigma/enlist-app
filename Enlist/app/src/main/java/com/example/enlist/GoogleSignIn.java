@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -23,7 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-public class Google_sign_in extends AppCompatActivity {
+public class GoogleSignIn extends AppCompatActivity {
 
     private SignInButton signInButton;
     private GoogleSignInClient mGoogleSignInClient;
@@ -45,7 +44,7 @@ public class Google_sign_in extends AppCompatActivity {
                 .requestEmail()
                 .build();
 
-        mGoogleSignInClient = GoogleSignIn.getClient(Google_sign_in.this, gso);
+        mGoogleSignInClient = com.google.android.gms.auth.api.signin.GoogleSignIn.getClient(GoogleSignIn.this, gso);
 
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,7 +64,7 @@ public class Google_sign_in extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == RC_SIGN_IN) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            Task<GoogleSignInAccount> task = com.google.android.gms.auth.api.signin.GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
         }
     }
@@ -74,27 +73,27 @@ public class Google_sign_in extends AppCompatActivity {
         try {
             GoogleSignInAccount acco = completedTask.getResult(ApiException.class);
             FirebaseGoogleAuth(acco);
-            Toast.makeText(Google_sign_in.this, "Signed In Successfully", Toast.LENGTH_SHORT).show();
+            Toast.makeText(GoogleSignIn.this, "Signed In Successfully", Toast.LENGTH_SHORT).show();
         }
         catch (ApiException e) {
             FirebaseGoogleAuth(null);
-            Toast.makeText(Google_sign_in.this, "Signed In Failed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(GoogleSignIn.this, "Signed In Failed", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void FirebaseGoogleAuth(GoogleSignInAccount acct) {
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(Google_sign_in.this, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(GoogleSignIn.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(Google_sign_in.this, "Successful", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(Google_sign_in.this,Student_group.class));
+                            Toast.makeText(GoogleSignIn.this, "Successful", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(GoogleSignIn.this, StudentGroup.class));
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                         } else {
-                            Toast.makeText(Google_sign_in.this, "Failed", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(GoogleSignIn.this, "Failed", Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
                     }
@@ -104,7 +103,7 @@ public class Google_sign_in extends AppCompatActivity {
 
     private void updateUI(FirebaseUser user) {
 
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+        GoogleSignInAccount account = com.google.android.gms.auth.api.signin.GoogleSignIn.getLastSignedInAccount(getApplicationContext());
         if(account!=null){
             String personName = account.getDisplayName();
             String personGivenName = account.getGivenName();
@@ -113,7 +112,7 @@ public class Google_sign_in extends AppCompatActivity {
             String personId = account.getId();
             Uri personPhoto = account.getPhotoUrl();
 
-            Toast.makeText(Google_sign_in.this, personName + " + " + personEmail, Toast.LENGTH_SHORT).show();
+            Toast.makeText(GoogleSignIn.this, personName + " + " + personEmail, Toast.LENGTH_SHORT).show();
         }
     }
 }

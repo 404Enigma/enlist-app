@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -45,7 +44,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
         ViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context,Edit_task.class);
+                Intent intent = new Intent(context, EditTask.class);
                 intent.putExtra("title_extra",getTitle_Layout);
                 intent.putExtra("description_extra",getDescription_Layout);
                 intent.putExtra("deadline_extra",getDeadline_Layout);

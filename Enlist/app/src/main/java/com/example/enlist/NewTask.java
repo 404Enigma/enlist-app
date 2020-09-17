@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -16,7 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,10 +23,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
 import java.util.Calendar;
-import java.util.Objects;
 import java.util.Random;
 
-public class New_task extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     String currentDateString,kkk,splited[];
 
@@ -64,8 +61,8 @@ public class New_task extends AppCompatActivity implements DatePickerDialog.OnDa
         cancel_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(New_task.this, "Task cancelled", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(New_task.this,MainActivity.class));
+                Toast.makeText(NewTask.this, "Task cancelled", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(NewTask.this,MainActivity.class));
             }
         });
 
@@ -74,10 +71,10 @@ public class New_task extends AppCompatActivity implements DatePickerDialog.OnDa
                  public void onClick(View view) {
 
                      if(TextUtils.isEmpty(title_editText.getText().toString())){
-                         Toast.makeText(New_task.this, "Enter title", Toast.LENGTH_SHORT).show();
+                         Toast.makeText(NewTask.this, "Enter title", Toast.LENGTH_SHORT).show();
                      }
                      else if(TextUtils.isEmpty(currentDateString)){
-                         Toast.makeText(New_task.this, "Enter deadline", Toast.LENGTH_SHORT).show();
+                         Toast.makeText(NewTask.this, "Enter deadline", Toast.LENGTH_SHORT).show();
                      }
                      else {
 
@@ -106,15 +103,15 @@ public class New_task extends AppCompatActivity implements DatePickerDialog.OnDa
                                                  snapshot.getRef().child("deadline").setValue(currentDateString);
                                                  snapshot.getRef().child("key").setValue(key_layout);
 
-                                                 Toast.makeText(New_task.this, "Task added", Toast.LENGTH_SHORT).show();
-                                                 startActivity(new Intent(New_task.this, MainActivity.class));
+                                                 Toast.makeText(NewTask.this, "Task added", Toast.LENGTH_SHORT).show();
+                                                 startActivity(new Intent(NewTask.this, MainActivity.class));
 
                                              }
 
                                              @Override
                                              public void onCancelled(@NonNull DatabaseError error) {
 
-                                                 Toast.makeText(New_task.this, "Error adding", Toast.LENGTH_SHORT).show();
+                                                 Toast.makeText(NewTask.this, "Error adding", Toast.LENGTH_SHORT).show();
                                              }
                                          });
                                      }

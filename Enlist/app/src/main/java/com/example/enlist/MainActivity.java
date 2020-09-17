@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -80,21 +79,21 @@ public class MainActivity extends AppCompatActivity {
                 .requestEmail()
                 .build();
 
-        mGoogleSignInClient = GoogleSignIn.getClient(MainActivity.this, gso);
+        mGoogleSignInClient = com.google.android.gms.auth.api.signin.GoogleSignIn.getClient(MainActivity.this, gso);
 
         btnsignout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mGoogleSignInClient.signOut();
                 Toast.makeText(MainActivity.this, "You are logged out", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(MainActivity.this, Google_sign_in.class));
+                startActivity(new Intent(MainActivity.this, GoogleSignIn.class));
             }
         });
 
         choose_class_group.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,Student_group.class));
+                startActivity(new Intent(MainActivity.this, StudentGroup.class));
             }
         });
 
@@ -147,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
         new_task_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,New_task.class));
+                startActivity(new Intent(MainActivity.this, NewTask.class));
             }
         });
 
