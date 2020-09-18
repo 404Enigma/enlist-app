@@ -170,8 +170,8 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (menuItem.getItemId()){
                     case R.id.nav_setting:
-                        startActivity(new Intent(getApplicationContext(),NavBarSetting.class));
-                        overridePendingTransition(0,0);
+                        /*startActivity(new Intent(getApplicationContext(),NavBarSetting.class));
+                        overridePendingTransition(0,0);*/
                         return true;
                     case R.id.nav_double_tick:
                         return true;

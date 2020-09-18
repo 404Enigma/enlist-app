@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:padding="20dp"
-    android:orientation="vertical"
     android:layout_height="match_parent"
     android:background="#000000"
+    android:orientation="vertical"
+    android:padding="20dp"
     tools:context=".NewTask">
 
     <TextView
@@ -152,8 +152,8 @@
 
     <Button
         android:id="@+id/update_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="112dp"
+        android:layout_height="55dp"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
         android:ems="5"
@@ -161,15 +161,15 @@
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.672"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.727" />
+        app:layout_constraintVertical_bias="0.71" />
 
     <Button
         android:id="@+id/delete_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="152dp"
+        android:layout_height="46dp"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:ems="6"
@@ -177,15 +177,15 @@
         android:textSize="35sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.283"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.84" />
+        app:layout_constraintVertical_bias="0.8" />
 
     <Button
         android:id="@+id/done_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="165dp"
+        android:layout_height="26dp"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:ems="7"
@@ -194,9 +194,42 @@
         android:textSize="35sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.866"
+        app:layout_constraintHorizontal_bias="0.059"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.912" />
+        app:layout_constraintVertical_bias="0.852" />
+
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/lol"
+        android:layout_width="71dp"
+        android:layout_height="46dp"
+        android:layout_gravity="end|bottom"
+        android:layout_marginTop="150dp"
+        app:fab_labelStyle="@style/custom_fab"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.985"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.986">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_task_btn1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_icon_trash_can"
+            app:fab_colorNormal="#ffffff"
+            app:fab_title="Fab Action 1" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_task_btn2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_refresh"
+            app:fab_size="normal"
+            app:fab_colorNormal="#ffffff"
+            app:fab_title="Fab Action 2" />
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

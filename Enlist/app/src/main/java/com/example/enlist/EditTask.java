@@ -21,6 +21,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -34,6 +36,8 @@ import java.util.Calendar;
 
 
 public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
+
+    //Floa add_task_btn1,add_task_btn2;
 
     String currentDateString;
     MediaPlayer done_player,delete_player;
@@ -49,6 +53,10 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_task);
+
+        FloatingActionButton add_task_btn1 = findViewById(R.id.add_task_btn1);
+        FloatingActionButton add_task_btn2 = findViewById(R.id.add_task_btn2);
+        FloatingActionsMenu lol = findViewById(R.id.lol);
 
         titlee = findViewById(R.id.title_editText);
         descriptionn = findViewById(R.id.description_editText);
@@ -67,6 +75,22 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
         deadlinee.setText(getIntent().getStringExtra("deadline_extra"));
 
         final String keyy = getIntent().getStringExtra("key_extra");
+
+        add_task_btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(EditTask.this, "lol", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        add_task_btn2.setIcon(R.drawable.ic_refresh);
+
+        add_task_btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(EditTask.this, "02", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         date_picker_btn.setOnClickListener(new View.OnClickListener() {
             @Override
