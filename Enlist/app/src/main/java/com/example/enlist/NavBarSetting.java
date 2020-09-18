@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -18,8 +19,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class NavBarSetting extends AppCompatActivity {
+
+    BottomNavigationView bottomNavigationView;
 
     ListView settings_listView;
     String[] items = {"Profile","Class Group","Log out"};
@@ -40,6 +44,8 @@ public class NavBarSetting extends AppCompatActivity {
         mGoogleSignInClient = com.google.android.gms.auth.api.signin.GoogleSignIn.getClient(NavBarSetting.this, gso);
 
         settings_listView = findViewById(R.id.settings_listView);
+
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         adapter = new MyAdapter(NavBarSetting.this, items);
         settings_listView.setAdapter(adapter);
@@ -64,6 +70,24 @@ public class NavBarSetting extends AppCompatActivity {
                         break;
                     }
                 }
+            }
+        });
+
+        bottomNavigationView.setSelectedItemId(R.id.nav_double_tick);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+                switch (menuItem.getItemId()){
+                    case R.id.nav_double_tick:
+                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.nav_setting:
+                        return true;
+                }
+                return false;
             }
         });
     }

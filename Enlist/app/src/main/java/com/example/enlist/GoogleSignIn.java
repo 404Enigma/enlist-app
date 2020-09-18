@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -79,13 +80,15 @@ public class GoogleSignIn extends AppCompatActivity {
                 if(TextUtils.isEmpty(editText_PRN.getText().toString())){
                     Toast.makeText(GoogleSignIn.this, "Enter PRN", Toast.LENGTH_SHORT).show();
                 }
+                else if(!(editText_PRN.getText().toString().length() == 11)){
+                    Toast.makeText(GoogleSignIn.this, "Incorrect PRN", Toast.LENGTH_SHORT).show();
+                }
                 else{
                     Source.main_PRN = Long.parseLong(String.valueOf(editText_PRN.getText()));
                     signIn();
                 }
             }
         });
-
     }
 
     private void signIn() {
@@ -106,7 +109,7 @@ public class GoogleSignIn extends AppCompatActivity {
         try {
             GoogleSignInAccount acco = completedTask.getResult(ApiException.class);
             FirebaseGoogleAuth(acco);
-            Toast.makeText(GoogleSignIn.this, "Signed In Successfully", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(GoogleSignIn.this, "Signed In Successfully", Toast.LENGTH_SHORT).show();
         }
         catch (ApiException e) {
             FirebaseGoogleAuth(null);
@@ -121,12 +124,15 @@ public class GoogleSignIn extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Source.flag=1;
-                            Toast.makeText(GoogleSignIn.this, "Successful", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(GoogleSignIn.this, StudentGroup.class));
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
-                        } else {
+                            if(Source.main_user_email.equals("sitpune.edu.in")){
+                                Toast.makeText(GoogleSignIn.this, "Successful", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(GoogleSignIn.this, StudentGroup.class));
+                            }
+                            else{
+                                Toast.makeText(GoogleSignIn.this, "PLease login through B.Tech ID", Toast.LENGTH_SHORT).show();
+                            }
                             Toast.makeText(GoogleSignIn.this, "Failed", Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
@@ -146,7 +152,11 @@ public class GoogleSignIn extends AppCompatActivity {
             String personId = account.getId();
             Uri personPhoto = account.getPhotoUrl();
 
-            Toast.makeText(GoogleSignIn.this, personName + " + " + personEmail + " + " + personId, Toast.LENGTH_SHORT).show();
+            String qq[] = personEmail.split("@");
+            Source.main_user_email = qq[1];
+            Log.d("lol213",Source.main_user_email);
+
+            //Toast.makeText(GoogleSignIn.this, personName + " + " + personEmail + " + " + personId, Toast.LENGTH_SHORT).show();
         }
     }
 }
