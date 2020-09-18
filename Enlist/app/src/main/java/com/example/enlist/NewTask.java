@@ -1,6 +1,7 @@
 package com.example.enlist;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -8,13 +9,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,11 +35,32 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
 
     EditText title_editText, description_editText;
     TextView  deadline_textView;
-    Button add_task_btn,cancel_btn,date_picker_btn;
+    ImageButton date_picker_btn;
+    FloatingActionButton add_task_btn;
 
     DatabaseReference reference,users_reference;
     Integer taskNumber = new Random().nextInt();
     String key_layout = Integer.toString(taskNumber);
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(NewTask.this);
+        builder.setMessage("Are you sure you want to discard the current task?").setCancelable(false).setPositiveButton("Discard", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(NewTask.this, "Task cancelled", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(NewTask.this,MainActivity.class));
+            }
+        }).setNegativeButton("No, wait", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,21 +73,12 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
 
         date_picker_btn = findViewById(R.id.open_picker);
         add_task_btn = findViewById(R.id.add_task_btn);
-        cancel_btn = findViewById(R.id.cancel_btn);
 
         date_picker_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DialogFragment datePicker = new DataPickerFragment();
                 datePicker.show(getSupportFragmentManager(), "date picker");
-            }
-        });
-
-        cancel_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(NewTask.this, "Task cancelled", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(NewTask.this,MainActivity.class));
             }
         });
 

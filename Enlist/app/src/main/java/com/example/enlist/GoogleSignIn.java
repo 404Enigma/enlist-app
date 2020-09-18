@@ -59,9 +59,7 @@ public class GoogleSignIn extends AppCompatActivity {
                     Toast.makeText(GoogleSignIn.this, "Enter PRN", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                   // Source.main_PRN = Long.parseLong(editText_PRN.getText().toString());
                     Source.main_PRN = Long.parseLong(String.valueOf(editText_PRN.getText()));
-                    //Source.main_PRN = editText_PRN.getText().toString();
                     signIn();
                 }
             }
