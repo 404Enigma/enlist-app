@@ -49,26 +49,6 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionButton new_task_btn;
 
     @Override
-    public void onBackPressed() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setMessage("Are you sure you want to close the application?").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                MainActivity.this.finishAffinity();
-            }
-        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.cancel();
-            }
-        });
-
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-    }
-
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -170,8 +150,8 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (menuItem.getItemId()){
                     case R.id.nav_setting:
-                        /*startActivity(new Intent(getApplicationContext(),NavBarSetting.class));
-                        overridePendingTransition(0,0);*/
+                        startActivity(new Intent(getApplicationContext(),NavBarSetting.class));
+                        overridePendingTransition(0,0);
                         return true;
                     case R.id.nav_double_tick:
                         return true;
