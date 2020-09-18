@@ -73,7 +73,7 @@ public class NavBarSetting extends AppCompatActivity {
             }
         });
 
-        bottomNavigationView.setSelectedItemId(R.id.nav_double_tick);
+        bottomNavigationView.setSelectedItemId(R.id.nav_setting);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

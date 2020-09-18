@@ -37,14 +37,12 @@ import java.util.Calendar;
 
 public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
 
-    //Floa add_task_btn1,add_task_btn2;
-
     String currentDateString;
     MediaPlayer done_player,delete_player;
 
     EditText titlee, descriptionn;
     TextView deadlinee;
-    Button update_btn,delete_btn,done_btn;
+    com.google.android.material.floatingactionbutton.FloatingActionButton done_btn;
     ImageButton date_picker_btn;
 
     DatabaseReference reference;
@@ -54,17 +52,14 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_task);
 
-        FloatingActionButton add_task_btn1 = findViewById(R.id.add_task_btn1);
-        FloatingActionButton add_task_btn2 = findViewById(R.id.add_task_btn2);
-        FloatingActionsMenu lol = findViewById(R.id.lol);
+        FloatingActionButton add_task_btn1 = findViewById(R.id.delete_btn);
+        FloatingActionButton add_task_btn2 = findViewById(R.id.update_btn);
 
         titlee = findViewById(R.id.title_editText);
         descriptionn = findViewById(R.id.description_editText);
         deadlinee = findViewById(R.id.deadline_textView);
 
         date_picker_btn = findViewById(R.id.open_picker);
-        update_btn = findViewById(R.id.update_btn);
-        delete_btn = findViewById(R.id.delete_btn);
         done_btn = findViewById(R.id.done_btn);
 
         done_player = MediaPlayer.create(EditTask.this,R.raw.done_effect);
@@ -79,34 +74,6 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
         add_task_btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(EditTask.this, "lol", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        add_task_btn2.setIcon(R.drawable.ic_refresh);
-
-        add_task_btn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(EditTask.this, "02", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        date_picker_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                closeKeyboard();
-                DialogFragment datePicker = new DataPickerFragment();
-                datePicker.show(getSupportFragmentManager(), "date picker");
-            }
-        });
-
-        reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child(Source.main_user_uid).child(Source.main_class_group).child("Task" + keyy);
-
-        delete_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
                 AlertDialog.Builder builder = new AlertDialog.Builder(EditTask.this);
                 builder.setMessage("Are you sure you want to delete the current task").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
@@ -139,9 +106,60 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
 
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
-
             }
         });
+
+        add_task_btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(EditTask.this);
+                builder.setMessage("Are you sure you want to update the current task").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        reference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                snapshot.getRef().child("title").setValue(titlee.getText().toString());
+                                snapshot.getRef().child("description").setValue(descriptionn.getText().toString());
+                                snapshot.getRef().child("deadline").setValue(deadlinee.getText().toString());
+                                snapshot.getRef().child("key").setValue(keyy);
+
+                                Toast.makeText(EditTask.this, "Task Updated", Toast.LENGTH_SHORT).show();
+                                Intent intent1 = new Intent(EditTask.this,MainActivity.class);
+                                startActivity(intent1);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                        });
+
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(EditTask.this, "Task not updated", Toast.LENGTH_SHORT).show();
+                        dialogInterface.cancel();
+                    }
+                });
+
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+            }
+        });
+
+        date_picker_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                closeKeyboard();
+                DialogFragment datePicker = new DataPickerFragment();
+                datePicker.show(getSupportFragmentManager(), "date picker");
+            }
+        });
+
+        reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child(Source.main_user_uid).child(Source.main_class_group).child("Task" + keyy);
 
         done_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -178,48 +196,6 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
 
-            }
-        });
-
-        update_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(EditTask.this);
-                builder.setMessage("Are you sure you want to update the current task").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                        reference.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                                snapshot.getRef().child("title").setValue(titlee.getText().toString());
-                                snapshot.getRef().child("description").setValue(descriptionn.getText().toString());
-                                snapshot.getRef().child("deadline").setValue(deadlinee.getText().toString());
-                                snapshot.getRef().child("key").setValue(keyy);
-
-                                Toast.makeText(EditTask.this, "Task Updated", Toast.LENGTH_SHORT).show();
-                                Intent intent1 = new Intent(EditTask.this,MainActivity.class);
-                                startActivity(intent1);
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                            }
-                        });
-
-                    }
-                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(EditTask.this, "Task not updated", Toast.LENGTH_SHORT).show();
-                        dialogInterface.cancel();
-                    }
-                });
-
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
             }
         });
     }
