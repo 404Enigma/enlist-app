@@ -26,7 +26,7 @@ public class NavBarSetting extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
 
     ListView settings_listView;
-    String[] items = {"Profile","Class Group","Log out"};
+    String[] items = {"Profile","Log out"};
     MyAdapter adapter;
 
     private GoogleSignInClient mGoogleSignInClient;
@@ -87,6 +87,10 @@ public class NavBarSetting extends AppCompatActivity {
                 switch (menuItem.getItemId()){
                     case R.id.nav_double_tick:
                         startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.nav_class_group:
+                        startActivity(new Intent(getApplicationContext(),StudentGroup.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.nav_setting:

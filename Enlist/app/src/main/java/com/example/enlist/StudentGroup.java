@@ -8,9 +8,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -18,6 +21,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class StudentGroup extends AppCompatActivity {
+
+    BottomNavigationView bottomNavigationView;
+
+    Integer flag=0;
 
     Button b_btn,b1_btn,b2_btn,b3_btn;
     DatabaseReference source_reference;
@@ -46,6 +53,8 @@ public class StudentGroup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_group);
 
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+
         b_btn = findViewById(R.id.b_btn);
         b1_btn = findViewById(R.id.b1_btn);
         b2_btn = findViewById(R.id.b2_btn);
@@ -68,6 +77,7 @@ public class StudentGroup extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Source.main_class_group="B";
+                flag=1;
                 startActivity(new Intent(StudentGroup.this,MainActivity.class));
             }
         });
@@ -76,6 +86,7 @@ public class StudentGroup extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Source.main_class_group="B1";
+                flag=1;
                 startActivity(new Intent(StudentGroup.this,MainActivity.class));
             }
         });
@@ -84,6 +95,7 @@ public class StudentGroup extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Source.main_class_group="B2";
+                flag=1;
                 startActivity(new Intent(StudentGroup.this,MainActivity.class));
             }
         });
@@ -92,7 +104,42 @@ public class StudentGroup extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Source.main_class_group="B3";
+                flag=1;
                 startActivity(new Intent(StudentGroup.this,MainActivity.class));
+            }
+        });
+
+        bottomNavigationView.setSelectedItemId(R.id.nav_class_group);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+                switch (menuItem.getItemId()){
+                    case R.id.nav_setting:
+                        if(flag==0){
+                            Toast.makeText(StudentGroup.this, "Choose Class Group First", Toast.LENGTH_SHORT).show();
+                            return false;
+                        }
+                        else if(flag==1){
+                            startActivity(new Intent(getApplicationContext(),NavBarSetting.class));
+                            overridePendingTransition(0,0);
+                            return true;
+                        }
+                    case R.id.nav_class_group:
+                        return true;
+                    case R.id.nav_double_tick:
+                        if(flag==0){
+                            Toast.makeText(StudentGroup.this, "Choose Class Group First", Toast.LENGTH_SHORT).show();
+                            return false;
+                        }
+                        else if(flag==1){
+                            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                            overridePendingTransition(0,0);
+                            return true;
+                        }
+                }
+                return false;
             }
         });
     }
