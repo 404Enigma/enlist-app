@@ -50,6 +50,7 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
             public void onClick(DialogInterface dialogInterface, int i) {
                 Toast.makeText(NewTask.this, "Task cancelled", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(NewTask.this,MainActivity.class));
+                finish();
             }
         }).setNegativeButton("No, wait", new DialogInterface.OnClickListener() {
             @Override
@@ -78,8 +79,23 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
         back_arrow_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(NewTask.this,MainActivity.class));
-                finish();
+                AlertDialog.Builder builder = new AlertDialog.Builder(NewTask.this);
+                builder.setMessage("Are you sure you want to discard the current task?").setCancelable(false).setPositiveButton("Discard", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(NewTask.this, "Task cancelled", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(NewTask.this,MainActivity.class));
+                        finish();
+                    }
+                }).setNegativeButton("No, wait", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
             }
         });
 

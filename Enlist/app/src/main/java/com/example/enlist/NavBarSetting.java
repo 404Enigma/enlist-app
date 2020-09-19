@@ -2,9 +2,11 @@ package com.example.enlist;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -33,10 +35,25 @@ public class NavBarSetting extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        return;
+        AlertDialog.Builder builder = new AlertDialog.Builder(NavBarSetting.this);
+        builder.setMessage("Are you sure you want to close the application?").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                NavBarSetting.this.finishAffinity();
+            }
+        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
-    @Override
+
+        @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nav_bar_setting);
@@ -87,10 +104,6 @@ public class NavBarSetting extends AppCompatActivity {
                 switch (menuItem.getItemId()){
                     case R.id.nav_double_tick:
                         startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.nav_class_group:
-                        startActivity(new Intent(getApplicationContext(),StudentGroup.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.nav_setting:

@@ -48,10 +48,11 @@ public class MainActivity extends AppCompatActivity {
 
     //SearchView searchView;
     FloatingActionButton new_task_btn;
+    ImageButton back_arrow_btn;
 
     @Override
     public void onBackPressed() {
-       startActivity(new Intent(MainActivity.this,StudentGroup.class));
+        startActivity(new Intent(MainActivity.this,StudentGroup.class));
     }
 
     @Override
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
+        back_arrow_btn = findViewById(R.id.back_arrow_btn);
         new_task_btn = findViewById(R.id.new_task_btn);
         //editText_search = findViewById(R.id.editText_search);
         //searchView = findViewById(R.id.search_view);
@@ -87,6 +89,14 @@ public class MainActivity extends AppCompatActivity {
                 filter(editable.toString());
             }
         });*/
+
+        back_arrow_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,StudentGroup.class));
+                finish();
+            }
+        });
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -160,10 +170,6 @@ public class MainActivity extends AppCompatActivity {
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.nav_double_tick:
-                        return true;
-                    case R.id.nav_class_group:
-                        startActivity(new Intent(getApplicationContext(),StudentGroup.class));
-                        overridePendingTransition(0,0);
                         return true;
                 }
                 return false;

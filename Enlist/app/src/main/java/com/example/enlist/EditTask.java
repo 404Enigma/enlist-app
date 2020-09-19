@@ -55,6 +55,7 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
             public void onClick(DialogInterface dialogInterface, int i) {
                 Toast.makeText(EditTask.this, "Task cancelled", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(EditTask.this,MainActivity.class));
+                finish();
             }
         }).setNegativeButton("No, wait", new DialogInterface.OnClickListener() {
             @Override
@@ -95,8 +96,23 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
         back_arrow_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(EditTask.this,MainActivity.class));
-                finish();
+                AlertDialog.Builder builder = new AlertDialog.Builder(EditTask.this);
+                builder.setMessage("Are you sure you want to discard the current task?").setCancelable(false).setPositiveButton("Discard", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(EditTask.this, "Task cancelled", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(EditTask.this,MainActivity.class));
+                        finish();
+                    }
+                }).setNegativeButton("No, wait", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
             }
         });
 
