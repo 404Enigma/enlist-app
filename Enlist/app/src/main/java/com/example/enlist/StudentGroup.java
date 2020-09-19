@@ -23,7 +23,6 @@ import com.google.firebase.database.ValueEventListener;
 public class StudentGroup extends AppCompatActivity {
 
     Button b_btn,b1_btn,b2_btn,b3_btn;
-    DatabaseReference source_reference;
 
     @Override
     public void onBackPressed() {
@@ -96,27 +95,6 @@ public class StudentGroup extends AppCompatActivity {
             public void onClick(View view) {
                 Source.main_class_group="B3";
                 startActivity(new Intent(StudentGroup.this,MainActivity.class));
-            }
-        });
-    }
-
-    private void source_insert_uid() {
-
-        source_reference = FirebaseDatabase.getInstance().getReference().child("Source");
-
-        source_reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                snapshot.getRef().child(Source.main_user_uid).setValue(Source.main_user_uid);
-                if(!snapshot.exists()){
-                    Source.main_count_users+=1;
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.d("lol","task added failed");
             }
         });
     }
