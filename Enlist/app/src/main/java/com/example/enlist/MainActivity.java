@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -47,6 +48,12 @@ public class MainActivity extends AppCompatActivity {
 
     //SearchView searchView;
     FloatingActionButton new_task_btn;
+    ImageButton back_arrow_btn;
+
+    @Override
+    public void onBackPressed() {
+       startActivity(new Intent(MainActivity.this,StudentGroup.class));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         //editText_search = findViewById(R.id.editText_search);
         //searchView = findViewById(R.id.search_view);
 
+        back_arrow_btn = findViewById(R.id.back_arrow_btn);
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
         list = new ArrayList<DataItem>();
@@ -81,6 +89,14 @@ public class MainActivity extends AppCompatActivity {
                 filter(editable.toString());
             }
         });*/
+
+        back_arrow_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,StudentGroup.class));
+                finish();
+            }
+        });
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))

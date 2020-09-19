@@ -32,6 +32,11 @@ public class NavBarSetting extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
 
     @Override
+    public void onBackPressed() {
+        return;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nav_bar_setting);

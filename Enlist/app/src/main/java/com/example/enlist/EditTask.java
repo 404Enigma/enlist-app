@@ -43,17 +43,37 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
     EditText titlee, descriptionn;
     TextView deadlinee;
     com.google.android.material.floatingactionbutton.FloatingActionButton done_btn;
-    ImageButton date_picker_btn;
+    ImageButton date_picker_btn,back_arrow_btn;
 
     DatabaseReference reference;
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(EditTask.this);
+        builder.setMessage("Are you sure you want to discard the current task?").setCancelable(false).setPositiveButton("Discard", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(EditTask.this, "Task cancelled", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(EditTask.this,MainActivity.class));
+            }
+        }).setNegativeButton("No, wait", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_task);
 
-        FloatingActionButton add_task_btn1 = findViewById(R.id.delete_btn);
-        FloatingActionButton add_task_btn2 = findViewById(R.id.update_btn);
+        FloatingActionButton delete_btn = findViewById(R.id.delete_btn);
+        FloatingActionButton update_btn = findViewById(R.id.update_btn);
 
         titlee = findViewById(R.id.title_editText);
         descriptionn = findViewById(R.id.description_editText);
@@ -61,6 +81,7 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
 
         date_picker_btn = findViewById(R.id.open_picker);
         done_btn = findViewById(R.id.done_btn);
+        back_arrow_btn = findViewById(R.id.back_arrow_btn);
 
         done_player = MediaPlayer.create(EditTask.this,R.raw.done_effect);
         delete_player = MediaPlayer.create(EditTask.this,R.raw.delete_effect);
@@ -71,7 +92,15 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
 
         final String keyy = getIntent().getStringExtra("key_extra");
 
-        add_task_btn1.setOnClickListener(new View.OnClickListener() {
+        back_arrow_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(EditTask.this,MainActivity.class));
+                finish();
+            }
+        });
+
+        delete_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(EditTask.this);
@@ -87,6 +116,7 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
                                     Toast.makeText(EditTask.this, "Task deleted", Toast.LENGTH_SHORT).show();
                                     delete_player.start();
                                     startActivity(new Intent(EditTask.this,MainActivity.class));
+                                    finish();
                                 }
                                 else{
                                     Log.d("lol","delete failed");
@@ -109,7 +139,7 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
             }
         });
 
-        add_task_btn2.setOnClickListener(new View.OnClickListener() {
+        update_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(EditTask.this);
@@ -129,6 +159,7 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
                                 Toast.makeText(EditTask.this, "Task Updated", Toast.LENGTH_SHORT).show();
                                 Intent intent1 = new Intent(EditTask.this,MainActivity.class);
                                 startActivity(intent1);
+                                finish();
                             }
 
                             @Override
@@ -177,6 +208,7 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
                                     Toast.makeText(EditTask.this, "Task completed", Toast.LENGTH_SHORT).show();
                                     done_player.start();
                                     startActivity(new Intent(EditTask.this,MainActivity.class));
+                                    finish();
                                 }
                                 else{
                                     Toast.makeText(EditTask.this, "Failed", Toast.LENGTH_SHORT).show();

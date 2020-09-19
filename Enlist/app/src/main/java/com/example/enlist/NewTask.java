@@ -35,7 +35,7 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
 
     EditText title_editText, description_editText;
     TextView  deadline_textView;
-    ImageButton date_picker_btn;
+    ImageButton date_picker_btn,back_arrow_btn;
     FloatingActionButton add_task_btn;
 
     DatabaseReference reference,users_reference;
@@ -70,9 +70,18 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
         title_editText = findViewById(R.id.title_editText);
         description_editText = findViewById(R.id.description_editText);
         deadline_textView = findViewById(R.id.deadline_textView);
+        back_arrow_btn = findViewById(R.id.back_arrow_btn);
 
         date_picker_btn = findViewById(R.id.open_picker);
         add_task_btn = findViewById(R.id.add_task_btn);
+
+        back_arrow_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(NewTask.this,MainActivity.class));
+                finish();
+            }
+        });
 
         date_picker_btn.setOnClickListener(new View.OnClickListener() {
             @Override

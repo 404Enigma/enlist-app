@@ -9,22 +9,54 @@
     android:padding="20dp"
     tools:context=".NewTask">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:fontFamily="@font/teko_semibold"
-        android:text="Edit Task"
-        android:textAllCaps="true"
-        android:textColor="#f80022"
-        android:textSize="40sp"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
+        app:layout_constraintVertical_bias="0.026">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/back_arrow_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:src="@drawable/icons_back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.512" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/teko_semibold"
+                android:gravity="center"
+                android:text="Edit Task"
+                android:textAllCaps="true"
+                android:textColor="#f80022"
+                android:textSize="40sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textView4"
@@ -48,7 +80,7 @@
         android:layout_marginTop="10dp"
         android:fontFamily="@font/ubuntu_light"
         android:hint="Enter title of the task"
-        android:maxLength="10"
+        android:maxLength="20"
         android:textColor="#ffffff"
         android:textColorHint="#ffffff"
         android:textSize="17sp"
@@ -82,7 +114,7 @@
         android:layout_marginTop="10dp"
         android:fontFamily="@font/ubuntu_light"
         android:hint="Enter description of the task"
-        android:maxLength="20"
+        android:maxLength="30"
         android:textColor="#ffffff"
         android:textColorHint="#ffffff"
         android:textSize="17sp"
@@ -109,6 +141,7 @@
         app:layout_constraintVertical_bias="0.495" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -165,6 +198,7 @@
         app:layout_constraintVertical_bias="0.99" />
 
     <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/floatingActionsMenu"
         android:layout_width="-250dp"
         android:layout_height="234dp"
         app:fab_addButtonColorNormal="@color/colorPrimary"
@@ -181,17 +215,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_icon_trash_can"
+            app:fabCustomSize="@dimen/fab_size_normal"
             app:fab_colorNormal="#ffffff"
             app:fab_size="normal"
-            app:fabCustomSize="@dimen/fab_size_normal"
             app:fab_title="Fab Action3213213" />
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/update_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="5dp"
             android:padding="20dp"
+            android:paddingBottom="5dp"
             android:src="@drawable/ic_exchange"
             app:fab_colorNormal="#ffffff"
             app:fab_size="normal"
