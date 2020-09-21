@@ -82,7 +82,7 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Toast.makeText(EditTask.this, "Task cancelled", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(EditTask.this,MainActivity.class));
+               // startActivity(new Intent(EditTask.this,MainActivity.class));
                 finish();
             }
         }).setNegativeButton("No, wait", new DialogInterface.OnClickListener() {
@@ -129,7 +129,7 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Toast.makeText(EditTask.this, "Task cancelled", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(EditTask.this,MainActivity.class));
+                       // startActivity(new Intent(EditTask.this,MainActivity.class));
                         finish();
                     }
                 }).setNegativeButton("No, wait", new DialogInterface.OnClickListener() {
@@ -158,7 +158,7 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
                                 if(task.isSuccessful()){
                                     Toast.makeText(EditTask.this, "Task deleted", Toast.LENGTH_SHORT).show();
                                     delete_player.start();
-                                    startActivity(new Intent(EditTask.this,MainActivity.class));
+                                    //startActivity(new Intent(EditTask.this,MainActivity.class));
                                     finish();
                                 }
                                 else{
@@ -242,7 +242,7 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
                                 if(task.isSuccessful()){
                                     Toast.makeText(EditTask.this, "Well done", Toast.LENGTH_SHORT).show();
                                     done_player.start();
-                                    startActivity(new Intent(EditTask.this,MainActivity.class));
+                                   // startActivity(new Intent(EditTask.this,MainActivity.class));
                                     finish();
                                 }
                                 else{

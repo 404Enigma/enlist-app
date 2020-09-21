@@ -10,6 +10,7 @@
     tools:context=".MainActivity">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -21,9 +22,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:paddingRight="20dp"
+            android:layout_height="wrap_content"
             android:paddingLeft="20dp"
-            android:layout_height="wrap_content">
+            android:paddingRight="20dp">
 
             <ImageButton
                 android:id="@+id/back_arrow_btn"
@@ -36,16 +37,15 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.512" />
+                app:layout_constraintVertical_bias="0.45" />
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:fontFamily="@font/teko_semibold"
                 android:gravity="center"
-                android:text="All Tasks"
+                android:text="@string/all_tasks"
                 android:textAllCaps="true"
                 android:textColor="#f80022"
                 android:textSize="40sp"
@@ -85,9 +85,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.142" />-->
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <TextView
+        android:id="@+id/class_group_textView"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ubuntu_bold"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -95,7 +99,20 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.447">
+        app:layout_constraintVertical_bias="0.157" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="380dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.498">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"

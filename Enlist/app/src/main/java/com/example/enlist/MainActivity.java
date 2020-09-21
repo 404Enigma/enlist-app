@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -39,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
 
+    TextView class_group_textView;
+
     // private EditText editText_search;
      int flag1=0,flag2=0;
 
@@ -53,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(MainActivity.this, StudentGroup.class));
+      //  startActivity(new Intent(MainActivity.this, StudentGroup.class));
+        finish();
     }
 
     @Override
@@ -64,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
         Log.d("lol", "lol4");
 
         Log.d("qwe", "Create");
+
+        class_group_textView = findViewById(R.id.class_group_textView);
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
@@ -94,10 +100,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });*/
 
+        class_group_textView.setText(String.format("Class %s", Source.main_class_group));
+
         back_arrow_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, StudentGroup.class));
+              // startActivity(new Intent(MainActivity.this, StudentGroup.class));
                 finish();
             }
         });
@@ -165,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, NewTask.class));
-                //finish();
+                finish();
             }
         });
 
@@ -238,6 +246,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("qwe", "Destroy");
+    }
+
     public void onPause() {
         super.onPause();
         flag1=1;
@@ -255,6 +269,8 @@ public class MainActivity extends AppCompatActivity {
         Log.d("qwe", "Start");
 
 
+
+
          //recyclerView.setAdapter(itemAdapter);
     }
 
@@ -267,6 +283,8 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         Log.d("qwe", "Resume");
+
+
 
         //recyclerView.setAdapter(itemAdapter);
     }

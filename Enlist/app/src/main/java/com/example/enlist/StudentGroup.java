@@ -23,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 public class StudentGroup extends AppCompatActivity {
 
     Button b_btn,b1_btn,b2_btn,b3_btn;
+    private static final String TAG = "StudentGroup";
 
     @Override
     public void onBackPressed() {
@@ -47,6 +48,8 @@ public class StudentGroup extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_group);
+
+        Log.d(TAG, "onCreate");
 
         b_btn = findViewById(R.id.b_btn);
         b1_btn = findViewById(R.id.b1_btn);
@@ -77,7 +80,7 @@ public class StudentGroup extends AppCompatActivity {
             public void onClick(View view) {
                 Source.main_class_group="B";
                 startActivity(new Intent(StudentGroup.this,MainActivity.class));
-                finish();
+             //   finish();
             }
         });
 
@@ -85,8 +88,9 @@ public class StudentGroup extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Source.main_class_group="B1";
+
                 startActivity(new Intent(StudentGroup.this,MainActivity.class));
-                finish();
+               // finish();
             }
         });
 
@@ -95,7 +99,7 @@ public class StudentGroup extends AppCompatActivity {
             public void onClick(View view) {
                 Source.main_class_group="B2";
                 startActivity(new Intent(StudentGroup.this,MainActivity.class));
-                finish();
+               // finish();
             }
         });
 
@@ -104,8 +108,38 @@ public class StudentGroup extends AppCompatActivity {
             public void onClick(View view) {
                 Source.main_class_group="B3";
                 startActivity(new Intent(StudentGroup.this,MainActivity.class));
-                finish();
+                //finish();
             }
         });
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d(TAG, "onRestart: ");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart: ");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop: ");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause: ");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy: ");
     }
 }

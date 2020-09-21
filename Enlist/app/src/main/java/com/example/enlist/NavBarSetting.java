@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,10 +26,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class NavBarSetting extends AppCompatActivity {
 
+    private static final String TAG = "NavBarSetting";
+
     BottomNavigationView bottomNavigationView;
 
     ListView settings_listView;
-    String[] items = {"Profile","Class group","Log out"};
+    String[] items = {"Profile","Log out"};
     MyAdapter adapter;
 
     private GoogleSignInClient mGoogleSignInClient;
@@ -39,7 +42,6 @@ public class NavBarSetting extends AppCompatActivity {
         builder.setMessage("Are you sure you want to close the application?").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                NavBarSetting.this.finishAffinity();
             }
         }).setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
@@ -57,6 +59,8 @@ public class NavBarSetting extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nav_bar_setting);
+
+            Log.d(TAG, "onCreate: ");
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -80,12 +84,12 @@ public class NavBarSetting extends AppCompatActivity {
                         Toast.makeText(NavBarSetting.this, "Profile", Toast.LENGTH_SHORT).show();
                         break;
                     }
+//                    case 1:{
+//                        startActivity(new Intent(NavBarSetting.this, StudentGroup.class));
+//                        finish();
+//                        break;
+//                    }
                     case 1:{
-                        startActivity(new Intent(NavBarSetting.this, StudentGroup.class));
-                        finish();
-                        break;
-                    }
-                    case 2:{
                         mGoogleSignInClient.signOut();
                         Source.flag=0;
                         Toast.makeText(NavBarSetting.this, "You are logged out", Toast.LENGTH_SHORT).show();
@@ -105,7 +109,7 @@ public class NavBarSetting extends AppCompatActivity {
 
                 switch (menuItem.getItemId()){
                     case R.id.nav_double_tick:
-                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                        startActivity(new Intent(NavBarSetting.this,MainActivity.class));
                         finish();
                         overridePendingTransition(0,0);
                         return true;
@@ -120,9 +124,9 @@ public class NavBarSetting extends AppCompatActivity {
     class MyAdapter extends ArrayAdapter<String> {
 
         Context context;
-        String mHeading[];
+        String[] mHeading;
 
-        MyAdapter (Context c,String Heading[]){
+        MyAdapter (Context c, String[] Heading){
             super(c,R.layout.custom_list_view_settings,items);
             this.context = c;
             this.mHeading = Heading;
@@ -139,5 +143,35 @@ public class NavBarSetting extends AppCompatActivity {
 
             return row;
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart: ");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop: ");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy: ");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause: ");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d(TAG, "onRestart: ");
     }
 }

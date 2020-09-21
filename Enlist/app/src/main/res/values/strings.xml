@@ -8,4 +8,5 @@
     <string name="deadline">Deadline</string>
     <string name="select_the_deadline_of_the_task">Select the deadline of the task</string>
     <string name="add_task">Add Task</string>
+    <string name="all_tasks">All Tasks</string>
 </resources>

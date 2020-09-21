@@ -34,7 +34,9 @@ import java.util.Random;
 
 public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
-    String currentDateString,kkk,splited[];
+    String currentDateString;
+    String kkk;
+    String[] splited;
 
     EditText title_editText, description_editText;
     TextView  deadline_textView;
@@ -53,7 +55,7 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Toast.makeText(NewTask.this, "Task cancelled", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(NewTask.this,MainActivity.class));
+              //  startActivity(new Intent(NewTask.this,MainActivity.class));
                 finish();
             }
         }).setNegativeButton("No, wait", new DialogInterface.OnClickListener() {
@@ -88,7 +90,7 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Toast.makeText(NewTask.this, "Task cancelled", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(NewTask.this,MainActivity.class));
+                        //startActivity(new Intent(NewTask.this,MainActivity.class));
                         finish();
                     }
                 }).setNegativeButton("No, wait", new DialogInterface.OnClickListener() {
