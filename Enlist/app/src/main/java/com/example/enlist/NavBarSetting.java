@@ -28,7 +28,7 @@ public class NavBarSetting extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
 
     ListView settings_listView;
-    String[] items = {"Profile","Log out"};
+    String[] items = {"Profile","Class group","Log out"};
     MyAdapter adapter;
 
     private GoogleSignInClient mGoogleSignInClient;
@@ -82,6 +82,7 @@ public class NavBarSetting extends AppCompatActivity {
                     }
                     case 1:{
                         startActivity(new Intent(NavBarSetting.this, StudentGroup.class));
+                        finish();
                         break;
                     }
                     case 2:{
@@ -89,6 +90,7 @@ public class NavBarSetting extends AppCompatActivity {
                         Source.flag=0;
                         Toast.makeText(NavBarSetting.this, "You are logged out", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(NavBarSetting.this, GoogleSignIn.class));
+                        finish();
                         break;
                     }
                 }
@@ -104,6 +106,7 @@ public class NavBarSetting extends AppCompatActivity {
                 switch (menuItem.getItemId()){
                     case R.id.nav_double_tick:
                         startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                        finish();
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.nav_setting:

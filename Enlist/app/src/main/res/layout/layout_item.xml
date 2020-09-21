@@ -9,84 +9,55 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginRight="10dp"
-        android:orientation="horizontal" >
-
-     <!--   <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="•"
-            android:textColor="#ffffff"
-            android:layout_gravity="center"
-            android:textSize="30sp" /> -->
+        android:orientation="horizontal"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_weight="70"
-            android:layout_marginLeft="10dp"
             android:layout_height="match_parent"
-            android:orientation="horizontal" >
+            android:layout_weight="70"
+            android:orientation="horizontal"
+            android:paddingStart="5dp"
+            android:paddingEnd="0dp">
 
             <TextView
                 android:id="@+id/title_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Title:"
-                android:fontFamily="@font/ubuntu_bold"
-                android:textColor="#ffffff"
-                android:layout_marginStart="10dp"
                 android:layout_gravity="center"
+                android:fontFamily="@font/ubuntu_bold"
+                android:text="Title:"
+                android:textColor="#ffffff"
                 android:textSize="22sp" />
 
             <TextView
                 android:id="@+id/description_layout"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:visibility="invisible"/>
+                android:visibility="invisible" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_weight="90"
-            android:layout_height="match_parent" >
+            android:paddingStart="15dp"
+            android:paddingEnd="0dp">
 
             <TextView
                 android:id="@+id/deadline_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Deadline"
                 android:fontFamily="@font/ubuntu_bold"
+                android:text="Deadline"
                 android:textColor="#ffffff"
                 android:textSize="22sp" />
 
         </LinearLayout>
 
-
     </LinearLayout>
-
-
-
-
-
-
-
-
-
-
-   <!-- <TextView
-        android:id="@+id/description_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Description: "
-        android:textSize="22sp" />
-
-    <TextView
-        android:id="@+id/deadline_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Deadline"
-        android:textSize="22sp" />  -->
 
 </LinearLayout>

@@ -124,15 +124,20 @@ public class GoogleSignIn extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            Toast.makeText(GoogleSignIn.this, "Successful", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(GoogleSignIn.this, StudentGroup.class));
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
-                            if(Source.main_user_email.equals("sitpune.edu.in")){
+                            finish();
+                       /*     if(Source.main_user_email.equals("sitpune.edu.in")){
                                 Toast.makeText(GoogleSignIn.this, "Successful", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(GoogleSignIn.this, StudentGroup.class));
                             }
                             else{
                                 Toast.makeText(GoogleSignIn.this, "PLease login through B.Tech ID", Toast.LENGTH_SHORT).show();
-                            }
+                            }*/
+                        }
+                        else{
                             Toast.makeText(GoogleSignIn.this, "Failed", Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
@@ -152,11 +157,11 @@ public class GoogleSignIn extends AppCompatActivity {
             String personId = account.getId();
             Uri personPhoto = account.getPhotoUrl();
 
-            String qq[] = personEmail.split("@");
-            Source.main_user_email = qq[1];
-            Log.d("lol213",Source.main_user_email);
-
-            //Toast.makeText(GoogleSignIn.this, personName + " + " + personEmail + " + " + personId, Toast.LENGTH_SHORT).show();
+            if(personEmail != null){
+                String[] qq = personEmail.split("@");
+                Source.main_user_email = qq[1];
+            }
+            Toast.makeText(GoogleSignIn.this, personName + " + " + personEmail + " + " + personId, Toast.LENGTH_SHORT).show();
         }
     }
 }

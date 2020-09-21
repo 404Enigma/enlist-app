@@ -1,5 +1,6 @@
 package com.example.enlist;
 
+import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,9 +40,10 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
 
     private GoogleSignInClient mGoogleSignInClient;
-   // private EditText editText_search;
+    // private EditText editText_search;
+     int flag1=0,flag2=0;
 
-    DatabaseReference reference,source_reference,source_count_users;
+    DatabaseReference reference, source_reference;
     RecyclerView recyclerView;
     ArrayList<DataItem> list;
     ItemAdapter itemAdapter;
@@ -52,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(MainActivity.this,StudentGroup.class));
+        startActivity(new Intent(MainActivity.this, StudentGroup.class));
     }
 
     @Override
@@ -60,7 +62,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.d("lol","lol4");
+        Log.d("lol", "lol4");
+
+        Log.d("qwe", "Create");
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
@@ -70,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         //searchView = findViewById(R.id.search_view);
 
         recyclerView = findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+        recyclerView.setAdapter(null);
         list = new ArrayList<DataItem>();
 
        /* editText_search.addTextChangedListener(new TextWatcher() {
@@ -93,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         back_arrow_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,StudentGroup.class));
+                startActivity(new Intent(MainActivity.this, StudentGroup.class));
                 finish();
             }
         });
@@ -105,48 +109,66 @@ public class MainActivity extends AppCompatActivity {
 
         mGoogleSignInClient = com.google.android.gms.auth.api.signin.GoogleSignIn.getClient(MainActivity.this, gso);
 
-        FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         Source.main_user_uid = user.getUid();
-
-        reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child(Source.main_user_uid).child(Source.main_class_group);
 
         source_reference = FirebaseDatabase.getInstance().getReference().child("Source");
 
         if (Source.main_class_group.equals("B")) {
             source_reference = source_reference.child("B");
             source_ref();
-        }
-        else if (Source.main_class_group.equals("B1")) {
+        } else if (Source.main_class_group.equals("B1")) {
             source_reference = source_reference.child("B1");
             source_ref();
-        }
-        else if (Source.main_class_group.equals("B2")) {
+        } else if (Source.main_class_group.equals("B2")) {
             source_reference = source_reference.child("B2");
             source_ref();
-        }
-        else if (Source.main_class_group.equals("B3")) {
+        } else if (Source.main_class_group.equals("B3")) {
             source_reference = source_reference.child("B3");
             source_ref();
         }
 
+        reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child(Source.main_user_uid).child(Source.main_class_group);
+
+
+        Log.d("qwe","call karo value listener");
         reference.addValueEventListener(new ValueEventListener() {                  //Adding data in recycler view
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                for(DataSnapshot dataSnapshot: snapshot.getChildren())
-                {
-                    DataItem p = dataSnapshot.getValue(DataItem.class);
-                    list.add(p);
+                if(flag2 == 1 || flag1 == 0){
+                    flag2=0;
+                    Log.d("qwe","call karo1");
+
+                    for(DataSnapshot dataSnapshot: snapshot.getChildren())
+                    {
+                        Log.d("qwe","call karo2");
+                        DataItem p = dataSnapshot.getValue(DataItem.class);
+                        Log.d("qwe","call karo2.1");
+                        list.add(p);
+                        Log.d("qwe","call karo2.2");
+                    }
+
+                    Log.d("qwe","call karo3");
+                    itemAdapter = new ItemAdapter(MainActivity.this, list);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                /*LinearLayoutManager llm = new LinearLayoutManager(MainActivity.this);
+                llm.setOrientation(LinearLayoutManager.VERTICAL);*/
+                    recyclerView.setHasFixedSize(true);
+                    recyclerView.setAdapter(itemAdapter);
+                    itemAdapter.notifyDataSetChanged();
+                    flag1=1;
+//                    finish();
+//                    overridePendingTransition(0, 0);
+//                    startActivity(getIntent());
+//                    overridePendingTransition(0, 0);
+                    Log.d("qwe","call karo4");
                 }
-
-                itemAdapter = new ItemAdapter(MainActivity.this, list);
-                recyclerView.setAdapter(itemAdapter);
-                itemAdapter.notifyDataSetChanged();
-
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("qwe","call karo5");
                 Toast.makeText(MainActivity.this, "No data", Toast.LENGTH_SHORT).show();
             }
         });
@@ -155,6 +177,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, NewTask.class));
+                finish();
             }
         });
 
@@ -164,10 +187,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
-                switch (menuItem.getItemId()){
+                switch (menuItem.getItemId()) {
                     case R.id.nav_setting:
-                        startActivity(new Intent(getApplicationContext(),NavBarSetting.class));
-                        overridePendingTransition(0,0);
+                        startActivity(new Intent(getApplicationContext(), NavBarSetting.class));
+                        finish();
+                        overridePendingTransition(0, 0);
                         return true;
                     case R.id.nav_double_tick:
                         return true;
@@ -190,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });*/
 
-    }
+    }           //END onCreate
 
   /*  private void filter(String text) {
 
@@ -218,14 +242,42 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.d("lol","task added failed");
+                Log.d("lol", "task added failed");
             }
         });
 
     }
 
+    public void onPause() {
+        super.onPause();
+        flag1=1;
+        flag2=1;
+        Log.d("qwe", "Pause");
+    }
+
+    public void onStop() {
+        super.onStop();
+        Log.d("qwe", "Stop");
+    }
+
+    public void onStart() {
+        super.onStart();
+        Log.d("qwe", "Start");
+
+
+         //recyclerView.setAdapter(itemAdapter);
+    }
+
+    public void onRestart() {
+        super.onRestart();
+        Log.d("qwe", "Restart");
+        // recyclerView.setAdapter(itemAdapter);
+    }
+
     public void onResume() {
         super.onResume();
-        recyclerView.setAdapter(itemAdapter);
+        Log.d("qwe", "Resume");
+
+        //recyclerView.setAdapter(itemAdapter);
     }
 }

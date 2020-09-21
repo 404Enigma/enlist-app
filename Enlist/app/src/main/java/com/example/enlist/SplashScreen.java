@@ -1,10 +1,10 @@
 package com.example.enlist;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -14,21 +14,22 @@ public class SplashScreen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(android.R.style.Theme_DeviceDefault_Light_NoActionBar);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
 
         mAuth = FirebaseAuth.getInstance();
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(FirebaseAuth.getInstance().getCurrentUser() == null){
-                    startActivity(new Intent(SplashScreen.this, GoogleSignIn.class));
-                }
-                else{
-                    startActivity(new Intent(SplashScreen.this, StudentGroup.class));
-                }
+//                if(FirebaseAuth.getInstance().getCurrentUser() == null){
+//                    startActivity(new Intent(SplashScreen.this, GoogleSignIn.class));
+//                }
+//                else{
+//                    startActivity(new Intent(SplashScreen.this, StudentGroup.class));
+//                }
+                startActivity(new Intent(SplashScreen.this, GoogleSignIn.class));
                 finish();
             }
         },500);

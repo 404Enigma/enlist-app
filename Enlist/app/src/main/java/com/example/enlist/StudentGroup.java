@@ -65,12 +65,19 @@ public class StudentGroup extends AppCompatActivity {
             b1_btn.setEnabled(false);
             b2_btn.setEnabled(false);
         }
+        else{
+            b_btn.setEnabled(false);
+            b1_btn.setEnabled(false);
+            b2_btn.setEnabled(false);
+            b3_btn.setEnabled(false);
+        }
 
         b_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Source.main_class_group="B";
                 startActivity(new Intent(StudentGroup.this,MainActivity.class));
+                finish();
             }
         });
 
@@ -79,6 +86,7 @@ public class StudentGroup extends AppCompatActivity {
             public void onClick(View view) {
                 Source.main_class_group="B1";
                 startActivity(new Intent(StudentGroup.this,MainActivity.class));
+                finish();
             }
         });
 
@@ -87,6 +95,7 @@ public class StudentGroup extends AppCompatActivity {
             public void onClick(View view) {
                 Source.main_class_group="B2";
                 startActivity(new Intent(StudentGroup.this,MainActivity.class));
+                finish();
             }
         });
 
@@ -95,6 +104,7 @@ public class StudentGroup extends AppCompatActivity {
             public void onClick(View view) {
                 Source.main_class_group="B3";
                 startActivity(new Intent(StudentGroup.this,MainActivity.class));
+                finish();
             }
         });
     }
