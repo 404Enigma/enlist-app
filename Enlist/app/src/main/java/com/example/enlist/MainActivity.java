@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
 
-//    private GoogleSignInClient mGoogleSignInClient;
     // private EditText editText_search;
      int flag1=0,flag2=0;
 
@@ -103,13 +102,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//                .requestIdToken(getString(R.string.default_web_client_id))
-//                .requestEmail()
-//                .build();
-//
-//        mGoogleSignInClient = com.google.android.gms.auth.api.signin.GoogleSignIn.getClient(MainActivity.this, gso);
-
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         Source.main_user_uid = user.getUid();
 
@@ -158,10 +150,6 @@ public class MainActivity extends AppCompatActivity {
                     recyclerView.setAdapter(itemAdapter);
                     itemAdapter.notifyDataSetChanged();
                     flag1=1;
-//                    finish();
-//                    overridePendingTransition(0, 0);
-//                    startActivity(getIntent());
-//                    overridePendingTransition(0, 0);
                     Log.d("qwe","call karo4");
                 }
             }
@@ -177,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, NewTask.class));
-               // finish();
+                //finish();
             }
         });
 
@@ -280,6 +268,6 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         Log.d("qwe", "Resume");
 
-        recyclerView.setAdapter(itemAdapter);
+        //recyclerView.setAdapter(itemAdapter);
     }
 }

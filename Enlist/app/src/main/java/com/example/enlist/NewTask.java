@@ -158,7 +158,7 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
                                                  if(i.equals(qqq)){
                                                      Log.d("zzz","lol8");
                                                      Toast.makeText(NewTask.this, "Task added", Toast.LENGTH_SHORT).show();
-                                                    // startActivity(new Intent(NewTask.this, MainActivity.class));
+                                                     startActivity(new Intent(NewTask.this, MainActivity.class));
                                                      finish();
                                                  }
                                                  else{
