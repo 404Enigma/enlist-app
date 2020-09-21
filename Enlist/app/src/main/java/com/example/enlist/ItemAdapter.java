@@ -1,7 +1,9 @@
 package com.example.enlist;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,10 +29,13 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             return new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.layout_item,parent,false));
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull ItemAdapter.MyViewHolder ViewHolder , int position) {
+
+        Log.d("qwe","adapter1");
 
         ViewHolder.title.setText(dataItems.get(position).getTitle());
         ViewHolder.description.setText(dataItems.get(position).getDescription());
@@ -45,12 +50,16 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
         ViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                Log.d("qwe","adapter2");
                 Intent intent = new Intent(context, EditTask.class);
+
                 intent.putExtra("title_extra",getTitle_Layout);
                 intent.putExtra("description_extra",getDescription_Layout);
                 intent.putExtra("deadline_extra",getDeadline_Layout);
                 intent.putExtra("key_extra",getKey_Layout);
                 context.startActivity(intent);
+                ((Activity)context).finish();
             }
         });
     }
@@ -68,8 +77,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView title,description,deadline,key;
 
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+            Log.d("qwe","adapter3");
             title = itemView.findViewById(R.id.title_layout);
             description = itemView.findViewById(R.id.description_layout);
             deadline = itemView.findViewById(R.id.deadline_layout);

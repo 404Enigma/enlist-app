@@ -9,4 +9,8 @@
     <string name="select_the_deadline_of_the_task">Select the deadline of the task</string>
     <string name="add_task">Add Task</string>
     <string name="all_tasks">All Tasks</string>
+    <string name="organize_your_life_in_seconds">Organize your life in seconds</string>
+    <string name="enter_your_prn">Enter your PRN</string>
+    <string name="login_through_b_tech_id">(Login through B.Tech ID)</string>
+    <string name="welcome_to_enlist">Welcome to Enlist</string>
 </resources>

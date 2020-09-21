@@ -39,12 +39,12 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
     String[] splited;
 
     EditText title_editText, description_editText;
-    TextView  deadline_textView;
-    ImageButton date_picker_btn,back_arrow_btn;
+    TextView deadline_textView;
+    ImageButton date_picker_btn, back_arrow_btn;
     FloatingActionButton add_task_btn;
-    Integer qqq,i;
+    Integer qqq, i;
 
-    DatabaseReference reference,users_reference;
+    DatabaseReference reference, users_reference;
     Integer taskNumber = new Random().nextInt();
     String key_layout = Integer.toString(taskNumber);
 
@@ -55,7 +55,7 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Toast.makeText(NewTask.this, "Task cancelled", Toast.LENGTH_SHORT).show();
-              //  startActivity(new Intent(NewTask.this,MainActivity.class));
+                //  startActivity(new Intent(NewTask.this,MainActivity.class));
                 finish();
             }
         }).setNegativeButton("No, wait", new DialogInterface.OnClickListener() {
@@ -114,82 +114,80 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
             }
         });
 
-             add_task_btn.setOnClickListener(new View.OnClickListener() {
-                 @Override
-                 public void onClick(View view) {
+        add_task_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-                     if(TextUtils.isEmpty(title_editText.getText().toString())){
-                         Toast.makeText(NewTask.this, "Enter title", Toast.LENGTH_SHORT).show();
-                     }
+                if (TextUtils.isEmpty(title_editText.getText().toString())) {
+                    Toast.makeText(NewTask.this, "Enter title", Toast.LENGTH_SHORT).show();
+                }
                      /*else if(TextUtils.isEmpty(currentDateString)){
                          Toast.makeText(NewTask.this, "Enter deadline", Toast.LENGTH_SHORT).show();
                      }*/
-                     else {
-                            Log.d("zzz","lol1");
-                         users_reference = FirebaseDatabase.getInstance().getReference().child("Source").child(Source.main_class_group);
+                else {
+                    Log.d("zzz", "lol1");
+                    users_reference = FirebaseDatabase.getInstance().getReference().child("Source").child(Source.main_class_group);
 
-                         users_reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                             @Override
-                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                 Log.d("zzz","lol2");
-                                 kkk = "";
-                                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                    users_reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            Log.d("zzz", "lol2");
+                            kkk = "";
+                            for (DataSnapshot snapshot1 : snapshot.getChildren()) {
 
-                                     kkk += snapshot1.getKey() + " ";
-                                     Log.d("zzz","lol3");
-                                     String splited[] = kkk.split(" ");
-                                     qqq=splited.length;
-                                     Log.d("zzz","lol4");
+                                kkk += snapshot1.getKey() + " ";
+                                Log.d("zzz", "lol3");
+                                String[] splited = kkk.split(" ");
+                                qqq = splited.length;
+                                Log.d("zzz", "lol4");
 
-                                     for (i = 0; i < splited.length; i++) {
+                                for (i = 0; i < splited.length; i++) {
 
+                                    Log.d("zzz", "lol5");
+                                    reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child(splited[i]).child(Source.main_class_group).child("Task" + taskNumber);
 
-                                         Log.d("zzz","lol5");
-                                         reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child(splited[i]).child(Source.main_class_group).child("Task" + taskNumber);
+                                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            Log.d("zzz", "lol6");
+                                            snapshot.getRef().child("title").setValue(title_editText.getText().toString());
+                                            snapshot.getRef().child("description").setValue(description_editText.getText().toString());
+                                            snapshot.getRef().child("deadline").setValue(currentDateString);
+                                            snapshot.getRef().child("key").setValue(key_layout);
+                                            Log.d("zzz", "lol7");
 
-                                         reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                                             @Override
-                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                 Log.d("zzz","lol6");
-                                                 snapshot.getRef().child("title").setValue(title_editText.getText().toString());
-                                                 snapshot.getRef().child("description").setValue(description_editText.getText().toString());
-                                                 snapshot.getRef().child("deadline").setValue(currentDateString);
-                                                 snapshot.getRef().child("key").setValue(key_layout);
-                                                 Log.d("zzz","lol7");
+                                            if (i.equals(qqq)) {
+                                                Log.d("zzz", "lol8");
+                                                Toast.makeText(NewTask.this, "Task added", Toast.LENGTH_SHORT).show();
+                                                startActivity(new Intent(NewTask.this, MainActivity.class));
+                                                finish();
+                                            } else {
+                                                Log.d("zzz", String.valueOf(i));
+                                                Log.d("zzz", String.valueOf(qqq));
+                                                Log.d("zzz", "lol9");
+                                            }
+                                            Log.d("zzz", "lol10");
+                                        }
 
-                                                 if(i.equals(qqq)){
-                                                     Log.d("zzz","lol8");
-                                                     Toast.makeText(NewTask.this, "Task added", Toast.LENGTH_SHORT).show();
-                                                     startActivity(new Intent(NewTask.this, MainActivity.class));
-                                                     finish();
-                                                 }
-                                                 else{
-                                                     Log.d("zzz", String.valueOf(i));
-                                                     Log.d("zzz", String.valueOf(qqq));
-                                                     Log.d("zzz","lol9");
-                                                 }
-                                                 Log.d("zzz","lol10");
-                                             }
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
 
-                                             @Override
-                                             public void onCancelled(@NonNull DatabaseError error) {
+                                            Log.d("zzz", "lol11");
 
-                                                 Log.d("zzz","lol11");
+                                            Toast.makeText(NewTask.this, "Error adding", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }
+                            }
+                        }
 
-                                                 Toast.makeText(NewTask.this, "Error adding", Toast.LENGTH_SHORT).show();
-                                             }
-                                         });
-                                     }
-                                 }
-                             }
-
-                             @Override
-                             public void onCancelled(@NonNull DatabaseError error) {
-                             }
-                         });
-                     }
-                 }
-             });
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                        }
+                    });
+                }
+            }
+        });
     }
 
     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
@@ -205,9 +203,9 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
 
     private void closeKeyboard() {
         View view = NewTask.this.getCurrentFocus();
-        if( view != null){
-            InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(),0);
+        if (view != null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 }

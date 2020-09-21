@@ -158,7 +158,7 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
                                 if(task.isSuccessful()){
                                     Toast.makeText(EditTask.this, "Task deleted", Toast.LENGTH_SHORT).show();
                                     delete_player.start();
-                                    //startActivity(new Intent(EditTask.this,MainActivity.class));
+                                    startActivity(new Intent(EditTask.this,MainActivity.class));
                                     finish();
                                 }
                                 else{
@@ -181,6 +181,57 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
             }
         });
 
+        update_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(EditTask.this);
+                builder.setMessage("Are you sure you want to update the current task").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        reference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                snapshot.getRef().child("title").setValue(titlee.getText().toString());
+                                snapshot.getRef().child("description").setValue(descriptionn.getText().toString());
+                                snapshot.getRef().child("deadline").setValue(deadlinee.getText().toString());
+                                snapshot.getRef().child("key").setValue(keyy);
+
+                                new Handler().postDelayed(new Runnable() {
+
+                                    @Override
+                                    public void run() {
+                                        //Toast.makeText(EditTask.this, "Task Updated", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(EditTask.this,MainActivity.class));
+                                        finish();
+                                    }
+                                }, 1000 );
+
+//                                Toast.makeText(EditTask.this, "Task Updated", Toast.LENGTH_SHORT).show();
+//                                startActivity(new Intent(EditTask.this,MainActivity.class));
+//                                finish();
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                        });
+
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(EditTask.this, "Task not updated", Toast.LENGTH_SHORT).show();
+                        dialogInterface.cancel();
+                    }
+                });
+
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+            }
+        });
+
         /*update_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -192,8 +243,6 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
                         builder.setMessage("Are you sure you want to update the current task").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-
-
 
                             }
                         }).setNegativeButton("No", new DialogInterface.OnClickListener() {
