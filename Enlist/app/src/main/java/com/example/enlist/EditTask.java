@@ -40,30 +40,30 @@ import java.util.Calendar;
 
 public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
 
-    Handler handler = new Handler(){
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            reference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                    snapshot.getRef().child("title").setValue(titlee.getText().toString());
-                    snapshot.getRef().child("description").setValue(descriptionn.getText().toString());
-                    snapshot.getRef().child("deadline").setValue(deadlinee.getText().toString());
-                    snapshot.getRef().child("key").setValue(keyy);
-
-                    Toast.makeText(EditTask.this, "Task Updated", Toast.LENGTH_SHORT).show();
-                    Intent intent1 = new Intent(EditTask.this,MainActivity.class);
-                    startActivity(intent1);
-                    finish();
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                }
-            });
-        }
-    };
+//    Handler handler = new Handler(){
+//        @Override
+//        public void handleMessage(@NonNull Message msg) {
+//            reference.addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot snapshot) {
+//
+//                    snapshot.getRef().child("title").setValue(titlee.getText().toString());
+//                    snapshot.getRef().child("description").setValue(descriptionn.getText().toString());
+//                    snapshot.getRef().child("deadline").setValue(deadlinee.getText().toString());
+//                    snapshot.getRef().child("key").setValue(keyy);
+//
+//                    Toast.makeText(EditTask.this, "Task Updated", Toast.LENGTH_SHORT).show();
+//                    Intent intent1 = new Intent(EditTask.this,MainActivity.class);
+//                    startActivity(intent1);
+//                    finish();
+//                }
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError error) {
+//                }
+//            });
+//        }
+//    };
 
     String currentDateString,keyy;
     MediaPlayer done_player,delete_player;
@@ -181,7 +181,7 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
             }
         });
 
-        update_btn.setOnClickListener(new View.OnClickListener() {
+        /*update_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -205,7 +205,7 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
                         });
 
                         AlertDialog alertDialog = builder.create();
-                        alertDialog.show();*/
+                        alertDialog.show();
 
                         handler.sendEmptyMessage(0);
                     }
@@ -214,7 +214,7 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
                 Thread thread = new Thread(r);
                 thread.start();
             }
-        });
+        });*/
 
         date_picker_btn.setOnClickListener(new View.OnClickListener() {
             @Override

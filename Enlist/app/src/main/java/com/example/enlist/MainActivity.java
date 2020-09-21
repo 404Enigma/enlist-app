@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
 
-    private GoogleSignInClient mGoogleSignInClient;
+//    private GoogleSignInClient mGoogleSignInClient;
     // private EditText editText_search;
      int flag1=0,flag2=0;
 
@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setAdapter(null);
+        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
         list = new ArrayList<DataItem>();
 
        /* editText_search.addTextChangedListener(new TextWatcher() {
@@ -102,12 +103,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        mGoogleSignInClient = com.google.android.gms.auth.api.signin.GoogleSignIn.getClient(MainActivity.this, gso);
+//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                .requestIdToken(getString(R.string.default_web_client_id))
+//                .requestEmail()
+//                .build();
+//
+//        mGoogleSignInClient = com.google.android.gms.auth.api.signin.GoogleSignIn.getClient(MainActivity.this, gso);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         Source.main_user_uid = user.getUid();
@@ -130,7 +131,6 @@ public class MainActivity extends AppCompatActivity {
 
         reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child(Source.main_user_uid).child(Source.main_class_group);
 
-
         Log.d("qwe","call karo value listener");
         reference.addValueEventListener(new ValueEventListener() {                  //Adding data in recycler view
             @Override
@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
 
                     Log.d("qwe","call karo3");
                     itemAdapter = new ItemAdapter(MainActivity.this, list);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+//                    recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
                 /*LinearLayoutManager llm = new LinearLayoutManager(MainActivity.this);
                 llm.setOrientation(LinearLayoutManager.VERTICAL);*/
                     recyclerView.setHasFixedSize(true);
@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, NewTask.class));
-                finish();
+               // finish();
             }
         });
 
@@ -232,16 +232,18 @@ public class MainActivity extends AppCompatActivity {
     }*/
 
     private void source_ref() {
-
+        Log.d("qwe","SF1");
         source_reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("qwe","SF2");
 
                 snapshot.getRef().child(Source.main_user_uid).setValue(Source.main_user_uid);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("qwe","SF3");
                 Log.d("lol", "task added failed");
             }
         });
@@ -278,6 +280,6 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         Log.d("qwe", "Resume");
 
-        //recyclerView.setAdapter(itemAdapter);
+        recyclerView.setAdapter(itemAdapter);
     }
 }
