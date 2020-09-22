@@ -13,4 +13,6 @@
     <string name="enter_your_prn">Enter your PRN</string>
     <string name="login_through_b_tech_id">(Login through B.Tech ID)</string>
     <string name="welcome_to_enlist">Welcome to Enlist</string>
+    <string name="personal">Personal</string>
+    <string name="shared">Shared</string>
 </resources>

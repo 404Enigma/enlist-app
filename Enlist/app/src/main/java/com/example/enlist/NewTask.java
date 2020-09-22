@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +34,9 @@ import java.util.Calendar;
 import java.util.Random;
 
 public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+
+    RadioGroup radioGroup_privacy;
+    int type_privacy=0;
 
     String currentDateString;
     String kkk;
@@ -78,9 +82,24 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
         description_editText = findViewById(R.id.description_editText);
         deadline_textView = findViewById(R.id.deadline_textView);
         back_arrow_btn = findViewById(R.id.back_arrow_btn);
+        radioGroup_privacy = findViewById(R.id.radioGroup_privacy);
 
         date_picker_btn = findViewById(R.id.open_picker);
         add_task_btn = findViewById(R.id.add_task_btn);
+
+        radioGroup_privacy.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch (i){
+                    case R.id.radioButton_personal:
+                        type_privacy=1;
+                        break;
+                    case R.id.radioButton_shared:
+                        type_privacy=2;
+                        break;
+                }
+            }
+        });
 
         back_arrow_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,67 +144,95 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
                     currentDateString = null;
                 } else if (TextUtils.isEmpty(description_editText.getText().toString())) {
                     description_editText = null;
-                } else {
-                    Log.d("zzz", "lol1");
-                    users_reference = FirebaseDatabase.getInstance().getReference().child("Source").child(Source.main_class_group);
+                } else if(type_privacy == 0){
+                    Toast.makeText(NewTask.this, "Choose privacy type", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    if(type_privacy == 1){
+                        reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child(Source.main_user_uid).child(Source.main_class_group).child("Task" + taskNumber);
+                        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                    users_reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            Log.d("zzz", "lol2");
-                            kkk = "";
-                            for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                                snapshot.getRef().child("title").setValue(title_editText.getText().toString());
+                                snapshot.getRef().child("description").setValue(description_editText.getText().toString());
+                                snapshot.getRef().child("deadline").setValue(currentDateString);
+                                snapshot.getRef().child("key").setValue(key_layout);
+                                Log.d("lol","task added");
+                                Toast.makeText(NewTask.this, "Task added", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(NewTask.this,MainActivity.class));
 
-                                kkk += snapshot1.getKey() + " ";
-                                Log.d("zzz", "lol3");
-                                String[] splited = kkk.split(" ");
-                                qqq = splited.length;
-                                Log.d("zzz", "lol4");
+                            }
 
-                                for (i = 0; i < splited.length; i++) {
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Log.d("lol","task added failed");
+                                Toast.makeText(NewTask.this, "Error adding", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                    else if(type_privacy == 2){
+                        Log.d("zzz", "lol1");
+                        users_reference = FirebaseDatabase.getInstance().getReference().child("Source").child(Source.main_class_group);
 
-                                    Log.d("zzz", "lol5");
-                                    reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child(splited[i]).child(Source.main_class_group).child("Task" + taskNumber);
+                        users_reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                Log.d("zzz", "lol2");
+                                kkk = "";
+                                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
 
-                                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            Log.d("zzz", "lol6");
-                                            snapshot.getRef().child("title").setValue(title_editText.getText().toString());
-                                            snapshot.getRef().child("description").setValue(description_editText.getText().toString());
-                                            snapshot.getRef().child("deadline").setValue(currentDateString);
-                                            snapshot.getRef().child("key").setValue(key_layout);
-                                            Log.d("zzz", "lol7");
+                                    kkk += snapshot1.getKey() + " ";
+                                    Log.d("zzz", "lol3");
+                                    splited = kkk.split(" ");
+                                    qqq = splited.length;
+                                    Log.d("zzz", "lol4");
 
-                                            if (i.equals(qqq)) {
-                                                Log.d("zzz", "lol8");
-                                                Toast.makeText(NewTask.this, "Task added", Toast.LENGTH_SHORT).show();
-                                                startActivity(new Intent(NewTask.this, MainActivity.class));
-                                                finish();
-                                            } else {
-                                                Log.d("zzz", String.valueOf(i));
-                                                Log.d("zzz", String.valueOf(qqq));
-                                                Log.d("zzz", "lol9");
+                                    for (i = 0; i < splited.length; i++) {
+
+                                        Log.d("zzz", "lol5");
+                                        reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child(splited[i]).child(Source.main_class_group).child("Task" + taskNumber);
+
+                                        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                Log.d("zzz", "lol6");
+                                                snapshot.getRef().child("title").setValue(title_editText.getText().toString());
+                                                snapshot.getRef().child("description").setValue(description_editText.getText().toString());
+                                                snapshot.getRef().child("deadline").setValue(currentDateString);
+                                                snapshot.getRef().child("key").setValue(key_layout);
+                                                Log.d("zzz", "lol7");
+
+                                                if (i.equals(qqq)) {
+                                                    Log.d("zzz", "lol8");
+                                                    Toast.makeText(NewTask.this, "Task added", Toast.LENGTH_SHORT).show();
+                                                    startActivity(new Intent(NewTask.this, MainActivity.class));
+                                                    finish();
+                                                } else {
+                                                    Log.d("zzz", String.valueOf(i));
+                                                    Log.d("zzz", String.valueOf(qqq));
+                                                    Log.d("zzz", "lol9");
+                                                }
+                                                Log.d("zzz", "lol10");
                                             }
-                                            Log.d("zzz", "lol10");
-                                        }
 
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError error) {
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
 
-                                            Log.d("zzz", "lol11");
+                                                Log.d("zzz", "lol11");
 
-                                            Toast.makeText(NewTask.this, "Error adding", Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
+                                                Toast.makeText(NewTask.this, "Error adding", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                    }
                                 }
                             }
-                        }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                        }
-                    });
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                        });
+                    }
                 }
             }
         });
