@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,7 +33,8 @@ public class NavBarSetting extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
 
     ListView settings_listView;
-    String[] items = {"Profile","Log out"};
+    String[] items = {"Profile","GitHub","Log out"};
+    int images[] = {R.drawable.ic_profile,R.drawable.ic_github,R.drawable.ic_exit};
     MyAdapter adapter;
 
     private GoogleSignInClient mGoogleSignInClient;
@@ -73,7 +76,7 @@ public class NavBarSetting extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
-        adapter = new MyAdapter(NavBarSetting.this, items);
+        adapter = new MyAdapter(NavBarSetting.this, items, images);
         settings_listView.setAdapter(adapter);
 
         settings_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -84,12 +87,14 @@ public class NavBarSetting extends AppCompatActivity {
                         Toast.makeText(NavBarSetting.this, "Profile", Toast.LENGTH_SHORT).show();
                         break;
                     }
-//                    case 1:{
-//                        startActivity(new Intent(NavBarSetting.this, StudentGroup.class));
-//                        finish();
-//                        break;
-//                    }
                     case 1:{
+                        String url = "https://github.com/prakhar-agarwall/enlist";
+                        Intent url_intent = new Intent(Intent.ACTION_VIEW);
+                        url_intent.setData(Uri.parse(url));
+                        startActivity(url_intent);
+                        break;
+                    }
+                    case 2:{
                         mGoogleSignInClient.signOut();
                         Source.flag=0;
                         Toast.makeText(NavBarSetting.this, "You are logged out", Toast.LENGTH_SHORT).show();
@@ -100,6 +105,8 @@ public class NavBarSetting extends AppCompatActivity {
                 }
             }
         });
+
+
 
         bottomNavigationView.setSelectedItemId(R.id.nav_setting);
 
@@ -125,11 +132,13 @@ public class NavBarSetting extends AppCompatActivity {
 
         Context context;
         String[] mHeading;
+        int[] mImages;
 
-        MyAdapter (Context c, String[] Heading){
+        MyAdapter (Context c, String[] Heading, int[] Images){
             super(c,R.layout.custom_list_view_settings,items);
             this.context = c;
             this.mHeading = Heading;
+            this.mImages = images;
         }
 
         @NonNull
@@ -138,7 +147,9 @@ public class NavBarSetting extends AppCompatActivity {
             LayoutInflater layoutInflater = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View row = layoutInflater.inflate(R.layout.custom_list_view_settings,parent,false);
             TextView shop_name = row.findViewById(R.id.heading);
+            ImageView imageView = row.findViewById(R.id.heading_icon);
 
+            imageView.setImageResource(mImages[position]);
             shop_name.setText(mHeading[position]);
 
             return row;

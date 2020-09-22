@@ -69,10 +69,10 @@ public class StudentGroup extends AppCompatActivity {
             b2_btn.setEnabled(false);
         }
         else{
-            b_btn.setEnabled(false);
+           /* b_btn.setEnabled(false);
             b1_btn.setEnabled(false);
             b2_btn.setEnabled(false);
-            b3_btn.setEnabled(false);
+            b3_btn.setEnabled(false);*/
         }
 
         b_btn.setOnClickListener(new View.OnClickListener() {

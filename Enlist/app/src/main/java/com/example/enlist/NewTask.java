@@ -120,11 +120,12 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
 
                 if (TextUtils.isEmpty(title_editText.getText().toString())) {
                     Toast.makeText(NewTask.this, "Enter title", Toast.LENGTH_SHORT).show();
-                }
-                     /*else if(TextUtils.isEmpty(currentDateString)){
-                         Toast.makeText(NewTask.this, "Enter deadline", Toast.LENGTH_SHORT).show();
-                     }*/
-                else {
+                } else if (TextUtils.isEmpty(currentDateString)) {
+//                    Toast.makeText(NewTask.this, "Enter deadline", Toast.LENGTH_SHORT).show();
+                    currentDateString = null;
+                } else if (TextUtils.isEmpty(description_editText.getText().toString())) {
+                    description_editText = null;
+                } else {
                     Log.d("zzz", "lol1");
                     users_reference = FirebaseDatabase.getInstance().getReference().child("Source").child(Source.main_class_group);
 

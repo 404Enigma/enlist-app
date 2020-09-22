@@ -77,7 +77,7 @@ public class GoogleSignIn extends AppCompatActivity {
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(TextUtils.isEmpty(editText_PRN.getText().toString())){
+               /* if(TextUtils.isEmpty(editText_PRN.getText().toString())){
                     Toast.makeText(GoogleSignIn.this, "Enter PRN", Toast.LENGTH_SHORT).show();
                 }
                 else if(!(editText_PRN.getText().toString().length() == 11)){
@@ -86,7 +86,8 @@ public class GoogleSignIn extends AppCompatActivity {
                 else{
                     Source.main_PRN = Long.parseLong(String.valueOf(editText_PRN.getText()));
                     signIn();
-                }
+                }*/
+                signIn();
             }
         });
     }
