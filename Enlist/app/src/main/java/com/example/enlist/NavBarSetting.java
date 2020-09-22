@@ -33,8 +33,8 @@ public class NavBarSetting extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
 
     ListView settings_listView;
-    String[] items = {"Profile","GitHub","Log out"};
-    int images[] = {R.drawable.ic_profile,R.drawable.ic_github,R.drawable.ic_exit};
+    String[] items = {"Profile","GitHub","Log out","Report a bug","Suggest a feature"};
+    int[] images = {R.drawable.ic_profile,R.drawable.ic_github,R.drawable.ic_exit,R.drawable.ic_github,R.drawable.ic_exit};
     MyAdapter adapter;
 
     private GoogleSignInClient mGoogleSignInClient;
@@ -102,6 +102,22 @@ public class NavBarSetting extends AppCompatActivity {
                         finish();
                         break;
                     }
+                    case 3:{
+                        Intent gmail_intent = new Intent(Intent.ACTION_SEND);
+                        gmail_intent.putExtra(Intent.EXTRA_EMAIL,new String[] { "enlist.feedback@gmail.com" });
+                        gmail_intent.putExtra(Intent.EXTRA_SUBJECT,"Report a bug");
+                        gmail_intent.setType("message/rfc822");
+                        startActivity(Intent.createChooser(gmail_intent, "Choose an email client"));
+                        break;
+                    }
+                    case 4:{
+                        Intent gmail_intent = new Intent(Intent.ACTION_SEND);
+                        gmail_intent.putExtra(Intent.EXTRA_EMAIL,new String[] { "enlist.feedback@gmail.com" });
+                        gmail_intent.putExtra(Intent.EXTRA_SUBJECT,"Suggest a feature");
+                        gmail_intent.setType("message/rfc822");
+                        startActivity(Intent.createChooser(gmail_intent, "Choose an email client"));
+                        break;
+                    }
                 }
             }
         });
@@ -138,7 +154,7 @@ public class NavBarSetting extends AppCompatActivity {
             super(c,R.layout.custom_list_view_settings,items);
             this.context = c;
             this.mHeading = Heading;
-            this.mImages = images;
+            this.mImages = Images;
         }
 
         @NonNull
