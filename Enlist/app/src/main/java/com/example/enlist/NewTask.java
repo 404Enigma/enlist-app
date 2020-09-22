@@ -1,10 +1,12 @@
 package com.example.enlist;
 
 import android.app.DatePickerDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
@@ -30,7 +33,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.Random;
 
 public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
@@ -44,7 +49,7 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
 
     EditText title_editText, description_editText;
     TextView deadline_textView;
-    ImageButton date_picker_btn, back_arrow_btn;
+    ImageButton date_picker_btn, back_arrow_btn, mic1, mic2;
     FloatingActionButton add_task_btn;
     Integer qqq, i;
 
@@ -82,6 +87,8 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
         description_editText = findViewById(R.id.description_editText);
         deadline_textView = findViewById(R.id.deadline_textView);
         back_arrow_btn = findViewById(R.id.back_arrow_btn);
+        mic1 = findViewById(R.id.mic_title);
+        mic2 = findViewById(R.id.mic_description);
         radioGroup_privacy = findViewById(R.id.radioGroup_privacy);
 
         date_picker_btn = findViewById(R.id.open_picker);
@@ -97,6 +104,36 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
                     case R.id.radioButton_shared:
                         type_privacy=2;
                         break;
+                }
+            }
+        });
+
+        mic1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+                intent.putExtra(RecognizerIntent.EXTRA_PROMPT,"Speak");
+                try {
+                    startActivityForResult(intent,1);
+                }catch (ActivityNotFoundException e){
+                    Toast.makeText(NewTask.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        mic2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+                intent.putExtra(RecognizerIntent.EXTRA_PROMPT,"Speak");
+                try {
+                    startActivityForResult(intent,2);
+                }catch (ActivityNotFoundException e){
+                    Toast.makeText(NewTask.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -254,6 +291,30 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
         if (view != null) {
             InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode){
+            case 1:
+                if(resultCode == RESULT_OK && null != data){
+                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    if (result != null){
+                        title_editText.setText(result.get(0));
+                    }
+                }
+                break;
+            case 2:
+                if(resultCode == RESULT_OK && null != data){
+                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    if (result != null){
+                        description_editText.setText(result.get(0));
+                    }
+                }
+                break;
         }
     }
 }
