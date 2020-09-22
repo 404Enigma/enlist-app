@@ -84,7 +84,7 @@ public class NavBarSetting extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 switch (i){
                     case 0:{
-                        Toast.makeText(NavBarSetting.this, "Profile", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(NavBarSetting.this,Profile.class));
                         break;
                     }
                     case 1:{

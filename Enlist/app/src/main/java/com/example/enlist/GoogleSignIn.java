@@ -87,6 +87,7 @@ public class GoogleSignIn extends AppCompatActivity {
                     Source.main_PRN = Long.parseLong(String.valueOf(editText_PRN.getText()));
                     signIn();
                 }*/
+                Source.main_PRN = Long.parseLong(String.valueOf(editText_PRN.getText()));
                 signIn();
             }
         });
@@ -152,17 +153,17 @@ public class GoogleSignIn extends AppCompatActivity {
         GoogleSignInAccount account = com.google.android.gms.auth.api.signin.GoogleSignIn.getLastSignedInAccount(getApplicationContext());
         if(account!=null){
             String personName = account.getDisplayName();
-            String personGivenName = account.getGivenName();
-            String personFamilyName = account.getFamilyName();
+//            String personGivenName = account.getGivenName();
+//            String personFamilyName = account.getFamilyName();
             String personEmail = account.getEmail();
-            String personId = account.getId();
-            Uri personPhoto = account.getPhotoUrl();
+//            String personId = account.getId();
+//            Uri personPhoto = account.getPhotoUrl();
 
             if(personEmail != null){
                 String[] qq = personEmail.split("@");
                 Source.main_user_email = qq[1];
             }
-            Toast.makeText(GoogleSignIn.this, personName + " + " + personEmail + " + " + personId, Toast.LENGTH_SHORT).show();
+            Toast.makeText(GoogleSignIn.this, personName + " + " + personEmail, Toast.LENGTH_SHORT).show();
         }
     }
 }
