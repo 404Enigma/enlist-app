@@ -182,13 +182,13 @@ public class MainActivity extends AppCompatActivity {
 
                 Collections.swap(list,position_dragged,position_target);
                 itemAdapter.notifyItemMoved(position_dragged,position_target);
+                //itemAdapter.notifyDataSetChanged();
 
                 return false;
             }
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-
             }
         });
         helper.attachToRecyclerView(recyclerView);

@@ -94,7 +94,7 @@ public class NavBarSetting extends AppCompatActivity {
                         startActivity(url_intent);
                         break;
                     }
-                    case 2:{
+                    case 6:{
                         mGoogleSignInClient.signOut();
                         Source.flag=0;
                         Toast.makeText(NavBarSetting.this, "You are logged out", Toast.LENGTH_SHORT).show();
@@ -117,6 +117,9 @@ public class NavBarSetting extends AppCompatActivity {
                         gmail_intent.setType("message/rfc822");
                         startActivity(Intent.createChooser(gmail_intent, "Choose an email client"));
                         break;
+                    }
+                    case 5:{
+                        Toast.makeText(NavBarSetting.this, "About Us", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

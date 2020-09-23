@@ -9,6 +9,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -67,6 +68,7 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
 
     String currentDateString,keyy;
     MediaPlayer done_player,delete_player;
+    Vibrator vibrator;
 
     EditText titlee, descriptionn;
     TextView deadlinee;
@@ -107,6 +109,8 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
         titlee = findViewById(R.id.title_editText);
         descriptionn = findViewById(R.id.description_editText);
         deadlinee = findViewById(R.id.deadline_textView);
+
+        vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
 
         date_picker_btn = findViewById(R.id.open_picker);
         done_btn = findViewById(R.id.done_btn);
@@ -291,6 +295,7 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
                                 if(task.isSuccessful()){
                                     Toast.makeText(EditTask.this, "Well done", Toast.LENGTH_SHORT).show();
                                     done_player.start();
+                                    vibrator.vibrate(100);
                                     startActivity(new Intent(EditTask.this,MainActivity.class));
                                     finish();
                                 }

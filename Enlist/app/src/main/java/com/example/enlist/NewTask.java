@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.provider.CalendarContract;
 import android.speech.RecognizerIntent;
 import android.text.TextUtils;
@@ -44,6 +45,7 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
 
     RadioGroup radioGroup_privacy;
     int type_privacy=0;
+    Vibrator vibrator;
 
     String currentDateString;
     String kkk;
@@ -66,7 +68,7 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Toast.makeText(NewTask.this, "Task cancelled", Toast.LENGTH_SHORT).show();
-                //  startActivity(new Intent(NewTask.this,MainActivity.class));
+                startActivity(new Intent(NewTask.this,MainActivity.class));
                 finish();
             }
         }).setNegativeButton("No, wait", new DialogInterface.OnClickListener() {
@@ -93,6 +95,7 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
         mic2 = findViewById(R.id.mic_description);
         radioGroup_privacy = findViewById(R.id.radioGroup_privacy);
         add_to_calendar_btn = findViewById(R.id.add_to_calendar);
+        vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
 
         date_picker_btn = findViewById(R.id.open_picker);
         add_task_btn = findViewById(R.id.add_task_btn);
@@ -224,6 +227,7 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
                                 snapshot.getRef().child("key").setValue(key_layout);
                                 Log.d("lol","task added");
                                 Toast.makeText(NewTask.this, "Task added", Toast.LENGTH_SHORT).show();
+                                vibrator.vibrate(200);
                                 startActivity(new Intent(NewTask.this,MainActivity.class));
                                 finish();
                             }
