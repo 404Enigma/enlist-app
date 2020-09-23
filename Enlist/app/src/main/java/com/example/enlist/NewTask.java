@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.speech.RecognizerIntent;
 import android.text.TextUtils;
 import android.util.Log;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,7 +52,7 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
     EditText title_editText, description_editText;
     TextView deadline_textView;
     ImageButton date_picker_btn, back_arrow_btn, mic1, mic2;
-    FloatingActionButton add_task_btn;
+    FloatingActionButton add_task_btn,add_to_calendar_btn;
     Integer qqq, i;
 
     DatabaseReference reference, users_reference;
@@ -90,6 +92,7 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
         mic1 = findViewById(R.id.mic_title);
         mic2 = findViewById(R.id.mic_description);
         radioGroup_privacy = findViewById(R.id.radioGroup_privacy);
+        add_to_calendar_btn = findViewById(R.id.add_to_calendar);
 
         date_picker_btn = findViewById(R.id.open_picker);
         add_task_btn = findViewById(R.id.add_task_btn);
@@ -167,6 +170,30 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
                 closeKeyboard();
                 DialogFragment datePicker = new DataPickerFragment();
                 datePicker.show(getSupportFragmentManager(), "date picker");
+            }
+        });
+
+        add_to_calendar_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (TextUtils.isEmpty(title_editText.getText().toString())) {
+                    Toast.makeText(NewTask.this, "Enter title", Toast.LENGTH_SHORT).show();
+                }else if (TextUtils.isEmpty(description_editText.getText().toString())) {
+                    description_editText = null;
+                }else{
+                    Intent intent_task = new Intent(Intent.ACTION_INSERT);
+                    intent_task.setData(CalendarContract.Events.CONTENT_URI);
+                    intent_task.putExtra(CalendarContract.Events.TITLE, title_editText.getText().toString());
+                    intent_task.putExtra(CalendarContract.Events.DESCRIPTION, description_editText.getText().toString());
+                    intent_task.putExtra(CalendarContract.Events.ALL_DAY, true);
+
+                    if(intent_task.resolveActivity(getPackageManager()) != null){
+                        startActivity(intent_task);
+                    }
+                    else{
+                        Toast.makeText(NewTask.this, "No app found to support this action", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
 

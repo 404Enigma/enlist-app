@@ -15,4 +15,5 @@
     <string name="welcome_to_enlist">Welcome to Enlist</string>
     <string name="personal">Personal</string>
     <string name="shared">Shared</string>
+    <string name="add_to_google_calendar">Add to Google Calendar</string>
 </resources>
