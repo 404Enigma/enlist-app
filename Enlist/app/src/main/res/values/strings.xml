@@ -16,4 +16,6 @@
     <string name="personal">Personal</string>
     <string name="shared">Shared</string>
     <string name="add_to_google_calendar">Add to Google Calendar</string>
+    <string name="designed_with_by_enlist">Designed with ❤ by ENLIST</string>
+    <string name="settings">Settings</string>
 </resources>

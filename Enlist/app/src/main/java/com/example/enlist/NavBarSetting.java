@@ -33,8 +33,8 @@ public class NavBarSetting extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
 
     ListView settings_listView;
-    String[] items = {"Profile","GitHub","Log out","Report a bug","Suggest a feature"};
-    int[] images = {R.drawable.ic_profile,R.drawable.ic_github,R.drawable.ic_exit,R.drawable.ic_github,R.drawable.ic_exit};
+    String[] items = {"Profile","GitHub","Report a bug","Suggest a feature","Privacy Policy","About Us","Log out"};
+    int[] images = {R.drawable.ic_profile,R.drawable.ic_github,R.drawable.ic_exit,R.drawable.ic_github,R.drawable.ic_exit,R.drawable.ic_github,R.drawable.ic_exit};
     MyAdapter adapter;
 
     private GoogleSignInClient mGoogleSignInClient;

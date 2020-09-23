@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     TextView class_group_textView;
 
     // private EditText editText_search;
-     int flag1=0,flag2=0;
+     int flag1=0,flag2=0,flag3=0;
 
     DatabaseReference reference, source_reference;
     RecyclerView recyclerView;
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-      //  startActivity(new Intent(MainActivity.this, StudentGroup.class));
+        startActivity(new Intent(MainActivity.this, StudentGroup.class));
         finish();
     }
 
@@ -105,8 +105,8 @@ public class MainActivity extends AppCompatActivity {
         back_arrow_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              // startActivity(new Intent(MainActivity.this, StudentGroup.class));
-                finish();
+               startActivity(new Intent(MainActivity.this, StudentGroup.class));
+               finish();
             }
         });
 
@@ -136,8 +136,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                if(flag2 == 1 || flag1 == 0){
+                if(flag2 == 1 || flag1 == 0 || flag3 == 0){
                     flag2=0;
+                    flag1=1;
+                    flag3=1;
                     Log.d("qwe","call karo1");
 
                     for(DataSnapshot dataSnapshot: snapshot.getChildren())
@@ -228,19 +230,14 @@ public class MainActivity extends AppCompatActivity {
     }*/
 
     private void source_ref() {
-        Log.d("qwe","SF1");
         source_reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.d("qwe","SF2");
-
                 snapshot.getRef().child(Source.main_user_uid).setValue(Source.main_user_uid);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.d("qwe","SF3");
-                Log.d("lol", "task added failed");
             }
         });
 
@@ -254,7 +251,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onPause() {
         super.onPause();
-        flag1=1;
+        //flag1=1;
         flag2=1;
         Log.d("qwe", "Pause");
     }
@@ -267,10 +264,6 @@ public class MainActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         Log.d("qwe", "Start");
-
-
-
-
          //recyclerView.setAdapter(itemAdapter);
     }
 
@@ -283,9 +276,6 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         Log.d("qwe", "Resume");
-
-
-
         //recyclerView.setAdapter(itemAdapter);
     }
 }

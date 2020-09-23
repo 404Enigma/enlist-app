@@ -291,7 +291,7 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
                                 if(task.isSuccessful()){
                                     Toast.makeText(EditTask.this, "Well done", Toast.LENGTH_SHORT).show();
                                     done_player.start();
-                                   // startActivity(new Intent(EditTask.this,MainActivity.class));
+                                    startActivity(new Intent(EditTask.this,MainActivity.class));
                                     finish();
                                 }
                                 else{

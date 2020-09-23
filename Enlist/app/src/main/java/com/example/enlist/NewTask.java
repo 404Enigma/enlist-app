@@ -225,7 +225,7 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
                                 Log.d("lol","task added");
                                 Toast.makeText(NewTask.this, "Task added", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(NewTask.this,MainActivity.class));
-
+                                finish();
                             }
 
                             @Override
@@ -308,8 +308,13 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
         calendar.set(Calendar.MONTH, month);
         calendar.set(Calendar.DAY_OF_MONTH, day);
 
-        currentDateString = DateFormat.getDateInstance(DateFormat.DEFAULT).format(calendar.getTime());
-
+        month+=1;
+        if(month >= 10 && month <=12){
+            currentDateString = day + "-" + month + "-" + year;
+        }
+        else{
+            currentDateString = day + "-" + "0" + month + "-" + year;
+        }
         deadline_textView.setText(currentDateString);
     }
 
