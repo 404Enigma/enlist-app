@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -29,15 +30,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class NavBarSetting extends AppCompatActivity {
 
     private static final String TAG = "NavBarSetting";
-
-    BottomNavigationView bottomNavigationView;
-
-    ListView settings_listView;
-    String[] items = {"Profile","GitHub","Report a bug","Suggest a feature","Privacy Policy","About Us","Log out"};
-    int[] images = {R.drawable.ic_profile,R.drawable.ic_github,R.drawable.ic_exit,R.drawable.ic_github,R.drawable.ic_exit,R.drawable.ic_github,R.drawable.ic_exit};
-    MyAdapter adapter;
+    ImageButton back_arrow_btn;
 
     private GoogleSignInClient mGoogleSignInClient;
+
+    BottomNavigationView bottomNavigationView;
+    TextView profile_textView,privacy_policy_textView,github_textView,log_out_textView,support_textView,about_textView;
 
     @Override
     public void onBackPressed() {
@@ -74,60 +72,73 @@ public class NavBarSetting extends AppCompatActivity {
 
         mGoogleSignInClient = com.google.android.gms.auth.api.signin.GoogleSignIn.getClient(NavBarSetting.this, gso);
 
-        settings_listView = findViewById(R.id.settings_listView);
+        privacy_policy_textView = findViewById(R.id.privacy_policy_textView);
+        about_textView = findViewById(R.id.about_textView);
+        github_textView = findViewById(R.id.github_textView);
+        log_out_textView = findViewById(R.id.logout_textView);
+        support_textView = findViewById(R.id.support_textView);
+        profile_textView = findViewById(R.id.profile_textView);
 
-        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        back_arrow_btn = findViewById(R.id.back_arrow_btn);
 
-        adapter = new MyAdapter(NavBarSetting.this, items, images);
-        settings_listView.setAdapter(adapter);
-
-        settings_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        back_arrow_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                switch (i){
-                    case 0:{
-                        startActivity(new Intent(NavBarSetting.this,Profile.class));
-                        break;
-                    }
-                    case 1:{
-                        String url = "https://github.com/prakhar-agarwall/enlist";
-                        Intent url_intent = new Intent(Intent.ACTION_VIEW);
-                        url_intent.setData(Uri.parse(url));
-                        startActivity(url_intent);
-                        break;
-                    }
-                    case 6:{
-                        mGoogleSignInClient.signOut();
-                        Source.flag=0;
-                        Toast.makeText(NavBarSetting.this, "You are logged out", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(NavBarSetting.this, GoogleSignIn.class));
-                        finish();
-                        break;
-                    }
-                    case 3:{
-                        Intent gmail_intent = new Intent(Intent.ACTION_SEND);
-                        gmail_intent.putExtra(Intent.EXTRA_EMAIL,new String[] { "enlist.feedback@gmail.com" });
-                        gmail_intent.putExtra(Intent.EXTRA_SUBJECT,"Report a bug");
-                        gmail_intent.setType("message/rfc822");
-                        startActivity(Intent.createChooser(gmail_intent, "Choose an email client"));
-                        break;
-                    }
-                    case 4:{
-                        Intent gmail_intent = new Intent(Intent.ACTION_SEND);
-                        gmail_intent.putExtra(Intent.EXTRA_EMAIL,new String[] { "enlist.feedback@gmail.com" });
-                        gmail_intent.putExtra(Intent.EXTRA_SUBJECT,"Suggest a feature");
-                        gmail_intent.setType("message/rfc822");
-                        startActivity(Intent.createChooser(gmail_intent, "Choose an email client"));
-                        break;
-                    }
-                    case 5:{
-                        Toast.makeText(NavBarSetting.this, "About Us", Toast.LENGTH_SHORT).show();
-                    }
-                }
+            public void onClick(View view) {
+                startActivity(new Intent(NavBarSetting.this, StudentGroup.class));
+                finish();
             }
         });
 
+        privacy_policy_textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(NavBarSetting.this, "Privacy Policy", Toast.LENGTH_SHORT).show();
+            }
+        });
 
+        about_textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(NavBarSetting.this, "About Us", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        github_textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url = "https://github.com/prakhar-agarwall/enlist";
+                Intent url_intent = new Intent(Intent.ACTION_VIEW);
+                url_intent.setData(Uri.parse(url));
+                startActivity(url_intent);
+            }
+        });
+
+        log_out_textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mGoogleSignInClient.signOut();
+                Source.flag=0;
+                Toast.makeText(NavBarSetting.this, "Logged out", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(NavBarSetting.this, GoogleSignIn.class));
+                finish();
+            }
+        });
+
+        support_textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(NavBarSetting.this, "Support", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        profile_textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(NavBarSetting.this,Profile.class));
+            }
+        });
+
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         bottomNavigationView.setSelectedItemId(R.id.nav_setting);
 
@@ -147,34 +158,6 @@ public class NavBarSetting extends AppCompatActivity {
                 return false;
             }
         });
-    }
-
-    class MyAdapter extends ArrayAdapter<String> {
-
-        Context context;
-        String[] mHeading;
-        int[] mImages;
-
-        MyAdapter (Context c, String[] Heading, int[] Images){
-            super(c,R.layout.custom_list_view_settings,items);
-            this.context = c;
-            this.mHeading = Heading;
-            this.mImages = Images;
-        }
-
-        @NonNull
-        @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            LayoutInflater layoutInflater = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View row = layoutInflater.inflate(R.layout.custom_list_view_settings,parent,false);
-            TextView shop_name = row.findViewById(R.id.heading);
-            ImageView imageView = row.findViewById(R.id.heading_icon);
-
-            imageView.setImageResource(mImages[position]);
-            shop_name.setText(mHeading[position]);
-
-            return row;
-        }
     }
 
     @Override

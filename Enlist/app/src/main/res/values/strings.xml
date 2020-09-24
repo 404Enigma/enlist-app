@@ -19,4 +19,20 @@
     <string name="designed_with_by_enlist">Designed with ❤ by ENLIST</string>
     <string name="settings">Settings</string>
     <string name="account">Account</string>
+    <string name="enlist">ENLIST</string>
+    <string name="support">Support</string>
+    <string name="privacy_policy">Policy</string>
+    <string name="about">About</string>
+    <string name="log_out">Log Out</string>
+    <string name="github">GitHub</string>
+    <string name="profile">Profile</string>
+    <string name="classroom">Classroom</string>
+    <string name="cs_b3">CS B3</string>
+    <string name="cs_b1">CS B1</string>
+    <string name="cs_b2">CS B2</string>
+    <string name="cs_b">CS B</string>
+    <string name="email_id">Email ID</string>
+    <string name="name">Name</string>
+    <string name="class_group">Class Group</string>
+    <string name="prn">PRN</string>
 </resources>
