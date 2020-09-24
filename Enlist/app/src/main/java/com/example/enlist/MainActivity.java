@@ -182,9 +182,11 @@ public class MainActivity extends AppCompatActivity {
 
                 Collections.swap(list,position_dragged,position_target);
                 itemAdapter.notifyItemMoved(position_dragged,position_target);
-                //itemAdapter.notifyDataSetChanged();
+                Log.d("move","lol1");
+                recyclerView.setAdapter(itemAdapter);
+                itemAdapter.notifyDataSetChanged();
 
-                return false;
+                return true;
             }
 
             @Override

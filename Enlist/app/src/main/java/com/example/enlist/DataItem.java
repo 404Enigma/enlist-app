@@ -1,7 +1,5 @@
 package com.example.enlist;
 
-import android.widget.CheckBox;
-
 public class DataItem {
 
     String title;

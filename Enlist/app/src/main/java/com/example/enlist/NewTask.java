@@ -47,7 +47,7 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
     int type_privacy=0;
     Vibrator vibrator;
 
-    String currentDateString;
+    String currentDateString,temp_month;
     String kkk;
     String[] splited;
 
@@ -313,12 +313,28 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
         calendar.set(Calendar.DAY_OF_MONTH, day);
 
         month+=1;
-        if(month >= 10 && month <=12){
+        switch (month){
+            case 1:temp_month="Jan";
+            case 2:temp_month="Feb";
+            case 3:temp_month="Mar";
+            case 4:temp_month="Apr";
+            case 5:temp_month="May";
+            case 6:temp_month="Jun";
+            case 7:temp_month="Jul";
+            case 8:temp_month="Aug";
+            case 9:temp_month="Sep";
+            case 10:temp_month="Oct";
+            case 11:temp_month="Nov";
+            case 12:temp_month="Dec";
+        }
+
+        currentDateString = day + " " + temp_month;
+       /* if(month >= 10 && month <=12){
             currentDateString = day + "-" + month + "-" + year;
         }
         else{
             currentDateString = day + "-" + "0" + month + "-" + year;
-        }
+        }*/
         deadline_textView.setText(currentDateString);
     }
 

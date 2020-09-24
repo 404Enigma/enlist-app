@@ -31,8 +31,9 @@ public class GoogleSignIn extends AppCompatActivity {
 
     private SignInButton signInButton;
     private GoogleSignInClient mGoogleSignInClient;
-    private String TAG = "lol";
     private FirebaseAuth mAuth;
+    private String personEmail;
+    private Boolean temp_check;
 
     private EditText editText_PRN;
 
@@ -77,7 +78,7 @@ public class GoogleSignIn extends AppCompatActivity {
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               /* if(TextUtils.isEmpty(editText_PRN.getText().toString())){
+                if(TextUtils.isEmpty(editText_PRN.getText().toString())){
                     Toast.makeText(GoogleSignIn.this, "Enter PRN", Toast.LENGTH_SHORT).show();
                 }
                 else if(!(editText_PRN.getText().toString().length() == 11)){
@@ -86,9 +87,9 @@ public class GoogleSignIn extends AppCompatActivity {
                 else{
                     Source.main_PRN = Long.parseLong(String.valueOf(editText_PRN.getText()));
                     signIn();
-                }*/
-                Source.main_PRN = Long.parseLong(String.valueOf(editText_PRN.getText()));
-                signIn();
+                }
+//                Source.main_PRN = Long.parseLong(String.valueOf(editText_PRN.getText()));
+//                signIn();
             }
         });
     }
@@ -126,18 +127,25 @@ public class GoogleSignIn extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(GoogleSignIn.this, "Successful", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(GoogleSignIn.this, StudentGroup.class));
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
-                            finish();
-                       /*     if(Source.main_user_email.equals("sitpune.edu.in")){
-                                Toast.makeText(GoogleSignIn.this, "Successful", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(GoogleSignIn.this, StudentGroup.class));
+                            temp_check = check_email_prn(personEmail,editText_PRN.getText().toString());
+                            if(Source.main_user_email.equals("sitpune.edu.in")){
+                                if(temp_check){
+                                    Toast.makeText(GoogleSignIn.this, "Successful", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(GoogleSignIn.this, StudentGroup.class));
+                                    finish();
+                                }
+                                else{
+                                    Toast.makeText(GoogleSignIn.this, "Please enter your PRN", Toast.LENGTH_SHORT).show();
+                                    mGoogleSignInClient.signOut();
+                                }
                             }
                             else{
                                 Toast.makeText(GoogleSignIn.this, "PLease login through B.Tech ID", Toast.LENGTH_SHORT).show();
-                            }*/
+                                mGoogleSignInClient.signOut();
+                                //updateUI(null);
+                            }
                         }
                         else{
                             Toast.makeText(GoogleSignIn.this, "Failed", Toast.LENGTH_SHORT).show();
@@ -147,15 +155,34 @@ public class GoogleSignIn extends AppCompatActivity {
                 });
     }
 
+    private boolean check_email_prn(String personEmail, String toString) {
+        switch (toString){
+            case "19070122126":if(personEmail.equals("prakhar.agarwal.btech2019@sitpune.edu.in")){
+                return true;
+            }
+            case "19070122129":if(personEmail.equals("pratyush.jain.btech2019@sitpune.edu.in")){
+                return true;
+            }
+            case "19070122120":if(personEmail.equals("sudhanshu.pandey.btech2019@sitpune.edu.in")){
+                return true;
+            }
+            case "19070122134":if(personEmail.equals("rahul.mansharamani.btech2019@sitpune.edu.in")){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 
     private void updateUI(FirebaseUser user) {
 
         GoogleSignInAccount account = com.google.android.gms.auth.api.signin.GoogleSignIn.getLastSignedInAccount(getApplicationContext());
         if(account!=null){
-            String personName = account.getDisplayName();
+            //String personName = account.getDisplayName();
 //            String personGivenName = account.getGivenName();
 //            String personFamilyName = account.getFamilyName();
-            String personEmail = account.getEmail();
+                personEmail = account.getEmail();
 //            String personId = account.getId();
 //            Uri personPhoto = account.getPhotoUrl();
 
@@ -163,7 +190,7 @@ public class GoogleSignIn extends AppCompatActivity {
                 String[] qq = personEmail.split("@");
                 Source.main_user_email = qq[1];
             }
-            Toast.makeText(GoogleSignIn.this, personName + " + " + personEmail, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(GoogleSignIn.this, personName + " + " + personEmail, Toast.LENGTH_SHORT).show();
         }
     }
 }
