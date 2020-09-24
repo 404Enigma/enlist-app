@@ -57,14 +57,17 @@ public class StudentGroup extends AppCompatActivity {
         b3_btn = findViewById(R.id.b3_btn);
 
         if(Source.main_PRN >= 19070122073L && Source.main_PRN <= 19070122095L){
+            Source.main_user_duo_class = "b1";
             b2_btn.setEnabled(false);
             b3_btn.setEnabled(false);
         }
         else if(Source.main_PRN >= 19070122096L && Source.main_PRN <= 19070122119L){
+            Source.main_user_duo_class = "b2";
             b1_btn.setEnabled(false);
             b3_btn.setEnabled(false);
         }
         else if(Source.main_PRN >= 19070122120L && Source.main_PRN <= 19070122145L){
+            Source.main_user_duo_class = "b3";
             b1_btn.setEnabled(false);
             b2_btn.setEnabled(false);
         }

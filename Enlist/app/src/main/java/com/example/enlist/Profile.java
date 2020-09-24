@@ -37,7 +37,13 @@ public class Profile extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
         updateUI(user);
 
-        user_class_group.setText(String.format("Class %s", Source.main_class_group));
+        if(Source.main_user_duo_class.equals("b1")){
+            user_class_group.setText("Class B, B1");
+        }else if(Source.main_user_duo_class.equals("b2")){
+            user_class_group.setText("Class B, B2");
+        }else if(Source.main_user_duo_class.equals("b3")){
+            user_class_group.setText("Class B, B3");
+        }
         user_prn.setText(String.valueOf(Source.main_PRN));
         user_name.setText(name);
         user_email.setText(email);
@@ -49,6 +55,15 @@ public class Profile extends AppCompatActivity {
         if(account!=null){
             name = account.getDisplayName();
             email = account.getEmail();
+//            if(name != null){
+//                String[] ww = name.split(".");
+//                //String[] ee = ww[1].split("");
+//                name = ww[0] + " " + ww[1];
+//            }
+            if(email != null){
+                String[] qq = email.split("@");
+                email = qq[0];
+            }
         }
     }
 }

@@ -41,7 +41,9 @@ public class NavBarSetting extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(NavBarSetting.this);
+        startActivity(new Intent(NavBarSetting.this, StudentGroup.class));
+        finish();
+       /* AlertDialog.Builder builder = new AlertDialog.Builder(NavBarSetting.this);
         builder.setMessage("Are you sure you want to close the application?").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -54,7 +56,7 @@ public class NavBarSetting extends AppCompatActivity {
         });
 
         AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+        alertDialog.show();*/
     }
 
 

@@ -188,6 +188,7 @@ public class GoogleSignIn extends AppCompatActivity {
 
             if(personEmail != null){
                 String[] qq = personEmail.split("@");
+                Source.main_user_email_name = qq[0];
                 Source.main_user_email = qq[1];
             }
             //Toast.makeText(GoogleSignIn.this, personName + " + " + personEmail, Toast.LENGTH_SHORT).show();
