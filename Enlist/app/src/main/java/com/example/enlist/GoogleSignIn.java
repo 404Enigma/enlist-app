@@ -20,24 +20,31 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class GoogleSignIn extends AppCompatActivity {
 
     private SignInButton signInButton;
     private GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth mAuth;
-    private String personEmail;
-    private Boolean temp_check;
+    private String personEmail,prn_firestore=null;
 
     private EditText editText_PRN;
 
     private int RC_SIGN_IN = 1;
+
+//    private FirebaseFirestore db=FirebaseFirestore.getInstance();
+//    private DocumentReference noteRef;
 
     @Override
     public void onBackPressed() {
@@ -88,8 +95,6 @@ public class GoogleSignIn extends AppCompatActivity {
                     Source.main_PRN = Long.parseLong(String.valueOf(editText_PRN.getText()));
                     signIn();
                 }
-//                Source.main_PRN = Long.parseLong(String.valueOf(editText_PRN.getText()));
-//                signIn();
             }
         });
     }
@@ -129,9 +134,15 @@ public class GoogleSignIn extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
-                            temp_check = check_email_prn(personEmail,editText_PRN.getText().toString());
+                          //  qwerty();
                             if(Source.main_user_email.equals("sitpune.edu.in")){
-                                if(temp_check){
+//                                Log.d("lol10", "lol15");
+//                                Log.d("lol10", String.valueOf(Source.main_PRN));
+//                                Log.d("lol10", prn_firestore);
+                                Toast.makeText(GoogleSignIn.this, "Successful", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(GoogleSignIn.this, StudentGroup.class));
+                                finish();
+                               /* if(String.valueOf(Source.main_PRN).equals(prn_firestore)){
                                     Toast.makeText(GoogleSignIn.this, "Successful", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(GoogleSignIn.this, StudentGroup.class));
                                     finish();
@@ -139,7 +150,7 @@ public class GoogleSignIn extends AppCompatActivity {
                                 else{
                                     Toast.makeText(GoogleSignIn.this, "Please enter your PRN", Toast.LENGTH_SHORT).show();
                                     mGoogleSignInClient.signOut();
-                                }
+                                }*/
                             }
                             else{
                                 Toast.makeText(GoogleSignIn.this, "PLease login through B.Tech ID", Toast.LENGTH_SHORT).show();
@@ -152,28 +163,39 @@ public class GoogleSignIn extends AppCompatActivity {
                             updateUI(null);
                         }
                     }
+
+                  /*  private void qwerty() {
+
+                        Log.d("lol10", personEmail);
+                        noteRef = db.collection("lol").document("lolism");
+
+                        noteRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                Log.d("lol10", "lol2");
+                                if(documentSnapshot.exists()) {
+                                    prn_firestore = documentSnapshot.getString("prn");
+                                    if(prn_firestore != null){
+                                        Log.d("lol10",prn_firestore);
+                                    }
+                                    Log.d("lol10","nahi mila");
+                                }else{
+                                    Log.d("lol10", "lol7");
+                                    Toast.makeText(GoogleSignIn.this, "Document does not exist", Toast.LENGTH_SHORT).show();
+                                    Log.d("lol10", "Document does not exist");
+                                }
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d("lol10", "lol8");
+                                Toast.makeText(GoogleSignIn.this, "Error", Toast.LENGTH_SHORT).show();
+                                Log.d("lol10", e.toString());
+                            }
+                        });
+                    }*/
                 });
     }
-
-    private boolean check_email_prn(String personEmail, String toString) {
-        switch (toString){
-            case "19070122126":if(personEmail.equals("prakhar.agarwal.btech2019@sitpune.edu.in")){
-                return true;
-            }
-            case "19070122129":if(personEmail.equals("pratyush.jain.btech2019@sitpune.edu.in")){
-                return true;
-            }
-            case "19070122120":if(personEmail.equals("sudhanshu.pandey.btech2019@sitpune.edu.in")){
-                return true;
-            }
-            case "19070122134":if(personEmail.equals("rahul.mansharamani.btech2019@sitpune.edu.in")){
-                return true;
-            }
-        }
-        return false;
-    }
-
-
 
     private void updateUI(FirebaseUser user) {
 
