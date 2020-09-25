@@ -137,6 +137,7 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
                                 if(task.isSuccessful()){
                                     Toast.makeText(EditTask.this, "Task deleted", Toast.LENGTH_SHORT).show();
                                     delete_player.start();
+                                    vibrator.vibrate(100);
                                     startActivity(new Intent(EditTask.this,MainActivity.class));
                                     finish();
                                 }
