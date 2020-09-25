@@ -41,31 +41,6 @@ import java.util.Calendar;
 
 public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
 
-//    Handler handler = new Handler(){
-//        @Override
-//        public void handleMessage(@NonNull Message msg) {
-//            reference.addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(@NonNull DataSnapshot snapshot) {
-//
-//                    snapshot.getRef().child("title").setValue(titlee.getText().toString());
-//                    snapshot.getRef().child("description").setValue(descriptionn.getText().toString());
-//                    snapshot.getRef().child("deadline").setValue(deadlinee.getText().toString());
-//                    snapshot.getRef().child("key").setValue(keyy);
-//
-//                    Toast.makeText(EditTask.this, "Task Updated", Toast.LENGTH_SHORT).show();
-//                    Intent intent1 = new Intent(EditTask.this,MainActivity.class);
-//                    startActivity(intent1);
-//                    finish();
-//                }
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError error) {
-//                }
-//            });
-//        }
-//    };
-
     String currentDateString,keyy;
     MediaPlayer done_player,delete_player;
     Vibrator vibrator;
@@ -84,7 +59,7 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Toast.makeText(EditTask.this, "Task cancelled", Toast.LENGTH_SHORT).show();
-               // startActivity(new Intent(EditTask.this,MainActivity.class));
+                startActivity(new Intent(EditTask.this,MainActivity.class));
                 finish();
             }
         }).setNegativeButton("No, wait", new DialogInterface.OnClickListener() {
@@ -133,7 +108,7 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Toast.makeText(EditTask.this, "Task cancelled", Toast.LENGTH_SHORT).show();
-                       // startActivity(new Intent(EditTask.this,MainActivity.class));
+                        startActivity(new Intent(EditTask.this,MainActivity.class));
                         finish();
                     }
                 }).setNegativeButton("No, wait", new DialogInterface.OnClickListener() {
@@ -202,19 +177,10 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
                                 snapshot.getRef().child("deadline").setValue(deadlinee.getText().toString());
                                 snapshot.getRef().child("key").setValue(keyy);
 
-                                new Handler().postDelayed(new Runnable() {
-
-                                    @Override
-                                    public void run() {
-                                        //Toast.makeText(EditTask.this, "Task Updated", Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(EditTask.this,MainActivity.class));
-                                        finish();
-                                    }
-                                }, 1000 );
-
-//                                Toast.makeText(EditTask.this, "Task Updated", Toast.LENGTH_SHORT).show();
-//                                startActivity(new Intent(EditTask.this,MainActivity.class));
-//                                finish();
+                                Toast.makeText(EditTask.this, "Task Updated", Toast.LENGTH_SHORT).show();
+                                Intent intent1 = new Intent(EditTask.this,MainActivity.class);
+                                startActivity(intent1);
+                                finish();
                             }
 
                             @Override
@@ -235,39 +201,6 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
                 alertDialog.show();
             }
         });
-
-        /*update_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Runnable r = new Runnable() {
-                    @Override
-                    public void run() {
-                     /*   AlertDialog.Builder builder = new AlertDialog.Builder(EditTask.this);
-                        builder.setMessage("Are you sure you want to update the current task").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-
-                            }
-                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                Toast.makeText(EditTask.this, "Task not updated", Toast.LENGTH_SHORT).show();
-                                dialogInterface.cancel();
-                            }
-                        });
-
-                        AlertDialog alertDialog = builder.create();
-                        alertDialog.show();
-
-                        handler.sendEmptyMessage(0);
-                    }
-                };
-
-                Thread thread = new Thread(r);
-                thread.start();
-            }
-        });*/
 
         date_picker_btn.setOnClickListener(new View.OnClickListener() {
             @Override

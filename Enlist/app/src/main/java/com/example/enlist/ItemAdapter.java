@@ -40,7 +40,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
         ViewHolder.title.setText(dataItems.get(position).getTitle());
         ViewHolder.description.setText(dataItems.get(position).getDescription());
         ViewHolder.deadline.setText(dataItems.get(position).getDeadline());
-        //ViewHolder.key.setText(dataItems.get(position).getKey_layout());
 
         final String getTitle_Layout = dataItems.get(position).getTitle();
         final String getDescription_Layout = dataItems.get(position).getDescription();
@@ -51,9 +50,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
             @Override
             public void onClick(View view) {
 
-                Log.d("qwe","adapter2");
                 Intent intent = new Intent(context, EditTask.class);
-
                 intent.putExtra("title_extra",getTitle_Layout);
                 intent.putExtra("description_extra",getDescription_Layout);
                 intent.putExtra("deadline_extra",getDeadline_Layout);
@@ -69,18 +66,12 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
         return dataItems.size();
     }
 
- /*  public void filterList(ArrayList<DataItem> filteredList){
-       dataItems = filteredList;
-       notifyDataSetChanged();
-   }*/
-
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView title,description,deadline,key;
 
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            Log.d("qwe","adapter3");
             title = itemView.findViewById(R.id.title_layout);
             description = itemView.findViewById(R.id.description_layout);
             deadline = itemView.findViewById(R.id.deadline_layout);

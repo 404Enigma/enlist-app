@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,14 +39,11 @@ public class GoogleSignIn extends AppCompatActivity {
     private SignInButton signInButton;
     private GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth mAuth;
-    private String personEmail,prn_firestore=null;
+    private String personEmail;
 
     private EditText editText_PRN;
 
     private int RC_SIGN_IN = 1;
-
-//    private FirebaseFirestore db=FirebaseFirestore.getInstance();
-//    private DocumentReference noteRef;
 
     @Override
     public void onBackPressed() {
@@ -70,6 +69,8 @@ public class GoogleSignIn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_google_sign_in);
 
+        FirebaseApp.initializeApp(this);
+
         signInButton = findViewById(R.id.google_login_btn);
         mAuth = FirebaseAuth.getInstance();
 
@@ -85,13 +86,11 @@ public class GoogleSignIn extends AppCompatActivity {
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(TextUtils.isEmpty(editText_PRN.getText().toString())){
+                if (TextUtils.isEmpty(editText_PRN.getText().toString())) {
                     Toast.makeText(GoogleSignIn.this, "Enter PRN", Toast.LENGTH_SHORT).show();
-                }
-                else if(!(editText_PRN.getText().toString().length() == 11)){
+                } else if (!(editText_PRN.getText().toString().length() == 11)) {
                     Toast.makeText(GoogleSignIn.this, "Incorrect PRN", Toast.LENGTH_SHORT).show();
-                }
-                else{
+                } else {
                     Source.main_PRN = Long.parseLong(String.valueOf(editText_PRN.getText()));
                     signIn();
                 }
@@ -117,11 +116,8 @@ public class GoogleSignIn extends AppCompatActivity {
         try {
             GoogleSignInAccount acco = completedTask.getResult(ApiException.class);
             FirebaseGoogleAuth(acco);
-            //Toast.makeText(GoogleSignIn.this, "Signed In Successfully", Toast.LENGTH_SHORT).show();
-        }
-        catch (ApiException e) {
+        } catch (ApiException e) {
             FirebaseGoogleAuth(null);
-            Toast.makeText(GoogleSignIn.this, "Signed In Failed", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -134,86 +130,34 @@ public class GoogleSignIn extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
-                          //  qwerty();
-                            if(Source.main_user_email.equals("sitpune.edu.in")){
-//                                Log.d("lol10", "lol15");
-//                                Log.d("lol10", String.valueOf(Source.main_PRN));
-//                                Log.d("lol10", prn_firestore);
+                            if (Source.main_user_email.equals("sitpune.edu.in")) {
                                 Toast.makeText(GoogleSignIn.this, "Successful", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(GoogleSignIn.this, StudentGroup.class));
                                 finish();
-                               /* if(String.valueOf(Source.main_PRN).equals(prn_firestore)){
-                                    Toast.makeText(GoogleSignIn.this, "Successful", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(GoogleSignIn.this, StudentGroup.class));
-                                    finish();
-                                }
-                                else{
-                                    Toast.makeText(GoogleSignIn.this, "Please enter your PRN", Toast.LENGTH_SHORT).show();
-                                    mGoogleSignInClient.signOut();
-                                }*/
-                            }
-                            else{
+                            } else {
                                 Toast.makeText(GoogleSignIn.this, "PLease login through B.Tech ID", Toast.LENGTH_SHORT).show();
                                 mGoogleSignInClient.signOut();
-                                //updateUI(null);
                             }
-                        }
-                        else{
+                        } else {
                             Toast.makeText(GoogleSignIn.this, "Failed", Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
                     }
-
-                  /*  private void qwerty() {
-
-                        Log.d("lol10", personEmail);
-                        noteRef = db.collection("lol").document("lolism");
-
-                        noteRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                            @Override
-                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                Log.d("lol10", "lol2");
-                                if(documentSnapshot.exists()) {
-                                    prn_firestore = documentSnapshot.getString("prn");
-                                    if(prn_firestore != null){
-                                        Log.d("lol10",prn_firestore);
-                                    }
-                                    Log.d("lol10","nahi mila");
-                                }else{
-                                    Log.d("lol10", "lol7");
-                                    Toast.makeText(GoogleSignIn.this, "Document does not exist", Toast.LENGTH_SHORT).show();
-                                    Log.d("lol10", "Document does not exist");
-                                }
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.d("lol10", "lol8");
-                                Toast.makeText(GoogleSignIn.this, "Error", Toast.LENGTH_SHORT).show();
-                                Log.d("lol10", e.toString());
-                            }
-                        });
-                    }*/
                 });
     }
 
     private void updateUI(FirebaseUser user) {
 
         GoogleSignInAccount account = com.google.android.gms.auth.api.signin.GoogleSignIn.getLastSignedInAccount(getApplicationContext());
-        if(account!=null){
-            //String personName = account.getDisplayName();
-//            String personGivenName = account.getGivenName();
-//            String personFamilyName = account.getFamilyName();
-                personEmail = account.getEmail();
-//            String personId = account.getId();
-//            Uri personPhoto = account.getPhotoUrl();
+        if (account != null) {
 
-            if(personEmail != null){
+            personEmail = account.getEmail();
+
+            if (personEmail != null) {
                 String[] qq = personEmail.split("@");
                 Source.main_user_email_name = qq[0];
                 Source.main_user_email = qq[1];
             }
-            //Toast.makeText(GoogleSignIn.this, personName + " + " + personEmail, Toast.LENGTH_SHORT).show();
         }
     }
 }

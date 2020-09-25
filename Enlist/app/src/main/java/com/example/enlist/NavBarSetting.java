@@ -29,7 +29,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class NavBarSetting extends AppCompatActivity {
 
-    private static final String TAG = "NavBarSetting";
     ImageButton back_arrow_btn;
 
     private GoogleSignInClient mGoogleSignInClient;
@@ -41,29 +40,12 @@ public class NavBarSetting extends AppCompatActivity {
     public void onBackPressed() {
         startActivity(new Intent(NavBarSetting.this, StudentGroup.class));
         finish();
-       /* AlertDialog.Builder builder = new AlertDialog.Builder(NavBarSetting.this);
-        builder.setMessage("Are you sure you want to close the application?").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-            }
-        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.cancel();
-            }
-        });
-
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();*/
     }
-
 
         @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nav_bar_setting);
-
-            Log.d(TAG, "onCreate: ");
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -158,35 +140,5 @@ public class NavBarSetting extends AppCompatActivity {
                 return false;
             }
         });
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.d(TAG, "onStart: ");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.d(TAG, "onStop: ");
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d(TAG, "onDestroy: ");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.d(TAG, "onPause: ");
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        Log.d(TAG, "onRestart: ");
     }
 }

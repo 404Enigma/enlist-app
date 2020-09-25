@@ -42,7 +42,7 @@ public class Profile extends AppCompatActivity {
         back_arrow_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Profile.this, StudentGroup.class));
+                startActivity(new Intent(Profile.this, NavBarSetting.class));
                 finish();
             }
         });
