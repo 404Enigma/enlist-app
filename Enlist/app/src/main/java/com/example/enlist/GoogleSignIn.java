@@ -92,7 +92,7 @@ public class GoogleSignIn extends AppCompatActivity {
                 } else if (!(editText_PRN.getText().toString().length() == 11)) {
                     Toast.makeText(GoogleSignIn.this, "Incorrect PRN", Toast.LENGTH_SHORT).show();
                 } else {
-                    Source.main_PRN = Long.parseLong(String.valueOf(editText_PRN.getText()));
+                    Source.main_PRN = Integer.parseInt(String.valueOf(editText_PRN.getText()));
                     signIn();
                 }
             }

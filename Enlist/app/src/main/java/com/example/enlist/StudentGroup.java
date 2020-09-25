@@ -23,7 +23,6 @@ import com.google.firebase.database.ValueEventListener;
 public class StudentGroup extends AppCompatActivity {
 
     Button b_btn,b1_btn,b2_btn,b3_btn;
-    private static final String TAG = "StudentGroup";
 
     @Override
     public void onBackPressed() {
@@ -49,24 +48,22 @@ public class StudentGroup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_group);
 
-        Log.d(TAG, "onCreate");
-
         b_btn = findViewById(R.id.b_btn);
         b1_btn = findViewById(R.id.b1_btn);
         b2_btn = findViewById(R.id.b2_btn);
         b3_btn = findViewById(R.id.b3_btn);
 
-        if(Source.main_PRN >= 19070122073L && Source.main_PRN <= 19070122095L){
+        if(Source.main_PRN >= 73 && Source.main_PRN <= 95){
             Source.main_user_duo_class = "b1";
             b2_btn.setEnabled(false);
             b3_btn.setEnabled(false);
         }
-        else if(Source.main_PRN >= 19070122096L && Source.main_PRN <= 19070122119L){
+        else if(Source.main_PRN >= 96 && Source.main_PRN <= 119){
             Source.main_user_duo_class = "b2";
             b1_btn.setEnabled(false);
             b3_btn.setEnabled(false);
         }
-        else if(Source.main_PRN >= 19070122120L && Source.main_PRN <= 19070122145L){
+        else if(Source.main_PRN >= 120 && Source.main_PRN <= 145){
             Source.main_user_duo_class = "b3";
             b1_btn.setEnabled(false);
             b2_btn.setEnabled(false);
@@ -83,7 +80,7 @@ public class StudentGroup extends AppCompatActivity {
             public void onClick(View view) {
                 Source.main_class_group="B";
                 startActivity(new Intent(StudentGroup.this,MainActivity.class));
-             //   finish();
+                finish();
             }
         });
 
@@ -91,9 +88,8 @@ public class StudentGroup extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Source.main_class_group="B1";
-
                 startActivity(new Intent(StudentGroup.this,MainActivity.class));
-               // finish();
+                finish();
             }
         });
 
@@ -102,7 +98,7 @@ public class StudentGroup extends AppCompatActivity {
             public void onClick(View view) {
                 Source.main_class_group="B2";
                 startActivity(new Intent(StudentGroup.this,MainActivity.class));
-               // finish();
+                finish();
             }
         });
 
@@ -111,38 +107,8 @@ public class StudentGroup extends AppCompatActivity {
             public void onClick(View view) {
                 Source.main_class_group="B3";
                 startActivity(new Intent(StudentGroup.this,MainActivity.class));
-                //finish();
+                finish();
             }
         });
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        Log.d(TAG, "onRestart: ");
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.d(TAG, "onStart: ");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.d(TAG, "onStop: ");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.d(TAG, "onPause: ");
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d(TAG, "onDestroy: ");
     }
 }

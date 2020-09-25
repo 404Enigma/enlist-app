@@ -7,5 +7,5 @@ public class Source {
     public static String main_user_email_name;
     public static String main_user_email;
     public static Integer flag=0;
-    public static long main_PRN;
+    public static Integer main_PRN;
 }
