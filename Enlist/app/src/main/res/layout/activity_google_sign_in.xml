@@ -86,6 +86,20 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/ubuntu_bold"
         android:gravity="center"
+        android:text="@string/enter_last_3_digits_of_your_prn"
+        android:textColor="#ffffff"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.71" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ubuntu_bold"
+        android:gravity="center"
         android:text="@string/login_through_b_tech_id"
         android:textColor="#ffffff"
         android:textSize="16sp"

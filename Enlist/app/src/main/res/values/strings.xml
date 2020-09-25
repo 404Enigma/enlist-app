@@ -35,4 +35,5 @@
     <string name="name">Name</string>
     <string name="class_group">Class Group</string>
     <string name="prn">PRN</string>
+    <string name="enter_last_3_digits_of_your_prn">(Enter last 3 digits of your PRN)</string>
 </resources>
