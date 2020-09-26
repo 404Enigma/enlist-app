@@ -30,21 +30,29 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Random;
 
 public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
+    private static final String TAG = "NewTask";
     RadioGroup radioGroup_privacy;
     RadioButton radioButton_personal,radioButton_shared;
     int type_privacy=0;
@@ -63,6 +71,9 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
     DatabaseReference reference, users_reference;
     Integer taskNumber = new Random().nextInt();
     String key_layout = Integer.toString(taskNumber);
+
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    //private DocumentReference noteRef = db.collection("Member Access").document();
 
     @Override
     public void onBackPressed() {
@@ -257,6 +268,33 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
                     Toast.makeText(NewTask.this, "Choose privacy type", Toast.LENGTH_SHORT).show();
                 }
                 else {
+
+                    Calendar calendar = Calendar.getInstance();
+                    SimpleDateFormat format_time = new SimpleDateFormat("hh:mm:ss");
+                    SimpleDateFormat format_date = new SimpleDateFormat("dd-MMM-yyyy");
+                    String time = format_time.format(calendar.getTime());
+                    String date = format_date.format(calendar.getTime());
+                    Log.d(TAG, time);
+                    Log.d(TAG, date);
+                    Log.d(TAG, Source.main_user_uid);
+                    Map<String, Object> note = new HashMap<>();
+                    note.put("date",date);
+                    note.put("title",title_editText.getText().toString());
+                    note.put("uid",Source.main_user_uid);
+
+                    db.collection("Analysis").document(time).set(note)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "onSuccess: ");
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d(TAG, "onFailure: ");
+                            Log.d(TAG,e.toString());
+                        }
+                    });
 
                     if(type_privacy == 1){
                         reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child(Source.main_user_uid).child(Source.main_class_group).child("Task" + taskNumber);

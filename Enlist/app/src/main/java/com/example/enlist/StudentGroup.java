@@ -44,7 +44,6 @@ public class StudentGroup extends AppCompatActivity {
 
         if(Source.main_PRN == 120 || Source.main_PRN == 126 || Source.main_PRN == 129 || Source.main_PRN == 136){
             Source.main_user_duo_class = "b3";
-            return;
         }else if(Source.main_PRN >= 73 && Source.main_PRN <= 95){
             Source.main_user_duo_class = "b1";
             b2_btn.setEnabled(false);
