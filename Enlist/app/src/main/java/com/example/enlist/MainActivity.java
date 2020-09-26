@@ -127,27 +127,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, 0) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder dragged, @NonNull RecyclerView.ViewHolder target) {
-
-                int position_dragged = dragged.getAdapterPosition();
-                int position_target = target.getAdapterPosition();
-
-                Collections.swap(list,position_dragged,position_target);
-                itemAdapter.notifyItemMoved(position_dragged,position_target);
-                recyclerView.setAdapter(itemAdapter);
-                itemAdapter.notifyDataSetChanged();
-
-                return true;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            }
-        });
-        helper.attachToRecyclerView(recyclerView);
-
         new_task_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

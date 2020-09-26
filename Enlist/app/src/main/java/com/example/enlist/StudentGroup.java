@@ -42,7 +42,7 @@ public class StudentGroup extends AppCompatActivity {
         b2_btn = findViewById(R.id.b2_btn);
         b3_btn = findViewById(R.id.b3_btn);
 
-        if(Source.main_PRN == 120 || Source.main_PRN == 126 || Source.main_PRN == 129 || Source.main_PRN == 136){
+        if(Source.main_PRN == 120 || Source.main_PRN == 126 || Source.main_PRN == 129 || Source.main_PRN == 134){
             Source.main_user_duo_class = "b3";
         }else if(Source.main_PRN >= 73 && Source.main_PRN <= 95){
             Source.main_user_duo_class = "b1";

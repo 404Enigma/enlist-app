@@ -136,7 +136,7 @@
         android:clickable="true"
         android:focusable="true"
         android:fontFamily="@font/ubuntu_bold"
-        android:text="@string/support"
+        android:text="Support via mail"
         android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"

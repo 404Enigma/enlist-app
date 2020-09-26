@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -120,7 +121,11 @@ public class NavBarSetting extends AppCompatActivity {
         support_textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(NavBarSetting.this, "Support", Toast.LENGTH_SHORT).show();
+                Intent gmail_intent = new Intent(Intent.ACTION_SEND);
+                gmail_intent.putExtra(Intent.EXTRA_EMAIL,new String[] { "enlist.feedback@gmail.com" });
+                gmail_intent.putExtra(Intent.EXTRA_SUBJECT,"Suggest a feature/Report a bug");
+                gmail_intent.setType("message/rfc822");
+                startActivity(Intent.createChooser(gmail_intent, "Choose an email client"));
             }
         });
 

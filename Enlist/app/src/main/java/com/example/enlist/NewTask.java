@@ -15,7 +15,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -38,10 +37,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -73,7 +70,6 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
     String key_layout = Integer.toString(taskNumber);
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    //private DocumentReference noteRef = db.collection("Member Access").document();
 
     @Override
     public void onBackPressed() {
@@ -274,9 +270,7 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
                     SimpleDateFormat format_date = new SimpleDateFormat("dd-MMM-yyyy");
                     String time = format_time.format(calendar.getTime());
                     String date = format_date.format(calendar.getTime());
-                    Log.d(TAG, time);
-                    Log.d(TAG, date);
-                    Log.d(TAG, Source.main_user_uid);
+
                     Map<String, Object> note = new HashMap<>();
                     note.put("date",date);
                     note.put("title",title_editText.getText().toString());
