@@ -4,15 +4,20 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -41,8 +46,10 @@ public class GoogleSignIn extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String personEmail;
     private Boolean temp;
+    private TextView btechid_textView;
+    private Button verify_btn;
     private EditText editText_PRN;
-    private int RC_SIGN_IN = 1;
+    private int RC_SIGN_IN = 1,flag=0;
 
     @Override
     public void onBackPressed() {
@@ -70,10 +77,40 @@ public class GoogleSignIn extends AppCompatActivity {
 
         FirebaseApp.initializeApp(this);
 
+        btechid_textView = findViewById(R.id.btechid_textView);
+        verify_btn = findViewById(R.id.verify_btn);
         signInButton = findViewById(R.id.google_login_btn);
         mAuth = FirebaseAuth.getInstance();
 
+        if(mAuth.getCurrentUser() != null){
+            flag=1;
+            btechid_textView.setVisibility(View.INVISIBLE);
+            signInButton.setVisibility(View.INVISIBLE);
+        }
+        else{
+            flag=2;
+            verify_btn.setVisibility(View.INVISIBLE);
+        }
+
         editText_PRN = findViewById(R.id.editText_PRN);
+
+        editText_PRN.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(editText_PRN.getText().toString().length() == 3){
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(editText_PRN.getWindowToken(), 0);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -81,6 +118,20 @@ public class GoogleSignIn extends AppCompatActivity {
                 .build();
 
         mGoogleSignInClient = com.google.android.gms.auth.api.signin.GoogleSignIn.getClient(GoogleSignIn.this, gso);
+
+        verify_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (TextUtils.isEmpty(editText_PRN.getText().toString())) {
+                    Toast.makeText(GoogleSignIn.this, "Enter PRN", Toast.LENGTH_SHORT).show();
+                } else if (!(editText_PRN.getText().toString().length() == 3)) {
+                    Toast.makeText(GoogleSignIn.this, "Incorrect PRN", Toast.LENGTH_SHORT).show();
+                } else {
+                    Source.main_PRN = Integer.parseInt(String.valueOf(editText_PRN.getText()));
+                    signIn();
+                }
+            }
+        });
 
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,7 +188,11 @@ public class GoogleSignIn extends AppCompatActivity {
                                     finish();
                                 }else{
                                     Toast.makeText(GoogleSignIn.this, "Please enter your PRN", Toast.LENGTH_SHORT).show();
-                                    mGoogleSignInClient.signOut();
+                                    if (flag == 1){
+                                        return;
+                                    }else if(flag == 2){
+                                        mGoogleSignInClient.signOut();
+                                    }
                                 }
                             } else {
                                 Toast.makeText(GoogleSignIn.this, "Please login through B.Tech ID", Toast.LENGTH_SHORT).show();

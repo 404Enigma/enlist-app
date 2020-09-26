@@ -152,7 +152,7 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Toast.makeText(NewTask.this, "Task cancelled", Toast.LENGTH_SHORT).show();
-                        //startActivity(new Intent(NewTask.this,MainActivity.class));
+                        startActivity(new Intent(NewTask.this,MainActivity.class));
                         finish();
                     }
                 }).setNegativeButton("No, wait", new DialogInterface.OnClickListener() {

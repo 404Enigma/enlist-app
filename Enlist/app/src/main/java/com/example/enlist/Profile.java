@@ -62,7 +62,7 @@ public class Profile extends AppCompatActivity {
             user_class_group.setText("Enrolled in class B & B3");
         }
         user_prn.setText(String.valueOf("19070122" + Source.main_PRN));
-        user_name.setText(rrr);
+        user_name.setText(name);
         user_email.setText(email);
     }
 
@@ -81,9 +81,9 @@ public class Profile extends AppCompatActivity {
                 //String[] ee = ww[1].split("");
                 name = ww[0] + " " + ww[1];
                 Log.d(TAG, name);*/
-             String[] lll = name.split(" ");
+       /*      String[] lll = name.split(" ");
                 Log.d(TAG, lll[0]);
-                rrr = lll[0];
+                rrr = lll[0];*/
 //             String[] qqq = rrr.split(".");
 //                Log.d(TAG, qqq[0]);
 //                Log.d(TAG,qqq[1]);
