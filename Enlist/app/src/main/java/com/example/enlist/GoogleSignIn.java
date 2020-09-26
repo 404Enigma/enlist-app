@@ -87,7 +87,7 @@ public class GoogleSignIn extends AppCompatActivity {
             public void onClick(View view) {
                 if (TextUtils.isEmpty(editText_PRN.getText().toString())) {
                     Toast.makeText(GoogleSignIn.this, "Enter PRN", Toast.LENGTH_SHORT).show();
-                } else if (!(editText_PRN.getText().toString().length() == 11)) {
+                } else if (!(editText_PRN.getText().toString().length() == 3)) {
                     Toast.makeText(GoogleSignIn.this, "Incorrect PRN", Toast.LENGTH_SHORT).show();
                 } else {
                     Source.main_PRN = Integer.parseInt(String.valueOf(editText_PRN.getText()));
@@ -132,6 +132,7 @@ public class GoogleSignIn extends AppCompatActivity {
                             temp = check_prn_email();
                             if (Source.main_user_email.equals("sitpune.edu.in")) {
                                 if(temp){
+                                    Toast.makeText(GoogleSignIn.this, "Signed In", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(GoogleSignIn.this, StudentGroup.class));
                                     finish();
                                 }else{

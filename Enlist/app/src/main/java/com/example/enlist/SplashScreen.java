@@ -21,6 +21,6 @@ public class SplashScreen extends AppCompatActivity {
                 startActivity(new Intent(SplashScreen.this, GoogleSignIn.class));
                 finish();
             }
-        },100);
+        },500);
     }
 }
