@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Enlist</string>
     <string name="enter_description_of_the_task">Enter description of the task</string>
-    <string name="descrption">Descrption</string>
+    <string name="descrption">Description</string>
     <string name="enter_title_of_the_task">Enter title of the task</string>
     <string name="title">Title</string>
     <string name="edit_task">Edit Task</string>

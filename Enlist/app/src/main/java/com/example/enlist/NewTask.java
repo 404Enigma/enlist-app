@@ -44,6 +44,7 @@ import java.util.Random;
 public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     RadioGroup radioGroup_privacy;
+    RadioButton radioButton_personal,radioButton_shared;
     int type_privacy=0;
     Vibrator vibrator;
 
@@ -94,6 +95,8 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
         mic1 = findViewById(R.id.mic_title);
         mic2 = findViewById(R.id.mic_description);
         radioGroup_privacy = findViewById(R.id.radioGroup_privacy);
+        radioButton_personal = findViewById(R.id.radioButton_personal);
+        radioButton_shared = findViewById(R.id.radioButton_shared);
         add_to_calendar_btn = findViewById(R.id.add_to_calendar);
         vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
 
@@ -208,12 +211,13 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
                     Toast.makeText(NewTask.this, "Enter title", Toast.LENGTH_SHORT).show();
                 } else if (TextUtils.isEmpty(currentDateString)) {
                     Toast.makeText(NewTask.this, "Enter deadline", Toast.LENGTH_SHORT).show();
-                } else if (TextUtils.isEmpty(description_editText.getText().toString())) {
-                    description_editText = null;
                 } else if(type_privacy == 0){
                     Toast.makeText(NewTask.this, "Choose privacy type", Toast.LENGTH_SHORT).show();
-                }
+                }/* else if (TextUtils.isEmpty(description_editText.getText().toString())) {
+                    description_editText = null;
+                }*/
                 else {
+
                     if(type_privacy == 1){
                         reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child(Source.main_user_uid).child(Source.main_class_group).child("Task" + taskNumber);
                         reference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -221,6 +225,11 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                                 snapshot.getRef().child("title").setValue(title_editText.getText().toString());
+                                if (TextUtils.isEmpty(description_editText.getText().toString())) {
+                                    description_editText.setText(" ");
+                                }else{
+                                    snapshot.getRef().child("description").setValue(description_editText.getText().toString());
+                                }
                                 snapshot.getRef().child("description").setValue(description_editText.getText().toString());
                                 snapshot.getRef().child("deadline").setValue(currentDateString);
                                 snapshot.getRef().child("key").setValue(key_layout);
@@ -256,7 +265,11 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                 snapshot.getRef().child("title").setValue(title_editText.getText().toString());
-                                                snapshot.getRef().child("description").setValue(description_editText.getText().toString());
+                                                if (TextUtils.isEmpty(description_editText.getText().toString())) {
+                                                    description_editText.setText(" ");
+                                                }else{
+                                                    snapshot.getRef().child("description").setValue(description_editText.getText().toString());
+                                                }
                                                 snapshot.getRef().child("deadline").setValue(currentDateString);
                                                 snapshot.getRef().child("key").setValue(key_layout);
 

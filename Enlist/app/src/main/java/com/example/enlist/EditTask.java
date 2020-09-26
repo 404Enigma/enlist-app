@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
@@ -168,7 +169,11 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                                 snapshot.getRef().child("title").setValue(titlee.getText().toString());
-                                snapshot.getRef().child("description").setValue(descriptionn.getText().toString());
+                                if (TextUtils.isEmpty(descriptionn.getText().toString())) {
+                                    descriptionn.setText(" ");
+                                }else{
+                                    snapshot.getRef().child("description").setValue(descriptionn.getText().toString());
+                                }
                                 snapshot.getRef().child("deadline").setValue(deadlinee.getText().toString());
                                 snapshot.getRef().child("key").setValue(keyy);
 
