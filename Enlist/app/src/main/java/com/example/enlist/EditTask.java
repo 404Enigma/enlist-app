@@ -1,13 +1,16 @@
 package com.example.enlist;
 
 import android.app.DatePickerDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.speech.RecognizerIntent;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
@@ -32,18 +35,20 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 
 public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
 
-    String currentDateString,keyy;
+    private static final String TAG = "EditTask";
+    String currentDateString,keyy,temp_month;
     MediaPlayer done_player,delete_player;
     Vibrator vibrator;
-
+    
     EditText titlee, descriptionn;
     TextView deadlinee;
     com.google.android.material.floatingactionbutton.FloatingActionButton done_btn;
-    ImageButton date_picker_btn,back_arrow_btn;
+    ImageButton date_picker_btn,back_arrow_btn,mic1,mic2;
 
     DatabaseReference reference;
 
@@ -80,6 +85,9 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
         descriptionn = findViewById(R.id.description_editText);
         deadlinee = findViewById(R.id.deadline_textView);
 
+        mic1 = findViewById(R.id.mic_title);
+        mic2 = findViewById(R.id.mic_description);
+
         vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
 
         date_picker_btn = findViewById(R.id.open_picker);
@@ -115,6 +123,36 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
 
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
+            }
+        });
+
+        mic1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+                intent.putExtra(RecognizerIntent.EXTRA_PROMPT,"Enter title");
+                try {
+                    startActivityForResult(intent,1);
+                }catch (ActivityNotFoundException e){
+                    Toast.makeText(EditTask.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        mic2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+                intent.putExtra(RecognizerIntent.EXTRA_PROMPT,"Enter description");
+                try {
+                    startActivityForResult(intent,2);
+                }catch (ActivityNotFoundException e){
+                    Log.d(TAG,e.toString());
+                }
             }
         });
 
@@ -164,7 +202,7 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
-                        reference.addValueEventListener(new ValueEventListener() {
+                        reference.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -178,8 +216,8 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
                                 snapshot.getRef().child("key").setValue(keyy);
 
                                 Toast.makeText(EditTask.this, "Task Updated", Toast.LENGTH_SHORT).show();
-                                Intent intent1 = new Intent(EditTask.this,MainActivity.class);
-                                startActivity(intent1);
+                                vibrator.vibrate(100);
+                                startActivity(new Intent(EditTask.this,MainActivity.class));
                                 finish();
                             }
 
@@ -268,7 +306,23 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
         calendar.set(Calendar.MONTH, month);
         calendar.set(Calendar.DAY_OF_MONTH, day);
 
-        currentDateString = DateFormat.getDateInstance(DateFormat.DEFAULT).format(calendar.getTime());
+        month+=1;
+        switch (month){
+            case 1:temp_month="Jan";
+            case 2:temp_month="Feb";
+            case 3:temp_month="Mar";
+            case 4:temp_month="Apr";
+            case 5:temp_month="May";
+            case 6:temp_month="Jun";
+            case 7:temp_month="Jul";
+            case 8:temp_month="Aug";
+            case 9:temp_month="Sep";
+            case 10:temp_month="Oct";
+            case 11:temp_month="Nov";
+            case 12:temp_month="Dec";
+        }
+
+        currentDateString = day + " " + temp_month;
 
         deadlinee.setText(currentDateString);
     }

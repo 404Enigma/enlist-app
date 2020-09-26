@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.provider.CalendarContract;
 import android.speech.RecognizerIntent;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -117,13 +119,53 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
             }
         });
 
+        title_editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(title_editText.getText().toString().length() == 21){
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(title_editText.getWindowToken(), 0);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        description_editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(description_editText.getText().toString().length() == 21){
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(description_editText.getWindowToken(), 0);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
         mic1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
                 intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
                 intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
-                intent.putExtra(RecognizerIntent.EXTRA_PROMPT,"Speak");
+                intent.putExtra(RecognizerIntent.EXTRA_PROMPT,"Enter title");
                 try {
                     startActivityForResult(intent,1);
                 }catch (ActivityNotFoundException e){
@@ -138,7 +180,7 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
                 Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
                 intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
                 intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
-                intent.putExtra(RecognizerIntent.EXTRA_PROMPT,"Speak");
+                intent.putExtra(RecognizerIntent.EXTRA_PROMPT,"Enter description");
                 try {
                     startActivityForResult(intent,2);
                 }catch (ActivityNotFoundException e){
@@ -213,9 +255,7 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
                     Toast.makeText(NewTask.this, "Enter deadline", Toast.LENGTH_SHORT).show();
                 } else if(type_privacy == 0){
                     Toast.makeText(NewTask.this, "Choose privacy type", Toast.LENGTH_SHORT).show();
-                }/* else if (TextUtils.isEmpty(description_editText.getText().toString())) {
-                    description_editText = null;
-                }*/
+                }
                 else {
 
                     if(type_privacy == 1){
@@ -275,6 +315,7 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
 
                                                 if (i.equals(qqq)) {
                                                     Toast.makeText(NewTask.this, "Task added", Toast.LENGTH_SHORT).show();
+                                                    vibrator.vibrate(100);
                                                     startActivity(new Intent(NewTask.this, MainActivity.class));
                                                     finish();
                                                 }
