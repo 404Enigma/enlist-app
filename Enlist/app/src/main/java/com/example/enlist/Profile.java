@@ -21,8 +21,6 @@ public class Profile extends AppCompatActivity {
     TextView user_email,user_prn,user_class_group,user_name;
     String email,name;
     ImageButton back_arrow_btn;
-    private static final String TAG = "Profile";
-    String rrr;
 
     private GoogleSignInClient mGoogleSignInClient;
 
@@ -75,20 +73,9 @@ public class Profile extends AppCompatActivity {
             name = account.getDisplayName();
             email = account.getEmail();
             if(name != null){
-             /*   String[] ww = name.split(".");
-                Log.d(TAG, ww[0]);
-//                Log.d(TAG, ww[1]);
-//                Log.d(TAG, ww[2]);
-//                Log.d(TAG, ww[3]);
-                //String[] ee = ww[1].split("");
-                name = ww[0] + " " + ww[1];
-                Log.d(TAG, name);*/
-       /*      String[] lll = name.split(" ");
-                Log.d(TAG, lll[0]);
-                rrr = lll[0];*/
-//             String[] qqq = rrr.split(".");
-//                Log.d(TAG, qqq[0]);
-//                Log.d(TAG,qqq[1]);
+                String[] ww = name.split("\\.");
+                String[] lll = ww[1].split("\\s+");
+                name = ww[0] + " " + lll[0];
             }
             if(email != null){
                 String[] qq = email.split("@");

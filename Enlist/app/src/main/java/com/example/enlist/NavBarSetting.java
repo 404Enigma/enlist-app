@@ -1,11 +1,14 @@
 package com.example.enlist;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -15,6 +18,9 @@ import android.widget.Toast;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 public class NavBarSetting extends AppCompatActivity {
 
@@ -87,11 +93,27 @@ public class NavBarSetting extends AppCompatActivity {
         log_out_textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mGoogleSignInClient.signOut();
-                Source.flag=0;
-                Toast.makeText(NavBarSetting.this, "Logged out", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(NavBarSetting.this, GoogleSignIn.class));
-                finish();
+                AlertDialog.Builder builder = new AlertDialog.Builder(NavBarSetting.this);
+                builder.setMessage("Are you sure you want to log out?").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        mGoogleSignInClient.signOut();
+                        Source.flag=0;
+                        Toast.makeText(NavBarSetting.this, "Logged out", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(NavBarSetting.this, GoogleSignIn.class));
+                        finish();
+
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
             }
         });
 
