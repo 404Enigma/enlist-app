@@ -29,13 +29,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             return new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.layout_item,parent,false));
-
     }
 
     @Override
     public void onBindViewHolder(@NonNull ItemAdapter.MyViewHolder ViewHolder , int position) {
-
-        Log.d("qwe","adapter1");
 
         ViewHolder.title.setText(dataItems.get(position).getTitle());
         ViewHolder.description.setText(dataItems.get(position).getDescription());

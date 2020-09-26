@@ -1,30 +1,20 @@
 package com.example.enlist;
 
-import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -44,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
 
     TextView class_group_textView;
 
-    // private EditText editText_search;
      int flag1=0,flag2=0,flag3=0;
 
     DatabaseReference reference, source_reference;
@@ -52,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<DataItem> list;
     ItemAdapter itemAdapter;
 
-    //SearchView searchView;
     FloatingActionButton new_task_btn;
     ImageButton back_arrow_btn;
 
@@ -67,40 +55,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.d("lol", "lol4");
-
-        Log.d("qwe", "Create");
-
         class_group_textView = findViewById(R.id.class_group_textView);
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         back_arrow_btn = findViewById(R.id.back_arrow_btn);
         new_task_btn = findViewById(R.id.new_task_btn);
-        //editText_search = findViewById(R.id.editText_search);
-        //searchView = findViewById(R.id.search_view);
 
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setAdapter(null);
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
         list = new ArrayList<DataItem>();
-
-       /* editText_search.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                filter(editable.toString());
-            }
-        });*/
 
         class_group_textView.setText(String.format("Class %s", Source.main_class_group));
 
@@ -133,8 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
         reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child(Source.main_user_uid).child(Source.main_class_group);
 
-        Log.d("qwe","call karo value listener");
-        reference.addValueEventListener(new ValueEventListener() {                  //Adding data in recycler view
+        reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -142,33 +106,23 @@ public class MainActivity extends AppCompatActivity {
                     flag2=0;
                     flag1=1;
                     flag3=1;
-                    Log.d("qwe","call karo1");
 
                     for(DataSnapshot dataSnapshot: snapshot.getChildren())
                     {
-                        Log.d("qwe","call karo2");
                         DataItem p = dataSnapshot.getValue(DataItem.class);
-                        Log.d("qwe","call karo2.1");
                         list.add(p);
-                        Log.d("qwe","call karo2.2");
                     }
 
-                    Log.d("qwe","call karo3");
                     itemAdapter = new ItemAdapter(MainActivity.this, list);
-//                    recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-                /*LinearLayoutManager llm = new LinearLayoutManager(MainActivity.this);
-                llm.setOrientation(LinearLayoutManager.VERTICAL);*/
                     recyclerView.setHasFixedSize(true);
                     recyclerView.setAdapter(itemAdapter);
                     itemAdapter.notifyDataSetChanged();
                     flag1=1;
-                    Log.d("qwe","call karo4");
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.d("qwe","call karo5");
                 Toast.makeText(MainActivity.this, "No data", Toast.LENGTH_SHORT).show();
             }
         });
@@ -182,7 +136,6 @@ public class MainActivity extends AppCompatActivity {
 
                 Collections.swap(list,position_dragged,position_target);
                 itemAdapter.notifyItemMoved(position_dragged,position_target);
-                Log.d("move","lol1");
                 recyclerView.setAdapter(itemAdapter);
                 itemAdapter.notifyDataSetChanged();
 
@@ -222,36 +175,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    /*    searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-
-                itemAdapter.getFilter(ArrayList<DataItem> filteredList);
-                return false;
-            }
-        });*/
-
-    }           //////////////////////////////////////////END onCreate
-
-  /*  private void filter(String text) {
-
-        ArrayList<DataItem> filteredList = new ArrayList<>();
-
-        for (DataItem item : list){
-            if (item.getTitle().toLowerCase().contains(text.toLowerCase())){
-                filteredList.add(item);
-            }
-        }
-
-        ItemAdapter itemAdapter = new ItemAdapter(MainActivity.this, list);
-        itemAdapter.filterList(filteredList);
-
-    }*/
+    }
 
     private void source_ref() {
         source_reference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -264,42 +188,10 @@ public class MainActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d("qwe", "Destroy");
     }
 
     public void onPause() {
         super.onPause();
-        //flag1=1;
         flag2=1;
-        Log.d("qwe", "Pause");
-    }
-
-    public void onStop() {
-        super.onStop();
-        Log.d("qwe", "Stop");
-    }
-
-    public void onStart() {
-        super.onStart();
-        Log.d("qwe", "Start");
-         //recyclerView.setAdapter(itemAdapter);
-    }
-
-    public void onRestart() {
-        super.onRestart();
-        Log.d("qwe", "Restart");
-        // recyclerView.setAdapter(itemAdapter);
-    }
-
-    public void onResume() {
-        super.onResume();
-        Log.d("qwe", "Resume");
-        //recyclerView.setAdapter(itemAdapter);
     }
 }

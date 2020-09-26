@@ -41,9 +41,7 @@ public class GoogleSignIn extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String personEmail;
     private Boolean temp;
-
     private EditText editText_PRN;
-
     private int RC_SIGN_IN = 1;
 
     @Override
