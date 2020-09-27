@@ -65,14 +65,20 @@ public class NavBarSetting extends AppCompatActivity {
         privacy_policy_textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(NavBarSetting.this, "Privacy Policy", Toast.LENGTH_SHORT).show();
+                String url = "https://rock-you-f12d5.web.app/privacy.html";
+                Intent url_intent = new Intent(Intent.ACTION_VIEW);
+                url_intent.setData(Uri.parse(url));
+                startActivity(url_intent);
             }
         });
 
         about_textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(NavBarSetting.this, "About Us", Toast.LENGTH_SHORT).show();
+                String url = "https://rock-you-f12d5.web.app/about.html";
+                Intent url_intent = new Intent(Intent.ACTION_VIEW);
+                url_intent.setData(Uri.parse(url));
+                startActivity(url_intent);
             }
         });
 
