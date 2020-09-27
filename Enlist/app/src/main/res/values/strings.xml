@@ -21,8 +21,8 @@
     <string name="account">Account</string>
     <string name="enlist">ENLIST</string>
     <string name="support">Support</string>
-    <string name="privacy_policy">Policy</string>
-    <string name="about">About</string>
+    <string name="privacy_policy">Terms &amp; Privacy</string>
+    <string name="about">About us</string>
     <string name="log_out">Log Out</string>
     <string name="github">GitHub</string>
     <string name="profile">Profile</string>

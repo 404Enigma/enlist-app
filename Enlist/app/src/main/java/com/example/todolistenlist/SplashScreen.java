@@ -1,12 +1,10 @@
-package com.example.enlist;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.todolistenlist;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import com.google.firebase.auth.FirebaseAuth;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashScreen extends AppCompatActivity {
 

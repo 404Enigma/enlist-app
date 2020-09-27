@@ -1,4 +1,5 @@
-package com.example.enlist;
+package com.example.todolistenlist;
+
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView class_group_textView;
 
-     int flag1=0,flag2=0,flag3=0;
+    int flag1=0,flag2=0,flag3=0;
 
     DatabaseReference reference, source_reference;
     RecyclerView recyclerView;
@@ -72,8 +73,8 @@ public class MainActivity extends AppCompatActivity {
         back_arrow_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               startActivity(new Intent(MainActivity.this, StudentGroup.class));
-               finish();
+                startActivity(new Intent(MainActivity.this, StudentGroup.class));
+                finish();
             }
         });
 

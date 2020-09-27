@@ -1,4 +1,4 @@
-package com.example.enlist;
+package com.example.todolistenlist;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.example.enlist", appContext.getPackageName());
+        assertEquals("com.example.todolistenlist", appContext.getPackageName());
     }
 }

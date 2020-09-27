@@ -6,7 +6,7 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.example.enlist"
+        applicationId "com.example.todolistenlist"
         multiDexEnabled true
         minSdkVersion 19
         targetSdkVersion 30
