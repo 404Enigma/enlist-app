@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "766738254879",
+    "firebase_url": "https://rock-you-f12d5.firebaseio.com",
+    "project_id": "rock-you-f12d5",
+    "storage_bucket": "rock-you-f12d5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:766738254879:android:2f031680d109d373ca992a",
+        "android_client_info": {
+          "package_name": "com.example.todolistenlist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "766738254879-3a5btgcjte2sc5rdg4u40i64700socv3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjLY6drOsJftObhgoAdf2X35V_hXPoGh0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "766738254879-3a5btgcjte2sc5rdg4u40i64700socv3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
