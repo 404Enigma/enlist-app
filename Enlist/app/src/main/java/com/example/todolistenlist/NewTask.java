@@ -63,7 +63,7 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
     TextView deadline_textView;
     ImageButton date_picker_btn, back_arrow_btn, mic1, mic2;
     FloatingActionButton add_task_btn,add_to_calendar_btn;
-    Integer qqq, i;
+    Integer qqq, i,flagg=0;
 
     DatabaseReference reference, users_reference;
     Integer taskNumber = new Random().nextInt();
@@ -327,25 +327,45 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
                                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
 
                                     kkk += snapshot1.getKey() + " ";
-                                    splited = kkk.split(" ");
+                                    /*splited = kkk.split("\\s+");
                                     qqq = splited.length;
+                                    Log.d(TAG, kkk);
+                                    //Log.d(TAG, splited[0]);
+                                  *//*  Log.d(TAG, splited[0]);
+                                    Log.d(TAG, splited[1]);
+                                    Log.d(TAG, splited[2]);*//*
+                                   *//* Log.d(TAG, "========!!!!!!!!!!!!=");
+                                    Log.d(TAG, String.valueOf(qqq));
+                                    Log.d(TAG, "!!!!!!!!!");*//*
 
                                     for (i = 0; i < splited.length; i++) {
+                                       *//* Log.d(TAG, String.valueOf(i));
+                                        Log.d(TAG, String.valueOf(qqq));
+                                        Log.d(TAG, "=======================");*//*
                                         reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child(splited[i]).child(Source.main_class_group).child("Task" + taskNumber);
 
                                         reference.addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                              *//*  Log.d(TAG, String.valueOf(i));
+                                                Log.d(TAG, String.valueOf(qqq));
+                                                Log.d(TAG, "=======================");*//*
                                                 snapshot.getRef().child("title").setValue(title_editText.getText().toString());
                                                 if (TextUtils.isEmpty(description_editText.getText().toString())) {
                                                     description_editText.setText(" ");
                                                 }else{
                                                     snapshot.getRef().child("description").setValue(description_editText.getText().toString());
                                                 }
+                                               *//* Log.d(TAG, String.valueOf(i));
+                                                Log.d(TAG, String.valueOf(qqq));
+                                                Log.d(TAG, "=======================");*//*
                                                 snapshot.getRef().child("deadline").setValue(currentDateString);
                                                 snapshot.getRef().child("key").setValue(key_layout);
-
+                                               *//* Log.d(TAG, String.valueOf(i));
+                                                Log.d(TAG, String.valueOf(qqq));
+                                                Log.d(TAG, "=======================");*//*
                                                 if (i.equals(qqq)) {
+                                                    Log.d(TAG, "onDataChange: ");
                                                     Toast.makeText(NewTask.this, "Task added", Toast.LENGTH_SHORT).show();
                                                     vibrator.vibrate(100);
                                                     startActivity(new Intent(NewTask.this, MainActivity.class));
@@ -358,7 +378,73 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
                                                 Toast.makeText(NewTask.this, "Error adding", Toast.LENGTH_SHORT).show();
                                             }
                                         });
-                                    }
+                                    }*/
+                                }
+                                splited = kkk.split("\\s+");
+                                qqq = splited.length;
+                                Log.d(TAG, kkk);
+                                Log.d(TAG, String.valueOf(qqq));
+                                Log.d(TAG, "ndasndasndasodmasd");
+                                //Log.d(TAG, splited[0]);
+                                  /*  Log.d(TAG, splited[0]);
+                                    Log.d(TAG, splited[1]);
+                                    Log.d(TAG, splited[2]);*/
+                                   /* Log.d(TAG, "========!!!!!!!!!!!!=");
+                                    Log.d(TAG, String.valueOf(qqq));
+                                    Log.d(TAG, "!!!!!!!!!");*/
+
+                                for (i = 0; i < splited.length; i++) {
+                                    Log.d(TAG, String.valueOf(i));
+                                       /* Log.d(TAG, String.valueOf(i));
+                                        Log.d(TAG, String.valueOf(qqq));
+                                        Log.d(TAG, "=======================");*/
+                                    reference = FirebaseDatabase.getInstance().getReference().child("To-Do-List").child(splited[i]).child(Source.main_class_group).child("Task" + taskNumber);
+                                    Log.d(TAG, "ppppppppp");
+                                    Log.d(TAG, splited[i]);
+                                    Log.d(TAG, "ppppppppp");
+
+                                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            Log.d(TAG, "qqqqqqqqqqqqqq");
+                                            Log.d(TAG, String.valueOf(i));
+                                            Log.d(TAG, "qqqqqqqqqqqqqq");
+                                              /*  Log.d(TAG, String.valueOf(i));
+                                                Log.d(TAG, String.valueOf(qqq));
+                                                Log.d(TAG, "=======================");*/
+                                            snapshot.getRef().child("title").setValue(title_editText.getText().toString());
+                                            if (TextUtils.isEmpty(description_editText.getText().toString())) {
+                                                description_editText.setText(" ");
+                                            }else{
+                                                snapshot.getRef().child("description").setValue(description_editText.getText().toString());
+                                            }
+                                               /* Log.d(TAG, String.valueOf(i));
+                                                Log.d(TAG, String.valueOf(qqq));
+                                                Log.d(TAG, "=======================");*/
+                                            snapshot.getRef().child("deadline").setValue(currentDateString);
+                                            snapshot.getRef().child("key").setValue(key_layout);
+                                               /* Log.d(TAG, String.valueOf(i));
+                                                Log.d(TAG, String.valueOf(qqq));
+                                                Log.d(TAG, "=======================");*/
+                                            Log.d(TAG, "kkkkkkkkkkkkkk");
+                                            Log.d(TAG, String.valueOf(i));
+                                            Log.d(TAG, "kkkkkkkkkkkkkk");
+                                            //Log.d(TAG, String.valueOf(qqq));
+                                           flagg++;
+                                            if (i.equals(qqq) && flagg.equals(qqq)) {
+                                                Log.d(TAG, "onDataChange: ");
+                                                Toast.makeText(NewTask.this, "Task added", Toast.LENGTH_SHORT).show();
+                                                vibrator.vibrate(100);
+                                                startActivity(new Intent(NewTask.this, MainActivity.class));
+                                                finish();
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+                                            Toast.makeText(NewTask.this, "Error adding", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
                                 }
                             }
 
