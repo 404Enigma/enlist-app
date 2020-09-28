@@ -421,6 +421,7 @@ public class GoogleSignIn extends AppCompatActivity {
         GoogleSignInAccount account = com.google.android.gms.auth.api.signin.GoogleSignIn.getLastSignedInAccount(getApplicationContext());
         if (account != null) {
 
+            Source.main_user_name = account.getDisplayName();
             personEmail = account.getEmail();
 
             if (personEmail != null) {

@@ -273,7 +273,7 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
                     Map<String, Object> note = new HashMap<>();
                     note.put("date",date);
                     note.put("title",title_editText.getText().toString());
-                    note.put("uid",Source.main_user_uid);
+                    note.put("name",Source.main_user_name);
 
                     db.collection("Analysis").document(time).set(note)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
