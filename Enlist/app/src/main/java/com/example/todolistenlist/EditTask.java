@@ -171,7 +171,7 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
                                 if(task.isSuccessful()){
                                     Toast.makeText(EditTask.this, "Task deleted", Toast.LENGTH_SHORT).show();
                                     delete_player.start();
-                                    vibrator.vibrate(100);
+                                    vibrator.vibrate(30);
                                     startActivity(new Intent(EditTask.this,MainActivity.class));
                                     finish();
                                 }
@@ -217,7 +217,7 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
                                 snapshot.getRef().child("key").setValue(keyy);
 
                                 Toast.makeText(EditTask.this, "Task Updated", Toast.LENGTH_SHORT).show();
-                                vibrator.vibrate(100);
+                                vibrator.vibrate(30);
                                 startActivity(new Intent(EditTask.this,MainActivity.class));
                                 finish();
                             }
@@ -267,7 +267,7 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
                                 if(task.isSuccessful()){
                                     Toast.makeText(EditTask.this, "Well done", Toast.LENGTH_SHORT).show();
                                     done_player.start();
-                                    vibrator.vibrate(100);
+                                    vibrator.vibrate(30);
                                     startActivity(new Intent(EditTask.this,MainActivity.class));
                                     finish();
                                 }
