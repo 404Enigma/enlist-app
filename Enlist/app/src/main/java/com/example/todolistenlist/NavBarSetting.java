@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -102,7 +101,6 @@ public class NavBarSetting extends AppCompatActivity {
 
                         mGoogleSignInClient.signOut();
                         Source.flag=0;
-                        Toast.makeText(NavBarSetting.this, "Logged out", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(NavBarSetting.this, GoogleSignIn.class));
                         finish();
 

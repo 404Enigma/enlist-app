@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.provider.CalendarContract;
 import android.speech.RecognizerIntent;
 import android.text.TextUtils;
 import android.util.Log;
@@ -37,6 +38,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Objects;
 
 
 public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
@@ -48,7 +50,7 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
     
     EditText titlee, descriptionn;
     TextView deadlinee;
-    com.google.android.material.floatingactionbutton.FloatingActionButton done_btn;
+    com.google.android.material.floatingactionbutton.FloatingActionButton done_btn,add_to_calendar_btn;
     ImageButton date_picker_btn,back_arrow_btn,mic1,mic2;
 
     DatabaseReference reference;
@@ -56,12 +58,31 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
     @Override
     public void onBackPressed() {
         AlertDialog.Builder builder = new AlertDialog.Builder(EditTask.this);
-        builder.setMessage("Are you sure you want to discard the current task?").setCancelable(false).setPositiveButton("Discard", new DialogInterface.OnClickListener() {
+        builder.setMessage("Are you sure you want to update the current task?").setCancelable(false).setPositiveButton("Sure", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(EditTask.this, "Task cancelled", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(EditTask.this,MainActivity.class));
-                finish();
+                reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        snapshot.getRef().child("title").setValue(titlee.getText().toString());
+                        if (TextUtils.isEmpty(descriptionn.getText().toString())) {
+                            descriptionn.setText(" ");
+                        }else{
+                            snapshot.getRef().child("description").setValue(descriptionn.getText().toString());
+                        }
+                        snapshot.getRef().child("deadline").setValue(deadlinee.getText().toString());
+                        snapshot.getRef().child("key").setValue(keyy);
+
+                        vibrator.vibrate(30);
+                        startActivity(new Intent(EditTask.this,MainActivity.class));
+                        finish();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
             }
         }).setNegativeButton("No, wait", new DialogInterface.OnClickListener() {
             @Override
@@ -80,7 +101,7 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
         setContentView(R.layout.activity_edit_task);
 
         FloatingActionButton delete_btn = findViewById(R.id.delete_btn);
-        FloatingActionButton update_btn = findViewById(R.id.update_btn);
+        FloatingActionButton add_to_calendar_btn = findViewById(R.id.add_to_calendar);
 
         titlee = findViewById(R.id.title_editText);
         descriptionn = findViewById(R.id.description_editText);
@@ -104,16 +125,59 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
 
         keyy = getIntent().getStringExtra("key_extra");
 
+        add_to_calendar_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (TextUtils.isEmpty(titlee.getText().toString())) {
+                    Toast.makeText(EditTask.this, "Enter title", Toast.LENGTH_SHORT).show();
+                }else if (TextUtils.isEmpty(descriptionn.getText().toString())) {
+                    descriptionn = null;
+                }else{
+                    Intent intent_task = new Intent(Intent.ACTION_INSERT);
+                    intent_task.setData(CalendarContract.Events.CONTENT_URI);
+                    intent_task.putExtra(CalendarContract.Events.TITLE, titlee.getText().toString());
+                    intent_task.putExtra(CalendarContract.Events.DESCRIPTION, descriptionn.getText().toString());
+                    intent_task.putExtra(CalendarContract.Events.ALL_DAY, true);
+
+                    if(intent_task.resolveActivity(getPackageManager()) != null){
+                        startActivity(intent_task);
+                    }
+                    else{
+                        Toast.makeText(EditTask.this, "No app found to support this action", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+        });
+
         back_arrow_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(EditTask.this);
-                builder.setMessage("Are you sure you want to discard the current task?").setCancelable(false).setPositiveButton("Discard", new DialogInterface.OnClickListener() {
+                builder.setMessage("Are you sure you want to update the current task?").setCancelable(false).setPositiveButton("Sure", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(EditTask.this, "Task cancelled", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(EditTask.this,MainActivity.class));
-                        finish();
+                        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                snapshot.getRef().child("title").setValue(titlee.getText().toString());
+                                if (TextUtils.isEmpty(descriptionn.getText().toString())) {
+                                    descriptionn.setText(" ");
+                                }else{
+                                    snapshot.getRef().child("description").setValue(descriptionn.getText().toString());
+                                }
+                                snapshot.getRef().child("deadline").setValue(deadlinee.getText().toString());
+                                snapshot.getRef().child("key").setValue(keyy);
+
+                                vibrator.vibrate(30);
+                                startActivity(new Intent(EditTask.this,MainActivity.class));
+                                finish();
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                        });
                     }
                 }).setNegativeButton("No, wait", new DialogInterface.OnClickListener() {
                     @Override
@@ -137,7 +201,7 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
                 try {
                     startActivityForResult(intent,1);
                 }catch (ActivityNotFoundException e){
-                    Toast.makeText(EditTask.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, Objects.requireNonNull(e.getMessage()));
                 }
             }
         });
@@ -169,14 +233,13 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if(task.isSuccessful()){
-                                    Toast.makeText(EditTask.this, "Task deleted", Toast.LENGTH_SHORT).show();
                                     delete_player.start();
                                     vibrator.vibrate(30);
                                     startActivity(new Intent(EditTask.this,MainActivity.class));
                                     finish();
                                 }
                                 else{
-                                    Toast.makeText(EditTask.this, "Failed", Toast.LENGTH_SHORT).show();
+                                    Log.d(TAG, "Failed");
                                 }
                             }
                         });
@@ -185,53 +248,6 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
                 }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(EditTask.this, "Task not deleted", Toast.LENGTH_SHORT).show();
-                        dialogInterface.cancel();
-                    }
-                });
-
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
-            }
-        });
-
-        update_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(EditTask.this);
-                builder.setMessage("Are you sure you want to update the current task").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                                snapshot.getRef().child("title").setValue(titlee.getText().toString());
-                                if (TextUtils.isEmpty(descriptionn.getText().toString())) {
-                                    descriptionn.setText(" ");
-                                }else{
-                                    snapshot.getRef().child("description").setValue(descriptionn.getText().toString());
-                                }
-                                snapshot.getRef().child("deadline").setValue(deadlinee.getText().toString());
-                                snapshot.getRef().child("key").setValue(keyy);
-
-                                Toast.makeText(EditTask.this, "Task Updated", Toast.LENGTH_SHORT).show();
-                                vibrator.vibrate(30);
-                                startActivity(new Intent(EditTask.this,MainActivity.class));
-                                finish();
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                            }
-                        });
-
-                    }
-                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(EditTask.this, "Task not updated", Toast.LENGTH_SHORT).show();
                         dialogInterface.cancel();
                     }
                 });
@@ -265,14 +281,13 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if(task.isSuccessful()){
-                                    Toast.makeText(EditTask.this, "Well done", Toast.LENGTH_SHORT).show();
                                     done_player.start();
                                     vibrator.vibrate(30);
                                     startActivity(new Intent(EditTask.this,MainActivity.class));
                                     finish();
                                 }
                                 else{
-                                    Toast.makeText(EditTask.this, "Failed", Toast.LENGTH_SHORT).show();
+                                    Log.d(TAG, "Failed");
                                 }
                             }
                         });
@@ -281,7 +296,6 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
                 }).setNegativeButton("No, wait", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(EditTask.this, "Task due", Toast.LENGTH_SHORT).show();
                         dialogInterface.cancel();
                     }
                 });
@@ -309,18 +323,54 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
 
         month+=1;
         switch (month){
-            case 1:temp_month="Jan";
-            case 2:temp_month="Feb";
-            case 3:temp_month="Mar";
-            case 4:temp_month="Apr";
-            case 5:temp_month="May";
-            case 6:temp_month="Jun";
-            case 7:temp_month="Jul";
-            case 8:temp_month="Aug";
-            case 9:temp_month="Sep";
-            case 10:temp_month="Oct";
-            case 11:temp_month="Nov";
-            case 12:temp_month="Dec";
+            case 1:{
+                temp_month="Jan";
+                break;
+            }
+            case 2:{
+                temp_month="Feb";
+                break;
+            }
+            case 3:{
+                temp_month="Mar";
+                break;
+            }
+            case 4:{
+                temp_month="Apr";
+                break;
+            }
+            case 5:{
+                temp_month="May";
+                break;
+            }
+            case 6:{
+                temp_month="Jun";
+                break;
+            }
+            case 7:{
+                temp_month="Jul";
+                break;
+            }
+            case 8:{
+                temp_month="Aug";
+                break;
+            }
+            case 9:{
+                temp_month="Sep";
+                break;
+            }
+            case 10:{
+                temp_month="Oct";
+                break;
+            }
+            case 11:{
+                temp_month="Nov";
+                break;
+            }
+            case 12:{
+                temp_month="Dec";
+                break;
+            }
         }
 
         currentDateString = day + " " + temp_month;

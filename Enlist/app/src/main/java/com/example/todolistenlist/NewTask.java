@@ -45,6 +45,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 
 public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
@@ -77,7 +78,6 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
         builder.setMessage("Are you sure you want to discard the current task?").setCancelable(false).setPositiveButton("Discard", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(NewTask.this, "Task cancelled", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(NewTask.this,MainActivity.class));
                 finish();
             }
@@ -176,7 +176,7 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
                 try {
                     startActivityForResult(intent,1);
                 }catch (ActivityNotFoundException e){
-                    Toast.makeText(NewTask.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, Objects.requireNonNull(e.getMessage()));
                 }
             }
         });
@@ -191,7 +191,7 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
                 try {
                     startActivityForResult(intent,2);
                 }catch (ActivityNotFoundException e){
-                    Toast.makeText(NewTask.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, Objects.requireNonNull(e.getMessage()));
                 }
             }
         });
@@ -203,7 +203,6 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
                 builder.setMessage("Are you sure you want to discard the current task?").setCancelable(false).setPositiveButton("Discard", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(NewTask.this, "Task cancelled", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(NewTask.this,MainActivity.class));
                         finish();
                     }
@@ -246,7 +245,7 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
                         startActivity(intent_task);
                     }
                     else{
-                        Toast.makeText(NewTask.this, "No app found to support this action", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(NewTask.this, "No app found to support this action", Toast.LENGTH_LONG).show();
                     }
                 }
             }
@@ -305,7 +304,6 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
                                 snapshot.getRef().child("description").setValue(description_editText.getText().toString());
                                 snapshot.getRef().child("deadline").setValue(currentDateString);
                                 snapshot.getRef().child("key").setValue(key_layout);
-                                Toast.makeText(NewTask.this, "Task added", Toast.LENGTH_SHORT).show();
                                 vibrator.vibrate(30);
                                 startActivity(new Intent(NewTask.this,MainActivity.class));
                                 finish();
@@ -313,7 +311,7 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
-                                Toast.makeText(NewTask.this, "Error adding", Toast.LENGTH_SHORT).show();
+                                Log.d(TAG, error.getMessage());
                             }
                         });
                     }
@@ -347,8 +345,6 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
                                             snapshot.getRef().child("key").setValue(key_layout);
                                            flagg++;
                                             if (i.equals(qqq) && flagg.equals(qqq)) {
-                                                Log.d(TAG, "onDataChange: ");
-                                                Toast.makeText(NewTask.this, "Task added", Toast.LENGTH_SHORT).show();
                                                 vibrator.vibrate(30);
                                                 startActivity(new Intent(NewTask.this, MainActivity.class));
                                                 finish();
@@ -357,7 +353,7 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
 
                                         @Override
                                         public void onCancelled(@NonNull DatabaseError error) {
-                                            Toast.makeText(NewTask.this, "Error adding", Toast.LENGTH_SHORT).show();
+                                            Log.d(TAG, "Error");
                                         }
                                     });
                                 }
@@ -381,18 +377,54 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
 
         month+=1;
         switch (month){
-            case 1:temp_month="Jan";
-            case 2:temp_month="Feb";
-            case 3:temp_month="Mar";
-            case 4:temp_month="Apr";
-            case 5:temp_month="May";
-            case 6:temp_month="Jun";
-            case 7:temp_month="Jul";
-            case 8:temp_month="Aug";
-            case 9:temp_month="Sep";
-            case 10:temp_month="Oct";
-            case 11:temp_month="Nov";
-            case 12:temp_month="Dec";
+            case 1:{
+                temp_month="Jan";
+                break;
+            }
+            case 2:{
+                temp_month="Feb";
+                break;
+            }
+            case 3:{
+                temp_month="Mar";
+                break;
+            }
+            case 4:{
+                temp_month="Apr";
+                break;
+            }
+            case 5:{
+                temp_month="May";
+                break;
+            }
+            case 6:{
+                temp_month="Jun";
+                break;
+            }
+            case 7:{
+                temp_month="Jul";
+                break;
+            }
+            case 8:{
+                temp_month="Aug";
+                break;
+            }
+            case 9:{
+                temp_month="Sep";
+                break;
+            }
+            case 10:{
+                temp_month="Oct";
+                break;
+            }
+            case 11:{
+                temp_month="Nov";
+                break;
+            }
+            case 12:{
+                temp_month="Dec";
+                break;
+            }
         }
 
         currentDateString = day + " " + temp_month;

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -34,6 +35,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class GoogleSignIn extends AppCompatActivity {
 
+    private static final String TAG = "GoogleSignIn";
     private SignInButton signInButton;
     private GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth mAuth;
@@ -176,7 +178,6 @@ public class GoogleSignIn extends AppCompatActivity {
                             temp = check_prn_email();
                             if (Source.main_user_email.equals("sitpune.edu.in")) {
                                 if(temp){
-                                    Toast.makeText(GoogleSignIn.this, "Signed In", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(GoogleSignIn.this, StudentGroup.class));
                                     finish();
                                 }else{
@@ -192,7 +193,7 @@ public class GoogleSignIn extends AppCompatActivity {
                                 mGoogleSignInClient.signOut();
                             }
                         } else {
-                            Toast.makeText(GoogleSignIn.this, "Failed", Toast.LENGTH_SHORT).show();
+                            Log.d(TAG, "Failed");
                             updateUI(null);
                         }
                     }
