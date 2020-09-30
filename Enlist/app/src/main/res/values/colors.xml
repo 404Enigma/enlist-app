@@ -7,4 +7,6 @@
     <color name="white">#ffffff</color>
     <color name="low">#fec107</color>
     <color name="medium">#f67c01</color>
+    <color name="transparent">#607d8b</color>
+    <color name="all">#ffffff</color>
 </resources>

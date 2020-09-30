@@ -30,7 +30,7 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivityy";
+    private static final String TAG = "MainActivity";
     BottomNavigationView bottomNavigationView;
 
     TextView class_group_textView,current_date_textView;

@@ -83,10 +83,12 @@ public class GoogleSignIn extends AppCompatActivity {
             flag=1;
             btechid_textView.setVisibility(View.INVISIBLE);
             signInButton.setVisibility(View.INVISIBLE);
+            signInButton.setEnabled(false);
         }
         else{
             flag=2;
             verify_btn.setVisibility(View.INVISIBLE);
+            verify_btn.setEnabled(false);
         }
 
         privacy_policy.setOnClickListener(new View.OnClickListener() {
