@@ -24,16 +24,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "MainActivityy";
     BottomNavigationView bottomNavigationView;
 
-    TextView class_group_textView;
+    TextView class_group_textView,current_date_textView;
 
-    int flag1=0,flag2=0,flag3=0;
+    int flag1=0,flag2=0,flag3=0,flag4=0;
 
     DatabaseReference reference, source_reference;
     RecyclerView recyclerView;
@@ -42,6 +44,10 @@ public class MainActivity extends AppCompatActivity {
 
     FloatingActionButton new_task_btn;
     ImageButton back_arrow_btn;
+
+    Calendar calendar = Calendar.getInstance();
+    SimpleDateFormat format_date = new SimpleDateFormat("dd MMM");
+    String date = format_date.format(calendar.getTime());
 
     @Override
     public void onBackPressed() {
@@ -53,8 +59,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.d(TAG, "onCreate: ");
 
         class_group_textView = findViewById(R.id.class_group_textView);
+        current_date_textView = findViewById(R.id.current_date);
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
@@ -67,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         list = new ArrayList<DataItem>();
 
         class_group_textView.setText(String.format("Class %s", Source.main_class_group));
+        current_date_textView.setText(date);
 
         back_arrow_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,8 +110,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                if(flag2 == 1 || flag1 == 0 || flag3 == 0){
+                if(flag2 == 1 || flag1 == 0 || flag3 == 0 || flag4 == 1){
                     flag2=0;
+                    flag4=0;
                     flag1=1;
                     flag3=1;
 
@@ -171,5 +181,11 @@ public class MainActivity extends AppCompatActivity {
     public void onPause() {
         super.onPause();
         flag2=1;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        flag4=1;
     }
 }

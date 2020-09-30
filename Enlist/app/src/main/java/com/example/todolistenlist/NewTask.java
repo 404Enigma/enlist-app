@@ -75,7 +75,7 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
     @Override
     public void onBackPressed() {
         AlertDialog.Builder builder = new AlertDialog.Builder(NewTask.this);
-        builder.setMessage("Are you sure you want to discard the current task?").setCancelable(false).setPositiveButton("Discard", new DialogInterface.OnClickListener() {
+        builder.setMessage("Discard the current task?").setCancelable(false).setPositiveButton("Discard", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 startActivity(new Intent(NewTask.this,MainActivity.class));
@@ -129,7 +129,6 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
         title_editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
@@ -142,19 +141,17 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
 
             @Override
             public void afterTextChanged(Editable editable) {
-
             }
         });
 
         description_editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(description_editText.getText().toString().length() == 21){
+                if(description_editText.getText().toString().length() == 35){
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(description_editText.getWindowToken(), 0);
                 }
@@ -162,7 +159,6 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
 
             @Override
             public void afterTextChanged(Editable editable) {
-
             }
         });
 
@@ -200,7 +196,7 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(NewTask.this);
-                builder.setMessage("Are you sure you want to discard the current task?").setCancelable(false).setPositiveButton("Discard", new DialogInterface.OnClickListener() {
+                builder.setMessage("Discard the current task?").setCancelable(false).setPositiveButton("Discard", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         startActivity(new Intent(NewTask.this,MainActivity.class));
@@ -274,6 +270,7 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
                     note.put("date",date);
                     note.put("title",title_editText.getText().toString());
                     note.put("name",Source.main_user_name);
+                    note.put("deadline",currentDateString);
 
                     db.collection("Analysis").document(time).set(note)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -426,8 +423,12 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
                 break;
             }
         }
-
-        currentDateString = day + " " + temp_month;
+        if(day == 1 || day == 2 || day == 3 || day == 4 || day == 5 || day == 6 || day == 7 || day == 8 || day == 9){
+            currentDateString = "0" + day + " " + temp_month;
+        }
+        else{
+            currentDateString = day + " " + temp_month;
+        }
         deadline_textView.setText(currentDateString);
     }
 

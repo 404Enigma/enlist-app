@@ -10,7 +10,9 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.provider.CalendarContract;
 import android.speech.RecognizerIntent;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -47,6 +49,7 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
     String currentDateString,keyy,temp_month;
     MediaPlayer done_player,delete_player;
     Vibrator vibrator;
+    int flag=0;
     
     EditText titlee, descriptionn;
     TextView deadlinee;
@@ -57,42 +60,48 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
 
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(EditTask.this);
-        builder.setMessage("Are you sure you want to update the current task?").setCancelable(false).setPositiveButton("Sure", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+        if(flag == 0){
+            startActivity(new Intent(EditTask.this,MainActivity.class));
+            finish();
+        }
+        else if(flag == 1){
+            AlertDialog.Builder builder = new AlertDialog.Builder(EditTask.this);
+            builder.setMessage("Update the current task?").setCancelable(false).setPositiveButton("Sure", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                        snapshot.getRef().child("title").setValue(titlee.getText().toString());
-                        if (TextUtils.isEmpty(descriptionn.getText().toString())) {
-                            descriptionn.setText(" ");
-                        }else{
-                            snapshot.getRef().child("description").setValue(descriptionn.getText().toString());
+                            snapshot.getRef().child("title").setValue(titlee.getText().toString());
+                            if (TextUtils.isEmpty(descriptionn.getText().toString())) {
+                                descriptionn.setText(" ");
+                            }else{
+                                snapshot.getRef().child("description").setValue(descriptionn.getText().toString());
+                            }
+                            snapshot.getRef().child("deadline").setValue(deadlinee.getText().toString());
+                            snapshot.getRef().child("key").setValue(keyy);
+
+                            vibrator.vibrate(30);
+                            startActivity(new Intent(EditTask.this,MainActivity.class));
+                            finish();
                         }
-                        snapshot.getRef().child("deadline").setValue(deadlinee.getText().toString());
-                        snapshot.getRef().child("key").setValue(keyy);
 
-                        vibrator.vibrate(30);
-                        startActivity(new Intent(EditTask.this,MainActivity.class));
-                        finish();
-                    }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                        }
+                    });
+                }
+            }).setNegativeButton("No, wait", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.cancel();
+                }
+            });
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                    }
-                });
-            }
-        }).setNegativeButton("No, wait", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.cancel();
-            }
-        });
-
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+        }
     }
 
     @Override
@@ -125,6 +134,44 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
 
         keyy = getIntent().getStringExtra("key_extra");
 
+        titlee.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                flag=1;
+                if(titlee.getText().toString().length() == 21){
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(titlee.getWindowToken(), 0);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
+        descriptionn.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                flag=1;
+                if(descriptionn.getText().toString().length() == 35){
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(descriptionn.getWindowToken(), 0);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
         add_to_calendar_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -152,48 +199,55 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
         back_arrow_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(EditTask.this);
-                builder.setMessage("Are you sure you want to update the current task?").setCancelable(false).setPositiveButton("Sure", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(flag == 0){
+                    startActivity(new Intent(EditTask.this,MainActivity.class));
+                    finish();
+                }
+                else if(flag == 1){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(EditTask.this);
+                    builder.setMessage("Update the current task?").setCancelable(false).setPositiveButton("Sure", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                                snapshot.getRef().child("title").setValue(titlee.getText().toString());
-                                if (TextUtils.isEmpty(descriptionn.getText().toString())) {
-                                    descriptionn.setText(" ");
-                                }else{
-                                    snapshot.getRef().child("description").setValue(descriptionn.getText().toString());
+                                    snapshot.getRef().child("title").setValue(titlee.getText().toString());
+                                    if (TextUtils.isEmpty(descriptionn.getText().toString())) {
+                                        descriptionn.setText(" ");
+                                    }else{
+                                        snapshot.getRef().child("description").setValue(descriptionn.getText().toString());
+                                    }
+                                    snapshot.getRef().child("deadline").setValue(deadlinee.getText().toString());
+                                    snapshot.getRef().child("key").setValue(keyy);
+
+                                    vibrator.vibrate(30);
+                                    startActivity(new Intent(EditTask.this,MainActivity.class));
+                                    finish();
                                 }
-                                snapshot.getRef().child("deadline").setValue(deadlinee.getText().toString());
-                                snapshot.getRef().child("key").setValue(keyy);
 
-                                vibrator.vibrate(30);
-                                startActivity(new Intent(EditTask.this,MainActivity.class));
-                                finish();
-                            }
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                }
+                            });
+                        }
+                    }).setNegativeButton("No, wait", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                        }
+                    });
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                            }
-                        });
-                    }
-                }).setNegativeButton("No, wait", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.cancel();
-                    }
-                });
-
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+                }
             }
         });
 
         mic1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                flag=1;
                 Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
                 intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
                 intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
@@ -209,6 +263,7 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
         mic2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                flag=1;
                 Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
                 intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
                 intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
@@ -225,7 +280,7 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(EditTask.this);
-                builder.setMessage("Are you sure you want to delete the current task").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                builder.setMessage("Delete the current task?").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -260,6 +315,7 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
         date_picker_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                flag=1;
                 closeKeyboard();
                 DialogFragment datePicker = new DataPickerFragment();
                 datePicker.show(getSupportFragmentManager(), "date picker");

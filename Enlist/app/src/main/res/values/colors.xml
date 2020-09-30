@@ -5,4 +5,6 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="nav_bar_bg">#000000</color>
     <color name="white">#ffffff</color>
+    <color name="low">#fec107</color>
+    <color name="medium">#f67c01</color>
 </resources>
