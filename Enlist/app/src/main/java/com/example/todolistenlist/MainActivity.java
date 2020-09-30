@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     ImageButton back_arrow_btn;
 
     Calendar calendar = Calendar.getInstance();
-    SimpleDateFormat format_date = new SimpleDateFormat("dd MMM");
+    SimpleDateFormat format_date = new SimpleDateFormat("dd MMM YYYY");
     String date = format_date.format(calendar.getTime());
 
     @Override

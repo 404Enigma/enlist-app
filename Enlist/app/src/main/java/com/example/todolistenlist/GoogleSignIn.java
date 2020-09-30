@@ -3,6 +3,7 @@ package com.example.todolistenlist;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -41,7 +42,7 @@ public class GoogleSignIn extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String personEmail;
     private Boolean temp;
-    private TextView btechid_textView;
+    private TextView btechid_textView,privacy_policy;
     private Button verify_btn;
     private EditText editText_PRN;
     private int RC_SIGN_IN = 1,flag=0;
@@ -73,6 +74,7 @@ public class GoogleSignIn extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
 
         btechid_textView = findViewById(R.id.btechid_textView);
+        privacy_policy = findViewById(R.id.privacy_policy);
         verify_btn = findViewById(R.id.verify_btn);
         signInButton = findViewById(R.id.google_login_btn);
         mAuth = FirebaseAuth.getInstance();
@@ -86,6 +88,16 @@ public class GoogleSignIn extends AppCompatActivity {
             flag=2;
             verify_btn.setVisibility(View.INVISIBLE);
         }
+
+        privacy_policy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url = "https://rock-you-f12d5.web.app/privacy.html";
+                Intent url_intent = new Intent(Intent.ACTION_VIEW);
+                url_intent.setData(Uri.parse(url));
+                startActivity(url_intent);
+            }
+        });
 
         editText_PRN = findViewById(R.id.editText_PRN);
 
