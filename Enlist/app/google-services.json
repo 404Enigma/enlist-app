@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "766738254879",
-    "firebase_url": "https://rock-you-f12d5.firebaseio.com",
-    "project_id": "rock-you-f12d5",
-    "storage_bucket": "rock-you-f12d5.appspot.com"
+    "project_number": "415610344840",
+    "firebase_url": "https://enlist-52b8d.firebaseio.com",
+    "project_id": "enlist-52b8d",
+    "storage_bucket": "enlist-52b8d.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:766738254879:android:2f031680d109d373ca992a",
+        "mobilesdk_app_id": "1:415610344840:android:5da9c9ae800b6c1e58d63d",
         "android_client_info": {
-          "package_name": "com.example.todolistenlist"
+          "package_name": "com.example.enlist_todolist"
         }
       },
       "oauth_client": [
         {
-          "client_id": "766738254879-3a5btgcjte2sc5rdg4u40i64700socv3.apps.googleusercontent.com",
+          "client_id": "415610344840-t832qsm8osif1893soegoe5suh3qcv9u.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAjLY6drOsJftObhgoAdf2X35V_hXPoGh0"
+          "current_key": "AIzaSyCxJeGJz7BR9DckfKcK2QvyTdsvY4885Oo"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "766738254879-3a5btgcjte2sc5rdg4u40i64700socv3.apps.googleusercontent.com",
+              "client_id": "415610344840-t832qsm8osif1893soegoe5suh3qcv9u.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -1,4 +1,4 @@
-package com.example.todolistenlist;
+package com.example.enlist_todolist;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -94,7 +94,7 @@ public class GoogleSignIn extends AppCompatActivity {
         privacy_policy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url = "https://rock-you-f12d5.web.app/privacy.html";
+                String url = "https://enlist-52b8d.web.app/privacy.html";
                 Intent url_intent = new Intent(Intent.ACTION_VIEW);
                 url_intent.setData(Uri.parse(url));
                 startActivity(url_intent);

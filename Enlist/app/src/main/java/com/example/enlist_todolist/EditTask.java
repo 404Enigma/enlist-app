@@ -1,4 +1,4 @@
-package com.example.todolistenlist;
+package com.example.enlist_todolist;
 
 import android.app.DatePickerDialog;
 import android.content.ActivityNotFoundException;
@@ -428,9 +428,12 @@ public class EditTask extends AppCompatActivity implements DatePickerDialog.OnDa
                 break;
             }
         }
-
-        currentDateString = day + " " + temp_month;
-
+        if(day == 1 || day == 2 || day == 3 || day == 4 || day == 5 || day == 6 || day == 7 || day == 8 || day == 9){
+            currentDateString = "0" + day + " " + temp_month;
+        }
+        else{
+            currentDateString = day + " " + temp_month;
+        }
         deadlinee.setText(currentDateString);
     }
 

@@ -1,4 +1,4 @@
-package com.example.todolistenlist;
+package com.example.enlist_todolist;
 
 import android.app.DatePickerDialog;
 import android.content.ActivityNotFoundException;
@@ -270,7 +270,6 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
                     note.put("date",date);
                     note.put("title",title_editText.getText().toString());
                     note.put("name",Source.main_user_name);
-                    note.put("deadline",currentDateString);
 
                     db.collection("Analysis").document(time).set(note)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {

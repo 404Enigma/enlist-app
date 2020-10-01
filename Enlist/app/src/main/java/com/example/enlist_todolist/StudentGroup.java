@@ -1,4 +1,4 @@
-package com.example.todolistenlist;
+package com.example.enlist_todolist;
 
 import android.content.DialogInterface;
 import android.content.Intent;
