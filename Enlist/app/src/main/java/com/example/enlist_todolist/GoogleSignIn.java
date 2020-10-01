@@ -213,216 +213,434 @@ public class GoogleSignIn extends AppCompatActivity {
                     }
 
                     private Boolean check_prn_email() {
+                        Log.d(TAG, editText_PRN.getText().toString());
+                        Log.d(TAG, personEmail);
                         switch (editText_PRN.getText().toString()){
-                            case "126":if(personEmail.equals("prakhar.agarwal.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "119":if(personEmail.equals("aditya.padir.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "105":if(personEmail.equals("akshay.mategaonkar.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "108":if(personEmail.equals("amaan.mithani.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                                case "102":if(personEmail.equals("ashwin.mandlik.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "124":if(personEmail.equals("deep.patoliya.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "073":if(personEmail.equals("jashn.anand.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "074":if(personEmail.equals("jatin.raghuvanshi.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "076":if(personEmail.equals("joseph.anjilimoottil.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "077":if(personEmail.equals("jugal.shroff.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "078":if(personEmail.equals("kanishka.kataria.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "079":if(personEmail.equals("kanishka.mishra.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "080":if(personEmail.equals("kapish.pashine.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "081":if(personEmail.equals("karan.samant.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "082":if(personEmail.equals("kartik.mudaliar.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "087":if(personEmail.equals("kashif.ahmed.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "084":if(personEmail.equals("kashif.dar.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "085":if(personEmail.equals("kavan.batavia.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "086":if(personEmail.equals("kenil.patwa.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "122":if(personEmail.equals("keny.patel.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "089":if(personEmail.equals("komal.gandhi.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "090":if(personEmail.equals("komil.singhal.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "133":if(personEmail.equals("rachita.sinha.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "134":if(personEmail.equals("rahul.mansharamani.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "083":if(personEmail.equals("raja.kartik.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "135":if(personEmail.equals("rajveer.singh.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "136":if(personEmail.equals("rashmi.meena.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "137":if(personEmail.equals("ratnesh.jain.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "138":if(personEmail.equals("reva.chinchalkar.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "139":if(personEmail.equals("riya.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "141":if(personEmail.equals("rohit.raj.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "100":if(personEmail.equals("ronak.malkan.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "142":if(personEmail.equals("rubhav.mahendru.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "116":if(personEmail.equals("rushin.nemlawala.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "143":if(personEmail.equals("s.easwaran.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "145":if(personEmail.equals("sai.ventrapragada.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "094":if(personEmail.equals("sameer.kumar.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "121":if(personEmail.equals("saumya.parmar.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "075":if(personEmail.equals("saurabh.jawanjal.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "112":if(personEmail.equals("shobhit.mudkhedkar.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "120":if(personEmail.equals("sudhanshu.pandey.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "088":if(personEmail.equals("suprit.kolse.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "125":if(personEmail.equals("suyash.phatak.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                                case "123":if(personEmail.equals("yash.patil.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "091":if(personEmail.equals("kothari.devendra.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "092":if(personEmail.equals("kshitij.tripathi.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "093":if(personEmail.equals("kumar.himanshu.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "095":if(personEmail.equals("kushagra.maheshwari.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "096":if(personEmail.equals("kushal.limdi.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "097":if(personEmail.equals("lisanne.dlima.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "098":if(personEmail.equals("maanav.bhavsar.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "099":if(personEmail.equals("mahamat.chamchadine.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "101":if(personEmail.equals("manasi.seta.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "103":if(personEmail.equals("manish.kumar.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "104":if(personEmail.equals("mannya.sharma.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "106":if(personEmail.equals("mebanphira.cajee.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "107":if(personEmail.equals("midhushi.tiwari.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "109":if(personEmail.equals("mohammad.ahmadi.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "110":if(personEmail.equals("mouzou.essowazam.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "113":if(personEmail.equals("naman.pandya.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "114":if(personEmail.equals("nazia.malik.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "115":if(personEmail.equals("neeraj.chouhan.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "117":if(personEmail.equals("nishita.agrawal.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "118":if(personEmail.equals("nitya.mehta.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "127":if(personEmail.equals("prakhar.patel.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "128":if(personEmail.equals("prasanna.jain.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "129":if(personEmail.equals("pratyush.jain.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "130":if(personEmail.equals("pratyush.sinha.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "131":if(personEmail.equals("pratyush.vats.btech2019@sitpune.edu.in")){
-                                return true;
-                            }
-                            case "132":if(personEmail.equals("preksha.asati.btech2019@sitpune.edu.in")){
-                                return true;
+                            case "129": {
+                                if (personEmail.equals("pratyush.jain.btech2019@sitpune.edu.in")) {
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "126": {
+                                if (personEmail.equals("prakhar.agarwal.btech2019@sitpune.edu.in")) {
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "119":{
+                                if(personEmail.equals("aditya.padir.btech2019@sitpune.edu.in")){
+                                    Log.d(TAG, "2");
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "105":{
+                                if(personEmail.equals("akshay.mategaonkar.btech2019@sitpune.edu.in")){
+                                    Log.d(TAG, "3");
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "108":{
+                                if(personEmail.equals("amaan.mithani.btech2019@sitpune.edu.in")){
+                                    Log.d(TAG, "1");
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "102":{
+                                if(personEmail.equals("ashwin.mandlik.btech2019@sitpune.edu.in")){
+                                    Log.d(TAG, "1");
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "124":{
+                                if(personEmail.equals("deep.patoliya.btech2019@sitpune.edu.in")){
+                                    Log.d(TAG, "1");
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "073":{
+                                if(personEmail.equals("jashn.anand.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "074":{
+                                if(personEmail.equals("jatin.raghuvanshi.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "076":{
+                                if(personEmail.equals("joseph.anjilimoottil.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "077":{
+                                if(personEmail.equals("jugal.shroff.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "078":{
+                                if(personEmail.equals("kanishka.kataria.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "079":{
+                                if(personEmail.equals("kanishka.mishra.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "080":{
+                                if(personEmail.equals("kapish.pashine.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "081":{
+                                if(personEmail.equals("karan.samant.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "082":{
+                                if(personEmail.equals("kartik.mudaliar.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "087":{
+                                if(personEmail.equals("kashif.ahmed.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "084":{
+                                if(personEmail.equals("kashif.dar.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "085":{
+                                if(personEmail.equals("kavan.batavia.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "086":{
+                                if(personEmail.equals("kenil.patwa.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "122":{
+                                if(personEmail.equals("keny.patel.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "089":{
+                                if(personEmail.equals("komal.gandhi.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "090":{
+                                if(personEmail.equals("komil.singhal.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "133":{
+                                if(personEmail.equals("rachita.sinha.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "134":{
+                                if(personEmail.equals("rahul.mansharamani.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "083":{
+                                if(personEmail.equals("raja.kartik.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "135":{
+                                if(personEmail.equals("rajveer.singh.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "136":{
+                                if(personEmail.equals("rashmi.meena.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "137":{
+                                if(personEmail.equals("ratnesh.jain.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "138":{
+                                if(personEmail.equals("reva.chinchalkar.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "139":{
+                                if(personEmail.equals("riya.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "141":{
+                                if(personEmail.equals("rohit.raj.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "100":{
+                                if(personEmail.equals("ronak.malkan.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "142":{
+                                if(personEmail.equals("rubhav.mahendru.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "116":{
+                                if(personEmail.equals("rushin.nemlawala.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "143":{
+                                if(personEmail.equals("s.easwaran.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "145":{
+                                if(personEmail.equals("sai.ventrapragada.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "094":{
+                                if(personEmail.equals("sameer.kumar.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "121":{
+                                if(personEmail.equals("saumya.parmar.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "075":{
+                                if(personEmail.equals("saurabh.jawanjal.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "112":{
+                                if(personEmail.equals("shobhit.mudkhedkar.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "120":{
+                                if(personEmail.equals("sudhanshu.pandey.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "088":{
+                                if(personEmail.equals("suprit.kolse.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "125":{
+                                if(personEmail.equals("suyash.phatak.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "123":{
+                                if(personEmail.equals("yash.patil.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "091":{
+                                if(personEmail.equals("kothari.devendra.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "092":{
+                                if(personEmail.equals("kshitij.tripathi.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "093":{
+                                if(personEmail.equals("kumar.himanshu.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "095":{
+                                if(personEmail.equals("kushagra.maheshwari.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "096":{
+                                if(personEmail.equals("kushal.limdi.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "097":{
+                                if(personEmail.equals("lisanne.dlima.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "098":{
+                                if(personEmail.equals("maanav.bhavsar.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "099":{
+                                if(personEmail.equals("mahamat.chamchadine.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "101":{
+                                if(personEmail.equals("manasi.seta.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "103":{
+                                if(personEmail.equals("manish.kumar.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "104":{
+                                if(personEmail.equals("mannya.sharma.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "106":{
+                                if(personEmail.equals("mebanphira.cajee.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "107":{
+                                if(personEmail.equals("midhushi.tiwari.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "109":{
+                                if(personEmail.equals("mohammad.ahmadi.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "110":{
+                                if(personEmail.equals("mouzou.essowazam.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "113":{
+                                if(personEmail.equals("naman.pandya.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "114":{
+                                if(personEmail.equals("nazia.malik.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "115":{
+                                if(personEmail.equals("neeraj.chouhan.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "117":{
+                                if(personEmail.equals("nishita.agrawal.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "118":{
+                                if(personEmail.equals("nitya.mehta.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "127":{
+                                if(personEmail.equals("prakhar.patel.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "128":{
+                                if(personEmail.equals("prasanna.jain.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+
+                            case "130":{
+                                if(personEmail.equals("pratyush.sinha.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "131":{
+                                if(personEmail.equals("pratyush.vats.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
+                            }
+                            case "132":{
+                                if(personEmail.equals("preksha.asati.btech2019@sitpune.edu.in")){
+                                    return true;
+                                }
+                                break;
                             }
                         }
                         return false;
