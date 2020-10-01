@@ -262,7 +262,7 @@ public class NewTask extends AppCompatActivity implements DatePickerDialog.OnDat
 
                     Calendar calendar = Calendar.getInstance();
                     SimpleDateFormat format_time = new SimpleDateFormat("hh:mm:ss");
-                    SimpleDateFormat format_date = new SimpleDateFormat("dd-MMM-yyyy");
+                    SimpleDateFormat format_date = new SimpleDateFormat("dd MMM yyyy");
                     String time = format_time.format(calendar.getTime());
                     String date = format_date.format(calendar.getTime());
 

@@ -36,7 +36,7 @@ public class SliderAdapter extends PagerAdapter {
     public String[] description_slider = {
             "Add the assigned tasks to stay focused & achieve more",
             "Share the assigned task within the batch to keep everyone going",
-            "Complete the assigned task to\n stay on top of the line"
+            "Complete the assigned task to stay on top of the line"
     };
 
     @Override

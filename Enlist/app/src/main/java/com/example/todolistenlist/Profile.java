@@ -53,11 +53,11 @@ public class Profile extends AppCompatActivity {
         updateUI(user);
 
         if(Source.main_user_duo_class.equals("b1")){
-            user_class_group.setText("Enrolled in class B & B1");
+            user_class_group.setText("B & B1");
         }else if(Source.main_user_duo_class.equals("b2")){
-            user_class_group.setText("Enrolled in class B & B2");
+            user_class_group.setText("B & B2");
         }else if(Source.main_user_duo_class.equals("b3")){
-            user_class_group.setText("Enrolled in class B & B3");
+            user_class_group.setText("B & B3");
         }
         user_prn.setText(String.valueOf("19070122" + Source.main_PRN));
         user_name.setText(name);

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
     Context context;
     static ArrayList<DataItem> dataItems;
     int flag=0;
-    String todayAsString,day_after_tomorrowAsString,tomorrowAsString;
+    String tomorrow, day_after_tomorrow, temp_tomorrow, temp_day_after_tomorrow, temp_day_before_tomorrow;
 
     public ItemAdapter(Context c,ArrayList<DataItem> p){
         context = c;
@@ -32,6 +33,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
     }
 
     Calendar calendar = Calendar.getInstance();
+    Calendar calendarr = Calendar.getInstance();
     SimpleDateFormat format_date = new SimpleDateFormat("dd MMM");
     String date = format_date.format(calendar.getTime());
 
@@ -45,19 +47,25 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
     public void onBindViewHolder(@NonNull ItemAdapter.MyViewHolder ViewHolder , int position) {
 
         if(flag == 0){
-            Date today = calendar.getTime();
 
+            calendarr.add(Calendar.DAY_OF_YEAR, -1);
+            Date temp_tomorrow = calendarr.getTime();
+            calendarr.add(Calendar.DAY_OF_YEAR, -1);
+            Date temp_day_after_tomorrow = calendarr.getTime();
+            calendarr.add(Calendar.DAY_OF_YEAR, -1);
+            Date temp_day_before_tomorrow = calendarr.getTime();
             calendar.add(Calendar.DAY_OF_YEAR, 1);
             Date tomorrow = calendar.getTime();
-
             calendar.add(Calendar.DAY_OF_YEAR, 1);
             Date day_after_tomorrow = calendar.getTime();
 
             DateFormat dateFormat = new SimpleDateFormat("dd MMM");
 
-            todayAsString = dateFormat.format(today);
-            tomorrowAsString = dateFormat.format(tomorrow);
-            day_after_tomorrowAsString = dateFormat.format(day_after_tomorrow);
+            this.tomorrow = dateFormat.format(tomorrow);
+            this.day_after_tomorrow = dateFormat.format(day_after_tomorrow);
+            this.temp_tomorrow = dateFormat.format(temp_tomorrow);
+            this.temp_day_after_tomorrow = dateFormat.format(temp_day_after_tomorrow);
+            this.temp_day_before_tomorrow = dateFormat.format(temp_day_before_tomorrow);
         }
         flag=1;
 
@@ -65,15 +73,17 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
         ViewHolder.description.setText(dataItems.get(position).getDescription());
         ViewHolder.deadline.setText(dataItems.get(position).getDeadline());
 
-        if(dataItems.get(position).getDeadline().equals(date)){
+        if(dataItems.get(position).getDeadline().equals(date) || dataItems.get(position).getDeadline().equals(temp_tomorrow)
+                || dataItems.get(position).getDeadline().equals(temp_day_after_tomorrow)
+                || dataItems.get(position).getDeadline().equals(temp_day_before_tomorrow)){
             ViewHolder.title.setTextColor(context.getResources().getColor(R.color.colorPrimary) );
             ViewHolder.deadline.setTextColor(context.getResources().getColor(R.color.colorPrimary) );
         }
-        else if(dataItems.get(position).getDeadline().equals(tomorrowAsString)){
+        else if(dataItems.get(position).getDeadline().equals(tomorrow)){
             ViewHolder.title.setTextColor(context.getResources().getColor(R.color.medium) );
             ViewHolder.deadline.setTextColor(context.getResources().getColor(R.color.medium) );
         }
-        else if(dataItems.get(position).getDeadline().equals(day_after_tomorrowAsString)){
+        else if(dataItems.get(position).getDeadline().equals(day_after_tomorrow)){
             ViewHolder.title.setTextColor(context.getResources().getColor(R.color.low) );
             ViewHolder.deadline.setTextColor(context.getResources().getColor(R.color.low) );
         }

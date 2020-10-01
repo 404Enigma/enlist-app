@@ -226,7 +226,7 @@ public class GoogleSignIn extends AppCompatActivity {
                             case "108":if(personEmail.equals("amaan.mithani.btech2019@sitpune.edu.in")){
                                 return true;
                             }
-                            case "102":if(personEmail.equals("ashwin.mandilk.btech2019@sitpune.edu.in")){
+                                case "102":if(personEmail.equals("ashwin.mandlik.btech2019@sitpune.edu.in")){
                                 return true;
                             }
                             case "124":if(personEmail.equals("deep.patoliya.btech2019@sitpune.edu.in")){
@@ -325,7 +325,7 @@ public class GoogleSignIn extends AppCompatActivity {
                             case "094":if(personEmail.equals("sameer.kumar.btech2019@sitpune.edu.in")){
                                 return true;
                             }
-                            case "121":if(personEmail.equals("saumya.paramar.btech2019@sitpune.edu.in")){
+                            case "121":if(personEmail.equals("saumya.parmar.btech2019@sitpune.edu.in")){
                                 return true;
                             }
                             case "075":if(personEmail.equals("saurabh.jawanjal.btech2019@sitpune.edu.in")){
@@ -343,7 +343,7 @@ public class GoogleSignIn extends AppCompatActivity {
                             case "125":if(personEmail.equals("suyash.phatak.btech2019@sitpune.edu.in")){
                                 return true;
                             }
-                            case "123":if(personEmail.equals("yash.patil.btech2019@sitpune.edu.in")){
+                                case "123":if(personEmail.equals("yash.patil.btech2019@sitpune.edu.in")){
                                 return true;
                             }
                             case "091":if(personEmail.equals("kothari.devendra.btech2019@sitpune.edu.in")){
@@ -394,7 +394,7 @@ public class GoogleSignIn extends AppCompatActivity {
                             case "113":if(personEmail.equals("naman.pandya.btech2019@sitpune.edu.in")){
                                 return true;
                             }
-                            case "114":if(personEmail.equals("nazia.malik.btech201@sitpune.edu.in")){
+                            case "114":if(personEmail.equals("nazia.malik.btech2019@sitpune.edu.in")){
                                 return true;
                             }
                             case "115":if(personEmail.equals("neeraj.chouhan.btech2019@sitpune.edu.in")){
