@@ -1,4 +1,4 @@
-package com.example.enlist_todolist;
+package com.example.enlist_todolistenlist;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -38,7 +38,7 @@ public class NavBarSetting extends AppCompatActivity {
         setContentView(R.layout.activity_nav_bar_setting);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestIdToken("***")
                 .requestEmail()
                 .build();
 
@@ -64,7 +64,7 @@ public class NavBarSetting extends AppCompatActivity {
         privacy_policy_textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url = "https://enlist-52b8d.web.app/privacy.html";
+                String url = "https://enlist-563ad.web.app/privacy.html";
                 Intent url_intent = new Intent(Intent.ACTION_VIEW);
                 url_intent.setData(Uri.parse(url));
                 startActivity(url_intent);
@@ -74,7 +74,7 @@ public class NavBarSetting extends AppCompatActivity {
         about_textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url = "https://enlist-52b8d.web.app/about.html";
+                String url = "https://enlist-563ad.web.app/about.html";
                 Intent url_intent = new Intent(Intent.ACTION_VIEW);
                 url_intent.setData(Uri.parse(url));
                 startActivity(url_intent);

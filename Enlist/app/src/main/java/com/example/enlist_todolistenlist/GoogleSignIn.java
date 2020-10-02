@@ -1,4 +1,4 @@
-package com.example.enlist_todolist;
+package com.example.enlist_todolistenlist;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -94,7 +94,7 @@ public class GoogleSignIn extends AppCompatActivity {
         privacy_policy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url = "https://enlist-52b8d.web.app/privacy.html";
+                String url = "https://enlist-563ad.web.app/privacy.html";
                 Intent url_intent = new Intent(Intent.ACTION_VIEW);
                 url_intent.setData(Uri.parse(url));
                 startActivity(url_intent);
@@ -122,7 +122,7 @@ public class GoogleSignIn extends AppCompatActivity {
         });
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestIdToken("***")
                 .requestEmail()
                 .build();
 
@@ -213,8 +213,6 @@ public class GoogleSignIn extends AppCompatActivity {
                     }
 
                     private Boolean check_prn_email() {
-                        Log.d(TAG, editText_PRN.getText().toString());
-                        Log.d(TAG, personEmail);
                         switch (editText_PRN.getText().toString()){
                             case "129": {
                                 if (personEmail.equals("pratyush.jain.btech2019@sitpune.edu.in")) {
@@ -230,35 +228,30 @@ public class GoogleSignIn extends AppCompatActivity {
                             }
                             case "119":{
                                 if(personEmail.equals("aditya.padir.btech2019@sitpune.edu.in")){
-                                    Log.d(TAG, "2");
                                     return true;
                                 }
                                 break;
                             }
                             case "105":{
                                 if(personEmail.equals("akshay.mategaonkar.btech2019@sitpune.edu.in")){
-                                    Log.d(TAG, "3");
                                     return true;
                                 }
                                 break;
                             }
                             case "108":{
                                 if(personEmail.equals("amaan.mithani.btech2019@sitpune.edu.in")){
-                                    Log.d(TAG, "1");
                                     return true;
                                 }
                                 break;
                             }
                             case "102":{
                                 if(personEmail.equals("ashwin.mandlik.btech2019@sitpune.edu.in")){
-                                    Log.d(TAG, "1");
                                     return true;
                                 }
                                 break;
                             }
                             case "124":{
                                 if(personEmail.equals("deep.patoliya.btech2019@sitpune.edu.in")){
-                                    Log.d(TAG, "1");
                                     return true;
                                 }
                                 break;
